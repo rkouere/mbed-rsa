@@ -9,7 +9,7 @@ all: computer
 computer: $(COMPUTER_OBJ)
 
 computer/obj/bigint.o: src/bigint.c
-	gcc -c -o computer/obj/bigint.o src/bigint.c -D_COMPUTER_VERSION
+	gcc -m32 -c -o computer/obj/bigint.o src/bigint.c -D_COMPUTER_VERSION
 
 .PHONY: computer clean
 

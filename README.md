@@ -9,6 +9,11 @@ mkdir -p computer/obj
 mkdir -p computer/bin
 ```
 
+To install dependencies:
+```sh
+sudo aptitude install lib32c-dev
+```
+
 ## Compilation
 
 ### Computer compilation
