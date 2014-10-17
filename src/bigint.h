@@ -55,4 +55,13 @@
      */
     extern mbed_int bgi_is_null(const mbed_bigint x);
 
+    /**
+     * Add two big integers and put result in dest
+     * @param x The first big int to add
+     * @param y The second big int to add
+     * @return -1 if there is a carry, 0 otherwise
+     */
+    extern mbed_int bgi_add (mbed_bigint *dest, const mbed_bigint x, 
+        const mbed_bigint y);
+
 #endif

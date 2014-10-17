@@ -81,3 +81,13 @@ bgi_is_null(const mbed_bigint x)
     return (mbed_int) 0;
 }
 
+
+/**
+ * @see bigint.h
+ */
+mbed_int
+bgi_add (mbed_bigint *dest, const mbed_bigint x, const mbed_bigint y)
+{
+    return (mbed_int) -1;
+}
+
