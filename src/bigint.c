@@ -49,7 +49,7 @@ bgi_cmp(const mbed_bigint x, const mbed_bigint y)
 {
     mbed_int i = (mbed_int) 0;
 
-    while (i <= SIZE) 
+    while (i <= BIGINT_SIZE) 
         if (x[i] != y[i++]) 
             return (mbed_int) (x[i] > y[i] ? 1 : -1);
 
@@ -65,7 +65,7 @@ bgi_is_null(const mbed_bigint x)
 {
     mbed_int i = (mbed_int) 0;
 
-    while (i <= SIZE)
+    while (i <= BIGINT_SIZE)
         if (x[i++] != (mbed_int) 0)
             return (mbed_int) 1;
 

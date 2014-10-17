@@ -6,6 +6,10 @@
 #ifndef _H_BIGINT
     #define _H_BIGINT
 
+/*    #include <stdlib.h>*/
+    #include <stdio.h>
+    #include <stdint.h>
+
     /* Big int size */
     #define BIGINT_SIZE 32
 
@@ -13,7 +17,7 @@
     typedef uint32_t mbed_int;
 
     /* Mbed bigint */
-    typedef mbed_int mbed_bigint[SIZE];
+    typedef mbed_int mbed_bigint[BIGINT_SIZE];
 
     /**
      * Init to 0 a big int
