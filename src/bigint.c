@@ -1,4 +1,11 @@
+/**
+ * RSA implementation and attack on Mbed
+ * Big integers library
+ * @author Cyrille Toulet, <cyrille.toulet@gmail.com>
+ */
+
 #include "bigint.h"
+
 
 /**
  * @see bigint.h
@@ -32,12 +39,14 @@ bgi_cpy(mbed_bigint *dest, const mbed_bigint src)
 void
 bgi_print(const mbed_bigint x)
 {
-    mbed_int i;
+    #ifdef _COMPUTER_VERSION
+        mbed_int i;
 
-    for (i = (mbed_int) 0; i < BIGINT_SIZE - 1; i++)
-        printf("%lx.", (unsigned long) x[i]);
+        for (i = (mbed_int) 0; i < BIGINT_SIZE - 1; i++)
+            printf("%lx.", (unsigned long) x[i]);
 
-    printf("%lx\n", (unsigned long) x[BIGINT_SIZE]);
+        printf("%lx\n", (unsigned long) x[BIGINT_SIZE]);
+    #endif
 }
 
 

@@ -2,17 +2,18 @@
 # Makefile
 # @author Cyrille Toulet, <cyrille.toulet@gmail.com>
 
-OBJ  = obj/bigint.o
+COMPUTER_OBJ  = computer/obj/bigint.o
 
+all: computer
 
-all: $(OBJ)
+computer: $(COMPUTER_OBJ)
 
-obj/bigint.o: src/bigint.c
-	gcc -c -o obj/bigint.o src/bigint.c
+computer/obj/bigint.o: src/bigint.c
+	gcc -c -o computer/obj/bigint.o src/bigint.c -D_COMPUTER_VERSION
 
-.PHONY: clean
+.PHONY: computer clean
 
 clean:
-	rm -f obj/*.o bin/*
+	rm -f computer/obj/*.o computer/bin/*
 
 

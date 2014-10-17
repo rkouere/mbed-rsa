@@ -6,8 +6,10 @@
 #ifndef _H_BIGINT
     #define _H_BIGINT
 
-/*    #include <stdlib.h>*/
-    #include <stdio.h>
+    #ifdef _COMPUTER_VERSION
+        #include <stdio.h>
+    #endif
+
     #include <stdint.h>
 
     /* Big int size */
