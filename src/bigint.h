@@ -12,11 +12,14 @@
 
     #include <stdint.h>
 
-    /* Big int size */
-    #define BIGINT_SIZE 32
-
     /* Mbed int */
     typedef uint32_t mbed_int;
+
+    /* Max mbed int (2^32 - 1) */
+    #define MAX_MBED_INT 4294967295
+    
+    /* Big int size */
+    #define BIGINT_SIZE 32
 
     /* Mbed bigint */
     typedef mbed_int mbed_bigint[BIGINT_SIZE];
@@ -57,11 +60,21 @@
 
     /**
      * Add two big integers and put result in dest
-     * @param x The first big int to add
-     * @param y The second big int to add
-     * @return -1 if there is a carry, 0 otherwise
+     * @param dest The sum x+y
+     * @param x The first big int of addition
+     * @param y The second big int of addition
+     * @return The carry of addition
      */
     extern mbed_int bgi_add (mbed_bigint *dest, const mbed_bigint x, 
+        const mbed_bigint y);
+    
+    /**
+     * Substract two big integers and put result in dest
+     * @param dest The difference x-y
+     * @param x The first big int of substraction
+     * @param y The second big int of substraction
+     */
+    extern void bgi_sub (mbed_bigint *dest, const mbed_bigint x, 
         const mbed_bigint y);
 
 #endif
