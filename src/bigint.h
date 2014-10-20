@@ -15,9 +15,6 @@
     /* Mbed int */
     typedef uint32_t mbed_int;
 
-    /* Max mbed int (2^32 - 1) */
-    #define MAX_MBED_INT 4294967295
-    
     /* Big int size */
     #define BIGINT_SIZE 32
 
@@ -74,7 +71,7 @@
      * @param x The first big int of substraction
      * @param y The second big int of substraction
      */
-    extern void bgi_sub (mbed_bigint *dest, const mbed_bigint x, 
-        const mbed_bigint y);
+    /*extern void bgi_sub (mbed_bigint *dest, const mbed_bigint x, 
+        const mbed_bigint y);*/
 
 #endif
