@@ -1,6 +1,7 @@
 # RSA implementation and attack on Mbed
 # Makefile
 # @author Cyrille Toulet, <cyrille.toulet@gmail.com>
+# @author Benjamin Burnouf, <benjamin76360@gmail.com>
 
 COMPUTER_DATA  = src/test-add-dataset.c
 COMPUTER_OBJ   = computer/obj/bigint.o
