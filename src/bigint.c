@@ -42,7 +42,7 @@ bgi_print(const mbed_bigint x)
     #ifdef _COMPUTER_VERSION
         mbed_int i;
 
-        for (i = (BIGINT_SIZE - 1); i >= 0; i--)
+        for (i = (BIGINT_SIZE - 1); i > 0; i--)
             printf("%x", x[i]);
     #endif
 }

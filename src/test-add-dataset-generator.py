@@ -5,11 +5,6 @@ import string
 
 set_count = 10
 
-x = random.randint(0, pow(pow(2, 32), 32))
-y = random.randint(0, pow(pow(2, 32), 32))
-s = x + y
-
-
 def generate_c_header():
     '''
     '''
@@ -63,9 +58,13 @@ def main():
     code = generate_c_header()
 
     i = 0
-    code = code + "mbed_int[BIGINT_SIZE][3][" + str(set_count) + "] test_add_dataset = {\n"
+    code = code + "mbed_int test_add_dataset[BIGINT_SIZE][3][" + str(set_count) + "] = {\n"
 
     while i < set_count:
+        x = random.randint(0, pow(pow(2, 32), 32))
+        y = random.randint(0, pow(pow(2, 32), 32))
+        s = x + y
+
         code = code + "\t{\n\t\t"
         code = code + generate_c_array(x)
         code = code + ", \n\t\t"

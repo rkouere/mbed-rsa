@@ -30,3 +30,7 @@
 
 # Generated files
 src/test-add-dataset.c
+computer
+computer/*
+mbed
+mbed/*
