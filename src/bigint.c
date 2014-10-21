@@ -43,7 +43,7 @@ bgi_print(const mbed_bigint x)
         mbed_int i;
 
         for (i = (BIGINT_SIZE - 1); i > 0; i--)
-            printf("%8x", x[i]);
+            printf("%8x ", x[i]);
     #endif
 }
 
