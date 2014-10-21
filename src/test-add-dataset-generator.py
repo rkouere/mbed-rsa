@@ -1,19 +1,38 @@
 #!/usr/bin/env python
 
+# RSA implementation and attack on Mbed
+# Data generator for bgi_add testing
+# @author Cyrille Toulet, <cyrille.toulet@gmail.com>
+# @author Benjamin Burnouf, <benjamin76360@gmail.com>
+
 import random
 import string
+from datetime import datetime
 
+# Number of tests
 set_count = 10
 
 def generate_c_header():
     '''
+    Generate the C file header
+    @return The file header
     '''
-    output = "#include \"bigint.h\"\n\n#define TEST_ADD_COUNT " + str(set_count) + "u\n\n"
+    output = "/**\n"
+    output = output + " * RSA implementation and attack on Mbed\n"
+    output = output + " * Data set used to test bgi_add function in bigint library\n"
+    output = output + " * Generated at compilation the " + str(datetime.now()) + "\n"
+    output = output + " * @author Cyrille Toulet, <cyrille.toulet@gmail.com>\n"
+    output = output + " * @author Benjamin Burnouf, <benjamin76360@gmail.com>\n"
+    output = output + " **/\n\n"
+    output = output + "#include \"bigint.h\"\n\n"
+    output = output + "#define TEST_ADD_COUNT " + str(set_count) + "u\n\n"
     return output
 
 
 def generate_c_array(x):
     '''
+    Generate a C mbed_bigint from python big int
+    @return The static array representing mbed_bigint in C
     '''
     str_x = str(hex(x))
 
@@ -54,6 +73,7 @@ def generate_c_array(x):
 
 def main():
     '''
+    Run the main application
     '''
     code = generate_c_header()
 

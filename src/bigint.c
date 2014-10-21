@@ -2,6 +2,7 @@
  * RSA implementation and attack on Mbed
  * Big integers library
  * @author Cyrille Toulet, <cyrille.toulet@gmail.com>
+ * @author Benjamin Burnouf, <benjamin76360@gmail.com>
  */
 
 #include "bigint.h"
@@ -99,23 +100,4 @@ bgi_add (mbed_bigint *dest, const mbed_bigint x, const mbed_bigint y)
 
     (*dest)[i] = carry;
 }
-
-
-/**
- * @see bigint.h
- */
-/*void
-bgi_sub (mbed_bigint *dest, const mbed_bigint x, const mbed_bigint y)
-{
-    mbed_int carry = 0;
-    mbed_int i;
-
-    for (i = (mbed_int) 0; i < BIGINT_SIZE - 1; i++)
-    {
-        (*dest)[i] = (x[i] - y[i] + carry) % MAX_MBED_INT;
-        carry = (x[i] + y[i] + carry) < BIGINT_SIZE? 0: 1;
-    }
-
-    return carry;
-}*/
 
