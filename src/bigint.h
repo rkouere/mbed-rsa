@@ -16,10 +16,10 @@
     typedef uint32_t mbed_int;
 
     /* Big int size */
-    #define BIGINT_SIZE 32
+    #define BIGINT_SIZE 32u
 
     /* Max mbed int */
-    #define MAX_MBED_INT 4294967295
+    #define MAX_MBED_INT 4294967295u
 
     /* Mbed bigint */
     typedef mbed_int mbed_bigint[BIGINT_SIZE + 1];
