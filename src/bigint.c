@@ -42,10 +42,8 @@ bgi_print(const mbed_bigint x)
     #ifdef _COMPUTER_VERSION
         mbed_int i;
 
-        for (i = (BIGINT_SIZE - 1); i > 0; i--)
-            printf("%lx.", (unsigned long) x[i]);
-
-        printf("%lx\n", (unsigned long) x[0]);
+        for (i = (BIGINT_SIZE - 1); i >= 0; i--)
+            printf("%x", x[i]);
     #endif
 }
 
@@ -56,13 +54,13 @@ bgi_print(const mbed_bigint x)
 mbed_int
 bgi_cmp(const mbed_bigint x, const mbed_bigint y)
 {
-    mbed_int i = 0;
+    mbed_int i = (BIGINT_SIZE-1);
 
-    while (i <= BIGINT_SIZE) 
+    while (i >= 0) 
         if (x[i] != y[i]) 
             return (x[i] > y[i] ? 1 : -1);
         else
-            i++;
+            i--;
 
     return 0;
 }
