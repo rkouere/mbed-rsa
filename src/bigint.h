@@ -18,6 +18,8 @@
     /* Big int size */
     #define BIGINT_SIZE 32
 
+    #define MAX_MBED_INT 4294967295
+
     /* Mbed bigint */
     typedef mbed_int mbed_bigint[BIGINT_SIZE];
 

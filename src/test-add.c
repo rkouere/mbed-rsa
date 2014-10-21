@@ -20,13 +20,13 @@ int main() {
         bgi_add(&dest, test_add_dataset[i][0], test_add_dataset[i][1]);
         if (bgi_cmp(dest, test_add_dataset[i][2]) != 0)
         {
-            printf("[FAIL]\n\tNombre 1 : ");
+            printf("[FAIL] Test %d / %d\n\tNumber 1 : ", i, TEST_ADD_COUNT);
             bgi_print(test_add_dataset[i][0]);
-            printf("\n\tNombre 2 : ");
+            printf("\n\tNumber 2 : ");
             bgi_print(test_add_dataset[i][1]);
-            printf("\n\tRésultat attendu : ");
+            printf("\n\tExpected result : ");
             bgi_print(test_add_dataset[i][2]);
-            printf("\n\tRésultat reçu : ");
+            printf("\n\tReceived result : ");
             bgi_print(dest);
             putchar('\n');
             exit(EXIT_FAILURE);
