@@ -18,10 +18,11 @@
     /* Big int size */
     #define BIGINT_SIZE 32
 
+    /* Max mbed int */
     #define MAX_MBED_INT 4294967295
 
     /* Mbed bigint */
-    typedef mbed_int mbed_bigint[BIGINT_SIZE];
+    typedef mbed_int mbed_bigint[BIGINT_SIZE + 1];
 
     /**
      * Init to 0 a big int
@@ -62,9 +63,8 @@
      * @param dest The sum x+y
      * @param x The first big int of addition
      * @param y The second big int of addition
-     * @return The carry of addition
      */
-    extern mbed_int bgi_add (mbed_bigint *dest, const mbed_bigint x, 
+    extern void bgi_add(mbed_bigint *dest, const mbed_bigint x, 
         const mbed_bigint y);
     
     /**

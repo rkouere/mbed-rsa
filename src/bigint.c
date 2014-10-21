@@ -15,7 +15,7 @@ bgi_init(mbed_bigint *x)
 {
     mbed_int i;
 
-    for(i = (mbed_int) 0; i <= BIGINT_SIZE; i++)
+    for(i = (mbed_int) 0; i <= BIGINT_SIZE + 1; i++)
         (*x)[i] = 0;
 }
 
@@ -28,7 +28,7 @@ bgi_cpy(mbed_bigint *dest, const mbed_bigint src)
 {
     mbed_int i;
 
-    for(i = (mbed_int) 0; i <= BIGINT_SIZE; i++)
+    for(i = (mbed_int) 0; i <= BIGINT_SIZE + 1; i++)
         (*dest)[i] = src[i];
 }
 
@@ -43,7 +43,7 @@ bgi_print(const mbed_bigint x)
         mbed_int i;
 
         for (i = (BIGINT_SIZE - 1); i > 0; i--)
-            printf("%x", x[i]);
+            printf("%8x", x[i]);
     #endif
 }
 
@@ -54,11 +54,11 @@ bgi_print(const mbed_bigint x)
 mbed_int
 bgi_cmp(const mbed_bigint x, const mbed_bigint y)
 {
-    mbed_int i = (BIGINT_SIZE-1);
+    mbed_int i = (BIGINT_SIZE - 1);
 
     while (i >= 0) 
         if (x[i] != y[i]) 
-            return (x[i] > y[i] ? 1 : -1);
+            return (x[i] > y[i]? 1: -1);
         else
             i--;
 
@@ -85,19 +85,19 @@ bgi_is_null(const mbed_bigint x)
 /**
  * @see bigint.h
  */
-mbed_int
+void
 bgi_add (mbed_bigint *dest, const mbed_bigint x, const mbed_bigint y)
 {
     mbed_int carry = 0;
     mbed_int i;
 
-    for (i = (mbed_int) 0; i < BIGINT_SIZE - 1; i++)
+    for (i = (mbed_int) 0; i < BIGINT_SIZE; i++)
     {
         (*dest)[i] = (x[i] + y[i] + carry) % MAX_MBED_INT;
-        carry = (x[i] + y[i] + carry) < MAX_MBED_INT? 0: 1;
+        carry = (MAX_MBED_INT - x[i] - carry) < y[i]? (mbed_int) 1: (mbed_int) 0;
     }
 
-    return carry;
+    (*dest)[i] = carry;
 }
 
 
