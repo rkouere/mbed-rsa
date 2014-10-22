@@ -34,3 +34,5 @@ computer
 computer/*
 mbed
 mbed/*
+*.swp
+src/*.swp
