@@ -76,5 +76,15 @@
      */
     extern void bgi_sub (mbed_bigint dest, const mbed_bigint x, 
         const mbed_bigint y);
+    
+    /**
+     * Multiply a big integers by a small integer and put result in dest
+     * @param dest The product x*y
+     * @param x The big int of multiplication
+     * @param y The small int of multiplication
+     */
+    extern void bgi_mul_int(mbed_bigint dest, const mbed_bigint x, 
+        const mbed_int y);
+    
 
 #endif
