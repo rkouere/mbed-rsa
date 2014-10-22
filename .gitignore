@@ -29,7 +29,7 @@
 *.hex
 
 # Generated files
-src/test-add-dataset.c
+src/test-*-dataset.c
 computer
 computer/*
 mbed
