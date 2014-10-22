@@ -12,9 +12,7 @@ COMPUTER_BIN   = computer/bin/test-add
 COMPUTER_BIN  += computer/bin/test-sub
 
 # Generic
-all: computer
-
-computer: $(COMPUTER_DATA) $(COMPUTER_OBJ) $(COMPUTER_BIN)
+all: $(COMPUTER_BIN)
 
 # Data sets
 src/test-add-dataset.c: ./src/test-add-dataset-generator.py
@@ -27,10 +25,10 @@ src/test-sub-dataset.c: ./src/test-sub-dataset-generator.py
 computer/obj/bigint.o: src/bigint.c
 	gcc -m32 -c -o computer/obj/bigint.o src/bigint.c -D_COMPUTER_VERSION
 
-computer/obj/test-add.o: src/test-add.c
+computer/obj/test-add.o: src/test-add.c src/test-add-dataset.c
 	gcc -m32 -c -o computer/obj/test-add.o src/test-add.c -D_COMPUTER_VERSION
 
-computer/obj/test-sub.o: src/test-sub.c
+computer/obj/test-sub.o: src/test-sub.c src/test-sub-dataset.c
 	gcc -m32 -c -o computer/obj/test-sub.o src/test-sub.c -D_COMPUTER_VERSION
 
 # Binaries
@@ -40,8 +38,13 @@ computer/bin/test-add: computer/obj/test-add.o computer/obj/bigint.o
 computer/bin/test-sub: computer/obj/test-sub.o computer/obj/bigint.o
 	gcc -m32 -o computer/bin/test-sub computer/obj/test-sub.o computer/obj/bigint.o -D_COMPUTER_VERSION
 
+# Tests
+test: computer/bin/test-add computer/bin/test-sub
+	./computer/bin/test-add
+	./computer/bin/test-sub
+
 # Misc
-.PHONY: computer clean
+.PHONY: clean
 
 clean:
 	rm -f $(COMPUTER_DATA)
