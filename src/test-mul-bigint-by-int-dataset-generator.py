@@ -102,16 +102,6 @@ def main():
         else:
             tab_r = tab_r + ",\n\t" + generate_c_array(r)
 
-#        code = code + "mbed_int test_mul_bigint_by_int_dataset_x[" + str(i) + "][BIGINT_SIZE + 1] = "
-#        code = code + generate_c_array(x)
-#        code = code + ";\n"
-
-#        code = code + "mbed_int test_mul_bigint_by_int_dataset_y[" + str(i) + "] = " + str(hex(y)) + ";\n"
-        
-#        code = code + "mbed_int test_mul_bigint_by_int_dataset_r[" + str(i) + "][BIGINT_SIZE + 1] = "
-#        code = code + generate_c_array(r)
-#        code = code + ";\n"
-    
         i = i + 1
 
 

@@ -18,17 +18,17 @@ mbed_int main()
     while (i < TEST_ADD_COUNT)
     {
         bgi_init(dest);
-        bgi_add(dest, test_add_dataset[i][0], test_add_dataset[i][1]);
+        bgi_add(dest, test_add_dataset_x[i], test_add_dataset_y[i]);
 
-        if (bgi_cmp(dest, test_add_dataset[i][2]) != 0)
+        if (bgi_cmp(dest, test_add_dataset_r[i]) != 0)
         {
             printf("[FAIL] Test bgi_add %d / %d", i + 1, TEST_ADD_COUNT);
             printf("\nNumber 1        : ");
-            bgi_print(test_add_dataset[i][0]);
+            bgi_print(test_add_dataset_x[i]);
             printf("\nNumber 2        : ");
-            bgi_print(test_add_dataset[i][1]);
+            bgi_print(test_add_dataset_y[i]);
             printf("\nExpected result : ");
-            bgi_print(test_add_dataset[i][2]);
+            bgi_print(test_add_dataset_r[i]);
             printf("\nReceived result : ");
             bgi_print(dest);
             putchar('\n');

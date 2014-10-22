@@ -76,30 +76,40 @@ def main():
     Run the main application
     '''
     code = generate_c_header()
+    
+    tab_x = ""
+    tab_y = ""
+    tab_r = ""
 
     i = 0
-    code = code + "mbed_int test_add_dataset[TEST_ADD_COUNT][3][BIGINT_SIZE + 1] = {\n"
 
     while i < set_count:
         x = random.randint(0, pow(pow(2, 32), 32))
         y = random.randint(0, pow(pow(2, 32), 32))
-        s = x + y
-
-        code = code + "\t{\n\t\t"
-        code = code + generate_c_array(x)
-        code = code + ", \n\t\t"
-        code = code + generate_c_array(y)
-        code = code + ", \n\t\t"
-        code = code + generate_c_array(s)
-    
-        if i == (set_count - 1):
-            code = code + "\n\t}\n"
+        r = x + y
+        
+        if i == 0:
+            tab_x = tab_x + "\t" + generate_c_array(x)
         else:
-            code = code + "\n\t},\n"
+            tab_x = tab_x + ",\n\t" + generate_c_array(x)
+        
+        if i == 0:
+            tab_y = tab_y + "\t" + generate_c_array(y)
+        else:
+            tab_y = tab_y + ",\n\t" + generate_c_array(y)
+        
+        if i == 0:
+            tab_r = tab_r + "\t" + generate_c_array(r)
+        else:
+            tab_r = tab_r + ",\n\t" + generate_c_array(r)
+
     
         i = i + 1
 
-    code = code + "};"
+
+    code = code + "mbed_int test_add_dataset_x[TEST_ADD_COUNT][BIGINT_SIZE + 1] = {\n" + tab_x + "\n};\n"
+    code = code + "mbed_int test_add_dataset_y[TEST_ADD_COUNT][BIGINT_SIZE + 1] = {\n" + tab_y + "\n};\n"
+    code = code + "mbed_int test_add_dataset_r[TEST_ADD_COUNT][BIGINT_SIZE + 1] = {\n" + tab_r + "\n};\n"
 
     print code
 
