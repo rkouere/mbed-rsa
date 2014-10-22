@@ -50,20 +50,20 @@ def generate_c_array(x):
         tmp1 = tmp2[len(tmp2) - 8: len(tmp2)]
         tmp2 = tmp2[0 : len(tmp2) - 8]
         if counter == 32:
-            output = output + "0x" + tmp1
+            output = output + "0x" + tmp1 + "u"
         else:
-            output = output + ", 0x" + tmp1
+            output = output + ", 0x" + tmp1 + "u"
 
     if len(tmp2) > 0:
         counter = counter - 1
         padding_size = 8 - len(tmp2)
         if counter == 32:
-            output = output + "0x" + string.rjust(tmp2, 8, '0')
+            output = output + "0x" + string.rjust(tmp2, 8, '0') + "u"
         else:
-            output = output + ", 0x" + string.rjust(tmp2, 8, '0')
+            output = output + ", 0x" + string.rjust(tmp2, 8, '0') + "u"
 
     while counter > 0:
-        output = output + ", 0x00000000"
+        output = output + ", 0x00000000u"
         counter = counter - 1
 
     output = output + "}"

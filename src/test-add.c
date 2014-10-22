@@ -12,12 +12,11 @@
 
 mbed_int main()
 {
-    mbed_int i;
+    mbed_int i = 0;
+    mbed_bigint dest;
 
-    for (i = 0; i < TEST_ADD_COUNT - 1; i++)
+    while (i < TEST_ADD_COUNT)
     {
-        mbed_bigint dest;
-
         bgi_init(&dest);
         bgi_add(&dest, test_add_dataset[i][0], test_add_dataset[i][1]);
 
@@ -35,9 +34,12 @@ mbed_int main()
             putchar('\n');
             exit(EXIT_FAILURE);
         }
+
+        printf("[PASS] Test %d / %d\n", i + 1, TEST_ADD_COUNT);
+        i++;
     }
 
-    printf("[ OK ]\n");
+    printf("[DONE]\n");
 
     exit(EXIT_SUCCESS);
 }

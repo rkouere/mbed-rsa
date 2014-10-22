@@ -16,8 +16,8 @@ bgi_init(mbed_bigint *x)
 {
     mbed_int i;
 
-    for(i = (mbed_int) 0; i <= BIGINT_SIZE + 1; i++)
-        (*x)[i] = 0;
+    for(i = 0; i < BIGINT_SIZE + 1; i++)
+        (*x)[i] = (mbed_int) 0x0u;
 }
 
 
@@ -57,7 +57,7 @@ bgi_cmp(const mbed_bigint x, const mbed_bigint y)
 {
     mbed_int i = (BIGINT_SIZE - 1);
 
-    while (i >= 0) 
+    while (i > 0) 
         if (x[i] != y[i]) 
             return (x[i] > y[i]? 1: -1);
         else
