@@ -4,11 +4,12 @@
 # @author Benjamin Burnouf, <benjamin76360@gmail.com>
 
 COMPUTER_DATA  = src/test-add-dataset.c
+COMPUTER_DATA += src/test-sub-dataset.c
 COMPUTER_OBJ   = computer/obj/bigint.o
-COMPUTER_OBJ   = computer/obj/test-add.o
-COMPUTER_OBJ   = computer/obj/test-sub.o
+COMPUTER_OBJ  += computer/obj/test-add.o
+COMPUTER_OBJ  += computer/obj/test-sub.o
 COMPUTER_BIN   = computer/bin/test-add
-COMPUTER_BIN   = computer/bin/test-sub
+COMPUTER_BIN  += computer/bin/test-sub
 
 # Generic
 all: computer

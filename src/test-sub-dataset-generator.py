@@ -78,18 +78,21 @@ def main():
     code = generate_c_header()
 
     i = 0
-    code = code + "mbed_int test_add_dataset[TEST_ADD_COUNT][3][BIGINT_SIZE + 1] = {\n"
+    code = code + "mbed_int test_sub_dataset[TEST_SUB_COUNT][3][BIGINT_SIZE + 1] = {\n"
 
     while i < set_count:
         a = random.randint(0, pow(pow(2, 32), 32))
         b = random.randint(0, pow(pow(2, 32), 32))
+
+        x = a
+        y = b
+        
         if a < b:
             x = b
             y = a
-        else :
-            x = a
-            y = b
+        
         s = x - y
+        
         code = code + "\t{\n\t\t"
         code = code + generate_c_array(x)
         code = code + ", \n\t\t"

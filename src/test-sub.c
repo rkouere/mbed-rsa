@@ -1,6 +1,6 @@
 /**
  * RSA implementation and attack on Mbed
- * Big integers library - Tests for bgi_add function
+ * Big integers library - Tests for bgi_sub function
  * @author Cyrille Toulet, <cyrille.toulet@gmail.com>
  * @author Benjamin Burnouf, <benjamin76360@gmail.com>
  */
@@ -18,9 +18,9 @@ mbed_int main()
     while (i < TEST_SUB_COUNT)
     {
         bgi_init(&dest);
-        bgi_sub(&dest, test_add_dataset[i][0], test_add_dataset[i][1]);
+        bgi_sub(&dest, test_sub_dataset[i][0], test_sub_dataset[i][1]);
 
-        if (bgi_cmp(dest, test_add_dataset[i][2]) != 0)
+        if (bgi_cmp(dest, test_sub_dataset[i][2]) != 0)
         {
             printf("[FAIL] Test %d / %d", i + 1, TEST_SUB_COUNT);
             printf("\nNumber 1        : ");
@@ -35,7 +35,7 @@ mbed_int main()
             exit(EXIT_FAILURE);
         }
 
-        printf("[PASS] Test %d / %d\n", i + 1, TEST_SUB_COUNT);
+        printf("[PASS] Test bgi_sub %d / %d\n", i + 1, TEST_SUB_COUNT);
         i++;
     }
 

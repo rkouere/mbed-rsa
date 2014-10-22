@@ -35,7 +35,7 @@ mbed_int main()
             exit(EXIT_FAILURE);
         }
 
-        printf("[PASS] Test %d / %d\n", i + 1, TEST_ADD_COUNT);
+        printf("[PASS] Test bgi_add %d / %d\n", i + 1, TEST_ADD_COUNT);
         i++;
     }
 
