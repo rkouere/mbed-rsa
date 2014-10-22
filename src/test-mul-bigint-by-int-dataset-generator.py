@@ -77,25 +77,47 @@ def main():
     '''
     code = generate_c_header()
 
+    tab_x = ""
+    tab_y = ""
+    tab_r = ""
+
     i = 0
     while i < set_count:
         x = random.randint(0, pow(pow(2, 32), 32))
         y = random.randint(0, pow(2, 32))
         r = x * y
-
-        code = code + "\n/* Test " + str(i + 1) + " */\n"
-
-        code = code + "mbed_int test_mul_bigint_by_int_dataset_x[" + str(i) + "][BIGINT_SIZE + 1] = "
-        code = code + generate_c_array(x)
-        code = code + ";\n"
-
-        code = code + "mbed_int test_mul_bigint_by_int_dataset_y[" + str(i) + "] = " + str(hex(y)) + ";\n"
         
-        code = code + "mbed_int test_mul_bigint_by_int_dataset_r[" + str(i) + "][BIGINT_SIZE + 1] = "
-        code = code + generate_c_array(r)
-        code = code + ";\n"
+        if i == 0:
+            tab_x = tab_x + "\t" + generate_c_array(x)
+        else:
+            tab_x = tab_x + ",\n\t" + generate_c_array(x)
+        
+        if i == 0:
+            tab_y = tab_y + str(hex(y))
+        else:
+            tab_y = tab_y + ", " + str(hex(y))
+        
+        if i == 0:
+            tab_r = tab_r + "\t" + generate_c_array(r)
+        else:
+            tab_r = tab_r + ",\n\t" + generate_c_array(r)
+
+#        code = code + "mbed_int test_mul_bigint_by_int_dataset_x[" + str(i) + "][BIGINT_SIZE + 1] = "
+#        code = code + generate_c_array(x)
+#        code = code + ";\n"
+
+#        code = code + "mbed_int test_mul_bigint_by_int_dataset_y[" + str(i) + "] = " + str(hex(y)) + ";\n"
+        
+#        code = code + "mbed_int test_mul_bigint_by_int_dataset_r[" + str(i) + "][BIGINT_SIZE + 1] = "
+#        code = code + generate_c_array(r)
+#        code = code + ";\n"
     
         i = i + 1
+
+
+    code = code + "mbed_int test_mul_bigint_by_int_dataset_x[TEST_MUL_BIGINT_BY_INT_COUNT][BIGINT_SIZE + 1] = {\n" + tab_x + "\n};\n"
+    code = code + "mbed_int test_mul_bigint_by_int_dataset_y[TEST_MUL_BIGINT_BY_INT_COUNT] = {" + tab_y + "};\n"
+    code = code + "mbed_int test_mul_bigint_by_int_dataset_r[TEST_MUL_BIGINT_BY_INT_COUNT][BIGINT_SIZE + 1] = {\n" + tab_r + "\n};\n"
 
     print code
 

@@ -6,18 +6,18 @@
 COMPUTER_DATA  = src/test-add-dataset.c
 COMPUTER_DATA += src/test-sub-dataset.c
 COMPUTER_DATA += src/test-mul-int-by-int-dataset.c
-#COMPUTER_DATA += src/test-mul-bigint-by-int-dataset.c
+COMPUTER_DATA += src/test-mul-bigint-by-int-dataset.c
 
 COMPUTER_OBJ   = computer/obj/bigint.o
 COMPUTER_OBJ  += computer/obj/test-add.o
 COMPUTER_OBJ  += computer/obj/test-sub.o
 COMPUTER_OBJ  += computer/obj/test-mul-int-by-int.o
-#COMPUTER_OBJ  += computer/obj/test-mul-bigint-by-int.o
+COMPUTER_OBJ  += computer/obj/test-mul-bigint-by-int.o
 
 COMPUTER_BIN   = computer/bin/test-add
 COMPUTER_BIN  += computer/bin/test-sub
 COMPUTER_BIN  += computer/bin/test-mul-int-by-int
-#COMPUTER_BIN  += computer/bin/test-mul-bigint-by-int
+COMPUTER_BIN  += computer/bin/test-mul-bigint-by-int
 
 # Generic
 all: $(COMPUTER_BIN)
