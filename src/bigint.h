@@ -74,7 +74,7 @@
      * @param x The first big int of substraction
      * @param y The second big int of substraction
      */
-    /*extern void bgi_sub (mbed_bigint *dest, const mbed_bigint x, 
-        const mbed_bigint y);*/
+    extern void bgi_sub (mbed_bigint *dest, const mbed_bigint x, 
+        const mbed_bigint y);
 
 #endif
