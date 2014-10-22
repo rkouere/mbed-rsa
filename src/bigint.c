@@ -147,8 +147,8 @@ bgi_mul_bigint_by_int(mbed_bigint dest, const mbed_bigint x, const mbed_int y)
     for (i = (mbed_int) 0; i < BIGINT_SIZE; i++)
     {
         temp = carry;
-        bgi_mul_int_by_int(carry,rest,x[i],y);
-        dest[i] = rest+temp;
+        bgi_mul_int_by_int(&carry, &rest, x[i], y);
+        dest[i] = rest + temp;
     }
     dest[i] = carry;
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # RSA implementation and attack on Mbed
-# Data generator for bgi_add testing
+# Data generator for bgi_mul_int testing
 # @author Cyrille Toulet, <cyrille.toulet@gmail.com>
 # @author Benjamin Burnouf, <benjamin76360@gmail.com>
 
@@ -19,13 +19,13 @@ def generate_c_header():
     '''
     output = "/**\n"
     output = output + " * RSA implementation and attack on Mbed\n"
-    output = output + " * Data set used to test bgi_add function in bigint library\n"
+    output = output + " * Data set used to test bgi_mul_bigint_by_int function in bigint library\n"
     output = output + " * Generated at compilation the " + str(datetime.now()) + "\n"
     output = output + " * @author Cyrille Toulet, <cyrille.toulet@gmail.com>\n"
     output = output + " * @author Benjamin Burnouf, <benjamin76360@gmail.com>\n"
     output = output + " **/\n\n"
     output = output + "#include \"bigint.h\"\n\n"
-    output = output + "#define TEST_ADD_COUNT " + str(set_count) + "u\n\n"
+    output = output + "#define TEST_MUL_BIGINT_BY_INT_COUNT " + str(set_count) + "u\n\n"
     return output
 
 
@@ -78,28 +78,24 @@ def main():
     code = generate_c_header()
 
     i = 0
-    code = code + "mbed_int test_add_dataset[TEST_ADD_COUNT][3][BIGINT_SIZE + 1] = {\n"
-
     while i < set_count:
         x = random.randint(0, pow(pow(2, 32), 32))
-        y = random.randint(0, pow(pow(2, 32), 32))
-        s = x + y
+        y = random.randint(0, pow(2, 32))
+        r = x * y
 
-        code = code + "\t{\n\t\t"
+        code = code + "\n/* Test " + str(i + 1) + " */\n"
+
+        code = code + "mbed_int test_mul_bigint_by_int_dataset_x[" + str(i) + "][BIGINT_SIZE + 1] = "
         code = code + generate_c_array(x)
-        code = code + ", \n\t\t"
-        code = code + generate_c_array(y)
-        code = code + ", \n\t\t"
-        code = code + generate_c_array(s)
-    
-        if i == (set_count - 1):
-            code = code + "\n\t}\n"
-        else:
-            code = code + "\n\t},\n"
+        code = code + ";\n"
+
+        code = code + "mbed_int test_mul_bigint_by_int_dataset_y[" + str(i) + "] = " + str(hex(y)) + ";\n"
+        
+        code = code + "mbed_int test_mul_bigint_by_int_dataset_r[" + str(i) + "][BIGINT_SIZE + 1] = "
+        code = code + generate_c_array(r)
+        code = code + ";\n"
     
         i = i + 1
-
-    code = code + "};"
 
     print code
 

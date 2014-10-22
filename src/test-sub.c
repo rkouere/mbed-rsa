@@ -22,7 +22,7 @@ mbed_int main()
 
         if (bgi_cmp(dest, test_sub_dataset[i][2]) != 0)
         {
-            printf("[FAIL] Test %d / %d", i + 1, TEST_SUB_COUNT);
+            printf("[FAIL] Test bgi_sub %d / %d", i + 1, TEST_SUB_COUNT);
             printf("\nNumber 1        : ");
             bgi_print(test_sub_dataset[i][0]);
             printf("\nNumber 2        : ");
@@ -38,8 +38,6 @@ mbed_int main()
         printf("[PASS] Test bgi_sub %d / %d\n", i + 1, TEST_SUB_COUNT);
         i++;
     }
-
-    printf("[DONE]\n");
 
     exit(EXIT_SUCCESS);
 }
