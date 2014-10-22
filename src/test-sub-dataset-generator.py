@@ -81,12 +81,15 @@ def main():
     code = code + "mbed_int test_add_dataset[TEST_ADD_COUNT][3][BIGINT_SIZE + 1] = {\n"
 
     while i < set_count:
-        x = random.randint(0, pow(pow(2, 32), 32))
-        y = random.randint(0, pow(pow(2, 32), 32))
-        if x < y:
-            s = y - x
+        a = random.randint(0, pow(pow(2, 32), 32))
+        b = random.randint(0, pow(pow(2, 32), 32))
+        if a < b:
+            x = b
+            y = a
         else :
-            s = x - y
+            x = a
+            y = b
+        s = x - y
         code = code + "\t{\n\t\t"
         code = code + generate_c_array(x)
         code = code + ", \n\t\t"
