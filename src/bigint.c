@@ -120,3 +120,36 @@ bgi_sub(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
     dest[i] = carry;
 }
 
+/**
+ * @see bigint.h
+ */
+void 
+bgi_mul_int_by_int(mbed_int *dest1, mbed_int *dest2, const mbed_int x, const mbed_int y) 
+{
+    mbed_long_int res;
+    
+    res = (mbed_long_int) (((mbed_long_int) x) * ((mbed_long_int) y));
+    *dest1 = (mbed_int) res; 
+    *dest2 = (mbed_int) (res >> 32);
+}
+
+/**
+ * @see bigint.h
+ */
+void 
+bgi_mul_bigint_by_int(mbed_bigint dest, const mbed_bigint x, const mbed_int y) 
+{
+    mbed_int rest;
+    mbed_int temp = 0;
+    mbed_int carry = 0;
+    mbed_int i;
+
+    for (i = (mbed_int) 0; i < BIGINT_SIZE; i++)
+    {
+        temp = carry;
+        bgi_mul_int_by_int(carry,rest,x[i],y);
+        dest[i] = rest+temp;
+    }
+    dest[i] = carry;
+}
+

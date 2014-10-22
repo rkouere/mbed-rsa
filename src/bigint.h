@@ -16,6 +16,9 @@
     /* Mbed int */
     typedef uint32_t mbed_int;
 
+    /* Mbed long int */
+    typedef uint64_t mbed_long_int;
+
     /* Big int size */
     #define BIGINT_SIZE 32u
 
@@ -78,12 +81,21 @@
         const mbed_bigint y);
     
     /**
+     * Multiply an integer by an other integer and put result in two dests
+     * @param dest1 the first part of result x*y on 32 bits
+     * @param dest2 the second part of result x*y on 32 bits
+     * @param x The first int of multiplication
+     * @param y The second int of multiplication
+     */
+    extern void bgi_mul_int_by_int(mbed_int *dest1, mbed_int *dest2, 
+        const mbed_int x, const mbed_int y);
+    /**
      * Multiply a big integers by a small integer and put result in dest
      * @param dest The product x*y
      * @param x The big int of multiplication
      * @param y The small int of multiplication
      */
-    extern void bgi_mul_int(mbed_bigint dest, const mbed_bigint x, 
+    extern void bgi_mul_bigint_by_int(mbed_bigint dest, const mbed_bigint x, 
         const mbed_int y);
     
 
