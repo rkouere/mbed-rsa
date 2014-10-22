@@ -12,12 +12,12 @@
  * @see bigint.h
  */
 void
-bgi_init(mbed_bigint *x)
+bgi_init(mbed_bigint x)
 {
     mbed_int i;
 
     for(i = 0; i < BIGINT_SIZE + 1; i++)
-        (*x)[i] = (mbed_int) 0x0u;
+        x[i] = (mbed_int) 0x0u;
 }
 
 
@@ -25,12 +25,12 @@ bgi_init(mbed_bigint *x)
  * @see bigint.h
  */
 void
-bgi_cpy(mbed_bigint *dest, const mbed_bigint src)
+bgi_cpy(mbed_bigint dest, const mbed_bigint src)
 {
     mbed_int i;
 
     for(i = (mbed_int) 0; i <= BIGINT_SIZE + 1; i++)
-        (*dest)[i] = src[i];
+        dest[i] = src[i];
 }
 
 
@@ -87,18 +87,18 @@ bgi_is_null(const mbed_bigint x)
  * @see bigint.h
  */
 void
-bgi_add(mbed_bigint *dest, const mbed_bigint x, const mbed_bigint y)
+bgi_add(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
 {
     mbed_int carry = 0;
     mbed_int i;
 
     for (i = (mbed_int) 0; i < BIGINT_SIZE; i++)
     {
-        (*dest)[i] = (x[i] + y[i] + carry) % MAX_MBED_INT;
+        dest[i] = (x[i] + y[i] + carry) % MAX_MBED_INT;
         carry = (MAX_MBED_INT - x[i] - carry) < y[i]? (mbed_int) 1: (mbed_int) 0;
     }
 
-    (*dest)[i] = carry;
+    dest[i] = carry;
 }
 
 
@@ -106,17 +106,17 @@ bgi_add(mbed_bigint *dest, const mbed_bigint x, const mbed_bigint y)
  * @see bigint.h
  */
 void 
-bgi_sub(mbed_bigint *dest, const mbed_bigint x, const mbed_bigint y)
+bgi_sub(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
 {
     mbed_int carry = 0;
     mbed_int i;
 
     for (i = (mbed_int) 0; i < BIGINT_SIZE; i++)
     {
-        (*dest)[i] = (x[i] - y[i] + carry) % MAX_MBED_INT;
+        dest[i] = (x[i] - y[i] + carry) % MAX_MBED_INT;
         carry = (x[i] + carry) <= y[i]? (mbed_int) -1: (mbed_int) 0;
     }
 
-    (*dest)[i] = carry;
+    dest[i] = carry;
 }
 

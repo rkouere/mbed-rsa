@@ -29,14 +29,14 @@
      * Init to 0 a big int
      * @param x The big int to init
      */
-    extern void bgi_init (mbed_bigint *x);
+    extern void bgi_init (mbed_bigint x);
 
     /**
      * Copy a big int
      * @param dest The big int copy destination
      * @param src The big int to copy
      */
-    extern void bgi_cpy (mbed_bigint *dest, const mbed_bigint src);
+    extern void bgi_cpy (mbed_bigint dest, const mbed_bigint src);
 
     /**
      * Print a big int
@@ -65,7 +65,7 @@
      * @param x The first big int of addition
      * @param y The second big int of addition
      */
-    extern void bgi_add(mbed_bigint *dest, const mbed_bigint x, 
+    extern void bgi_add(mbed_bigint dest, const mbed_bigint x, 
         const mbed_bigint y);
     
     /**
@@ -74,7 +74,7 @@
      * @param x The first big int of substraction
      * @param y The second big int of substraction
      */
-    extern void bgi_sub (mbed_bigint *dest, const mbed_bigint x, 
+    extern void bgi_sub (mbed_bigint dest, const mbed_bigint x, 
         const mbed_bigint y);
 
 #endif

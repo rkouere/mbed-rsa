@@ -17,8 +17,8 @@ mbed_int main()
 
     while (i < TEST_ADD_COUNT)
     {
-        bgi_init(&dest);
-        bgi_add(&dest, test_add_dataset[i][0], test_add_dataset[i][1]);
+        bgi_init(dest);
+        bgi_add(dest, test_add_dataset[i][0], test_add_dataset[i][1]);
 
         if (bgi_cmp(dest, test_add_dataset[i][2]) != 0)
         {
