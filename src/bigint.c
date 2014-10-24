@@ -149,7 +149,13 @@ bgi_mul_bigint_by_int(mbed_bigint dest, const mbed_bigint x, const mbed_int y)
     {
         temp = carry;
         bgi_mul_int_by_int(&carry, &rest, x[i], y);
-        dest[i] = rest + temp;
+        if ( rest > MAX_MBED_INT-temp) 
+        {
+            dest[i] = rest + temp % MAX_MBED_INT;
+            carry ++;
+        }
+        else 
+            dest[i] = rest + temp;
     }
     dest[i] = carry;
 }
