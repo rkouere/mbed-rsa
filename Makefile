@@ -65,7 +65,7 @@ computer/bin/test-mul-bigint-by-int: computer/obj/test-mul-bigint-by-int.o compu
 	gcc -m32 -o computer/bin/test-mul-bigint-by-int computer/obj/test-mul-bigint-by-int.o computer/obj/bigint.o -D_COMPUTER_VERSION
 
 # Tests
-test: computer/bin/test-add computer/bin/test-sub
+tests: computer/bin/test-add computer/bin/test-sub computer/bin/test-mul-int-by-int computer/bin/test-mul-bigint-by-int
 	./computer/bin/test-add
 	./computer/bin/test-sub
 	./computer/bin/test-mul-int-by-int

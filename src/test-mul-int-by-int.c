@@ -27,7 +27,7 @@ mbed_int main()
         {
             printf("[FAIL] Test bgi_mul_int_by_int %d / %d", i + 1, TEST_MUL_INT_BY_INT_COUNT);
             printf("\nNumber 1        : %x\n", test_mul_int_by_int_dataset_x[i]);
-            printf("\nNumber 2        : %x\n", test_mul_int_by_int_dataset_y[i]);
+            printf("\nNumber 2        : %x", test_mul_int_by_int_dataset_y[i]);
             printf("\nExpected result : a = %8x, b = %8x\n", test_mul_int_by_int_dataset_a[i], test_mul_int_by_int_dataset_b[i]);
             printf("\nReceived result : a = %8x, b = %8x\n", a, b);
             

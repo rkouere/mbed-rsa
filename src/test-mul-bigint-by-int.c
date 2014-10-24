@@ -25,7 +25,7 @@ mbed_int main()
             printf("[FAIL] Test bgi_mul_int %d / %d", i + 1, TEST_MUL_BIGINT_BY_INT_COUNT);
             printf("\nNumber 1        : ");
             bgi_print(test_mul_bigint_by_int_dataset_x[i]);
-            printf("\nNumber 2        : %x\n", test_mul_bigint_by_int_dataset_y[i]);
+            printf("\nNumber 2        : %x", test_mul_bigint_by_int_dataset_y[i]);
             printf("\nExpected result : ");
             bgi_print(test_mul_bigint_by_int_dataset_r[i]);
             printf("\nReceived result : ");
