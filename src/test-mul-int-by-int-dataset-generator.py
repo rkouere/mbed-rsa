@@ -46,7 +46,14 @@ def main():
         y = random.randint(0, pow(2, 32))
         r = x * y
         
-        tmp = string.rjust(str(hex(r)), 16, '0')
+        tmp = hex(r)
+
+        if tmp[len(tmp) - 1] == 'L':
+            tmp = tmp[2:len(tmp) - 1]
+        else:
+            tmp = tmp[2:len(tmp)]
+
+        tmp = string.rjust(str(tmp), 16, '0')
         
         if i == 0:
             tab_x = tab_x + str(hex(x))
@@ -59,14 +66,14 @@ def main():
             tab_y = tab_y + ", " + str(hex(y))
         
         if i == 0:
-            tab_a = tab_a + "0x" + tmp[2:10] + "u"
+            tab_a = tab_a + "0x" + tmp[0:8] + "u"
         else:
-            tab_a = tab_a + ", " + "0x" + tmp[2:10] + "u"
+            tab_a = tab_a + ", " + "0x" + tmp[0:8] + "u"
         
         if i == 0:
-            tab_b = tab_b + "0x" + tmp[10:18] + "u"
+            tab_b = tab_b + "0x" + tmp[8:16] + "u"
         else:
-            tab_b = tab_b + ", " + "0x" + tmp[10:18] + "u"
+            tab_b = tab_b + ", " + "0x" + tmp[8:16] + "u"
     
         i = i + 1
 
