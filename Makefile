@@ -13,11 +13,13 @@ COMPUTER_OBJ  += computer/obj/test-add.o
 COMPUTER_OBJ  += computer/obj/test-sub.o
 COMPUTER_OBJ  += computer/obj/test-mul-int-by-int.o
 COMPUTER_OBJ  += computer/obj/test-mul-bigint-by-int.o
+COMPUTER_OBJ  += computer/obj/test-lshift.o
 
 COMPUTER_BIN   = computer/bin/test-add
 COMPUTER_BIN  += computer/bin/test-sub
 COMPUTER_BIN  += computer/bin/test-mul-int-by-int
 COMPUTER_BIN  += computer/bin/test-mul-bigint-by-int
+COMPUTER_BIN  += computer/bin/test-lshift
 
 # Generic
 all: $(COMPUTER_BIN)
@@ -51,6 +53,9 @@ computer/obj/test-mul-bigint-by-int.o: src/test-mul-bigint-by-int.c src/test-mul
 computer/obj/test-mul-int-by-int.o: src/test-mul-int-by-int.c src/test-mul-int-by-int-dataset.c
 	gcc -m32 -c -o computer/obj/test-mul-int-by-int.o src/test-mul-int-by-int.c -D_COMPUTER_VERSION
 
+computer/obj/test-lshift.o: src/test-lshift.c src/test-add-dataset.c
+	gcc -m32 -c -o computer/obj/test-lshift.o src/test-lshift.c -D_COMPUTER_VERSION
+
 # Binaries
 computer/bin/test-add: computer/obj/test-add.o computer/obj/bigint.o
 	gcc -m32 -o computer/bin/test-add computer/obj/test-add.o computer/obj/bigint.o -D_COMPUTER_VERSION
@@ -64,12 +69,16 @@ computer/bin/test-mul-int-by-int: computer/obj/test-mul-int-by-int.o computer/ob
 computer/bin/test-mul-bigint-by-int: computer/obj/test-mul-bigint-by-int.o computer/obj/bigint.o
 	gcc -m32 -o computer/bin/test-mul-bigint-by-int computer/obj/test-mul-bigint-by-int.o computer/obj/bigint.o -D_COMPUTER_VERSION
 
+computer/bin/test-lshift: computer/obj/test-lshift.o computer/obj/bigint.o
+	gcc -m32 -o computer/bin/test-lshift computer/obj/test-lshift.o computer/obj/bigint.o -D_COMPUTER_VERSION
+
 # Tests
 tests: computer/bin/test-add computer/bin/test-sub computer/bin/test-mul-int-by-int computer/bin/test-mul-bigint-by-int
 	./computer/bin/test-add
 	./computer/bin/test-sub
 	./computer/bin/test-mul-int-by-int
 	./computer/bin/test-mul-bigint-by-int
+	./computer/bin/test-lshift
 
 # Misc
 .PHONY: clean

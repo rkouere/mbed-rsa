@@ -160,3 +160,21 @@ bgi_mul_bigint_by_int(mbed_bigint dest, const mbed_bigint x, const mbed_int y)
     dest[i] = carry;
 }
 
+
+/**
+ * @see bigint.h
+ */
+void 
+bgi_lshift(mbed_bigint x, mbed_int shift)
+{
+    mbed_int i;
+
+    /* Shift */
+    for (i = BIGINT_SIZE - shift; i > 0; i--)
+        x[i + shift] = x[i];
+
+    /* Padding with 0 */
+    for (i = shift; i > 0; i--)
+        x[i] = 0x0u;
+}
+
