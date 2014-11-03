@@ -89,6 +89,7 @@
      */
     extern void bgi_mul_int_by_int(mbed_int *dest1, mbed_int *dest2, 
         const mbed_int x, const mbed_int y);
+
     /**
      * Multiply a big integers by a small integer and put result in dest
      * @param dest The product x*y
@@ -97,6 +98,21 @@
      */
     extern void bgi_mul_bigint_by_int(mbed_bigint dest, const mbed_bigint x, 
         const mbed_int y);
-    
+
+    /**
+     * Multiply two big integers and put result in dest
+     * @param dest The product x*y
+     * @param x The first big int of multiplication
+     * @param y The second big int of multiplication
+     */
+    extern void bgi_mul(mbed_bigint dest, const mbed_bigint x, 
+        const mbed_bigint y);
+
+    /**
+     * Shift a number to the left
+     * @param x The big int to shift
+     * @param shift The shift value
+     */
+    extern void bgi_lshift(mbed_bigint x, mbed_int shift);
 
 #endif
