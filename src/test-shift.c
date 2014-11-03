@@ -16,13 +16,34 @@ mbed_int main()
 
     while (i < TEST_ADD_COUNT)
     {
-        printf("Number: \n");
+        printf("Number: ");
         bgi_print(test_add_dataset_x[i]);
+        putchar('\n');
         
-        printf("Number with %d shift: \n", (i % BIGINT_SIZE));
+        printf("Number with %d left shift: ", (i % BIGINT_SIZE));
 
         bgi_lshift(test_add_dataset_x[i], i % BIGINT_SIZE);
         bgi_print(test_add_dataset_x[i]);
+        putchar('\n');
+        putchar('\n');
+
+        i++;
+    }
+
+    i = 0;
+
+    while (i < TEST_ADD_COUNT)
+    {
+        printf("Number: ");
+        bgi_print(test_add_dataset_y[i]);
+        putchar('\n');
+        
+        printf("Number with %d right shift: ", (i % BIGINT_SIZE));
+
+        bgi_rshift(test_add_dataset_y[i], i % BIGINT_SIZE);
+        bgi_print(test_add_dataset_y[i]);
+        putchar('\n');
+        putchar('\n');
 
         i++;
     }

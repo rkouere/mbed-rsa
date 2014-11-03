@@ -169,12 +169,64 @@ bgi_lshift(mbed_bigint x, mbed_int shift)
 {
     mbed_int i;
 
-    /* Shift */
     for (i = BIGINT_SIZE - shift; i > 0; i--)
         x[i + shift] = x[i];
 
-    /* Padding with 0 */
     for (i = shift; i > 0; i--)
         x[i] = 0x0u;
 }
 
+
+/**
+ * @see bigint.h
+ */
+void 
+bgi_rshift(mbed_bigint x, mbed_int shift)
+{
+    mbed_int i;
+
+    for (i = 0 + shift; i <= BIGINT_SIZE; i++)
+        x[i] = x[i + shift];
+
+    for (i = BIGINT_SIZE + 1 - shift; i <= BIGINT_SIZE; i++)
+        x[i] = 0x0u;
+}
+
+
+/**
+ * @see bigint.h
+ */
+/*void 
+bgi_mul(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y, 
+const mbed_bigint m, const mbed_int mp)
+{
+    mbed_bigint u;
+    mbed_int i;
+    mbed_int tmp1, tmp2, tmp3;
+    mbed_bigint tmp4, tmp5, tmp6;
+    mbed_longint tmp7;
+
+    bgi_init(dest);
+    bgi_init(u);
+
+    for (i = 0; i < BIGINT_SIZE; i++)
+    {
+        bgi_init(tmp4);
+        bgi_init(tmp5);
+        bgi_init(tmp6);
+
+        bgi_mul_int_by_int(tmp1, tmp2, x[i], y[0]);
+        tmp3 = dest[0] + tmp2;
+        bgi_mul_int_by_int(tmp7[0], tmp7[1], mp, tmp3);
+        u[i] = 
+
+        bgi_mul_bigint_by_int(tmp4, y, x[i]);
+        bgi_mul_bigint_by_int(tmp5, m, u[i]);
+        bgi_add(tmp6, dest, tmp4);
+        bgi_add(tmp6, tmp6, tmp5);
+        bgi_div(dest, tmp6, MAX_MBED_INT);
+    }
+
+    if (bgi_cmp(dest, m) != -1)
+       bgi_sub(dest, dest, m); 
+}*/

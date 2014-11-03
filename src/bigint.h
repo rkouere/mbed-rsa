@@ -104,9 +104,11 @@
      * @param dest The product x*y
      * @param x The first big int of multiplication
      * @param y The second big int of multiplication
+     * @param m The modulus of multiplication
+     * @param mp The modulus inverse of multiplication
      */
-    extern void bgi_mul(mbed_bigint dest, const mbed_bigint x, 
-        const mbed_bigint y);
+    /*extern void bgi_mul(mbed_bigint dest, const mbed_bigint x, 
+        const mbed_bigint y, const mbed_bigint m, const mbed_int mp);*/
 
     /**
      * Shift a number to the left
@@ -114,5 +116,12 @@
      * @param shift The shift value
      */
     extern void bgi_lshift(mbed_bigint x, mbed_int shift);
+    
+    /**
+     * Shift a number to the rught
+     * @param x The big int to shift
+     * @param shift The shift value
+     */
+    extern void bgi_rshift(mbed_bigint x, mbed_int shift);
 
 #endif
