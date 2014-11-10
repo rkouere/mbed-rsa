@@ -107,8 +107,8 @@
      * @param m The modulus of multiplication
      * @param mp The modulus inverse of multiplication
      */
-    /*extern void bgi_mul(mbed_bigint dest, const mbed_bigint x, 
-        const mbed_bigint y, const mbed_bigint m, const mbed_int mp);*/
+    extern void bgi_mul(mbed_bigint dest, const mbed_bigint x, 
+        const mbed_bigint y, const mbed_int m, const mbed_int mp);
 
     /**
      * Shift a number to the left

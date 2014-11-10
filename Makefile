@@ -78,7 +78,7 @@ tests: computer/bin/test-add computer/bin/test-sub computer/bin/test-mul-int-by-
 	./computer/bin/test-sub
 	./computer/bin/test-mul-int-by-int
 	./computer/bin/test-mul-bigint-by-int
-	./computer/bin/test-shift
+#	./computer/bin/test-shift
 
 # Misc
 .PHONY: clean
