@@ -8,7 +8,7 @@
 import random
 import string
 from datetime import datetime
-import gmpy2
+from gmpy import invert
 from fractions import gcd
 
 # Number of tests
@@ -36,7 +36,7 @@ def generate_c_header():
     output = output + "#define TEST_MONT_MUL_COUNT " + str(set_count) + "u\n\n"
     tmp = generate_prime(pow(2,32))
     output = output + "#define TEST_MONT_MUL_MODULUS " + str(tmp) + "u\n\n"
-    output = output + "#define TEST_MONT_MUL_MODULUS_INVERSE " + str(gmpy2.invert(tmp,pow(2,32))) + "u\n\n"
+    output = output + "#define TEST_MONT_MUL_MODULUS_INVERSE " + str(invert(tmp,pow(2,32))) + "u\n\n"
     return output
 
 

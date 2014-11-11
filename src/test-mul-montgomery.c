@@ -17,18 +17,18 @@ mbed_int main()
 
     while (i < TEST_MONT_MUL_COUNT)
     {
-        bgi_init(dest);
-        bgi_mul(dest, test_mont_mul_dataset_x[i], test_mont_mul_dataset_x[i], TEST_MONT_MUL_MODULUS , TEST_MONT_MUL_MODULUS_INVERSE);
+        dest = 0;
+        bgi_mul(&dest, test_mont_mul_dataset_x[i], test_mont_mul_dataset_x[i], TEST_MONT_MUL_MODULUS , TEST_MONT_MUL_MODULUS_INVERSE);
 
-        if (dest, test_mul_mont_dataset_y[i] != 0)
+        if (dest, test_mont_mul_dataset_y[i] != 0)
         {
             printf("[FAIL] Test bgi_mul %d / %d", i + 1, TEST_MONT_MUL_COUNT);
             printf("\nNumber 1        : ");
             bgi_print(test_mont_mul_dataset_x[i]);
             printf("\nExpected result : ");
-            bgi_print(test_mont_mul_dataset_y[i]);
+            printf("%d", test_mont_mul_dataset_y[i]);
             printf("\nReceived result : ");
-            fprint("%d", dest);
+            printf("%d", dest);
             putchar('\n');
             exit(EXIT_FAILURE);
         }
