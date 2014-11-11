@@ -206,19 +206,32 @@ const mbed_int m, const mbed_int mp)
     bgi_init(a);
     bgi_init(u);
     bgi_init(tmp3);
+    
+    /* DEBUG */ printf("  i  |       xi      |     xi*y0    |      ui      |                            xi*y                            |             ui*0           |                              a\n");
+    /* DEBUG */ printf("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
     for (i = 0; i < BIGINT_SIZE; i++)
     {
+        /* DEBUG */ printf(" %2d  | ", i);
+        /* DEBUG */ printf("%13d |", x[i]);
+        /* DEBUG */ printf("%13d |", x[i] * y[0]);
+        /* DEBUG */ printf("%13d |", u[i]);
+
         bgi_init(tmp1);
         bgi_init(tmp2);
 
         u[i] = ((a[0] + (x[i] * y[0])) * mp) % MAX_MBED_INT;
 
         bgi_mul_bigint_by_int(tmp1, y, x[i]);
+        /* DEBUG */ printf("%13d %13d %13d %13d ... |", tmp1[0], tmp1[1], tmp1[2], tmp1[3]);
         bgi_add(a, a, tmp1);
         bgi_mul_int_by_int(&(tmp2[0]), &(tmp2[1]), u[i], m);
+        /* DEBUG */ printf("%13d %13d |", tmp2[0], tmp2[1]);
         bgi_add(a, a, tmp2);
         bgi_lshift(a, 1);
+        /* DEBUG */ printf("%13d %13d %13d %13d ...", a[0], a[1], a[2], a[3]);
+        
+        /* DEBUG */ printf("\n");
     }
 
     tmp3[0] = m;
