@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # RSA implementation and attack on Mbed
-# Data generator for Montgomery's mult testing
+# Data generator for mont_mul testing
 # @author Cyrille Toulet, <cyrille.toulet@gmail.com>
 # @author Benjamin Burnouf, <benjamin76360@gmail.com>
 
@@ -19,7 +19,7 @@ def generate_c_header():
     '''
     output = "/**\n"
     output = output + " * RSA implementation and attack on Mbed\n"
-    output = output + " * Data set used to test mongomery's mult function in bigint library\n"
+    output = output + " * Data set used to test mont_mul function in bigint library\n"
     output = output + " * Generated at compilation the " + str(datetime.now()) + "\n"
     output = output + " * @author Cyrille Toulet, <cyrille.toulet@gmail.com>\n"
     output = output + " * @author Benjamin Burnouf, <benjamin76360@gmail.com>\n"
@@ -78,12 +78,12 @@ def main():
     code = generate_c_header()
 
     tab_x = ""
-    tab_r = ""
+    tab_y = ""
 
     i = 0
     while i < set_count:
         x = random.randint(0, pow(pow(2, 32), 32))
-        r = pow(x, 2, pow(2,32))
+        y = pow(x, 2, pow(2, 32))
         
         if i == 0:
             tab_x = tab_x + "\t" + generate_c_array(x)
@@ -91,15 +91,15 @@ def main():
             tab_x = tab_x + ",\n\t" + generate_c_array(x)
         
         if i == 0:
-            tab_r = tab_r + "\t" + generate_c_array(r)
+            tab_y = tab_y + str(hex(y))
         else:
-            tab_r = tab_r + ",\n\t" + generate_c_array(r)
-
+            tab_y = tab_y + ", " + str(hex(y))
+        
         i = i + 1
 
 
-    code = code + "mbed_int test_mul_bigint_by_int_dataset_x[TEST_MUL_BIGINT_BY_INT_COUNT][BIGINT_SIZE + 1] = {\n" + tab_x + "\n};\n"
-    code = code + "mbed_int test_mul_bigint_by_int_dataset_r[TEST_MUL_BIGINT_BY_INT_COUNT][BIGINT_SIZE + 1] = {\n" + tab_r + "\n};\n"
+    code = code + "mbed_int test_mont_mul_dataset_x[TEST_MONT_MUL_COUNT][BIGINT_SIZE + 1] = {\n" + tab_x + "\n};\n"
+    code = code + "mbed_int test_mont_mul_dataset_y[TEST_MONT_MUL_COUNT] = {" + tab_y + "};\n"
 
     print code
 
