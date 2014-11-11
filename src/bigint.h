@@ -101,13 +101,13 @@
 
     /**
      * Multiply two big integers and put result in dest
-     * @param dest The product x*y
+     * @param dest The Montgomery multiplication result
      * @param x The first big int of multiplication
      * @param y The second big int of multiplication
      * @param m The modulus of multiplication
      * @param mp The modulus inverse of multiplication
      */
-    extern void bgi_mul(mbed_bigint dest, const mbed_bigint x, 
+    extern void bgi_mul(mbed_int *dest, const mbed_bigint x, 
         const mbed_bigint y, const mbed_int m, const mbed_int mp);
 
     /**

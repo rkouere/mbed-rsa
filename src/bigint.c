@@ -197,13 +197,13 @@ bgi_rshift(mbed_bigint x, mbed_int shift)
  * @see bigint.h
  */
 void 
-bgi_mul(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y, 
+bgi_mul(mbed_int *dest, const mbed_bigint x, const mbed_bigint y, 
 const mbed_int m, const mbed_int mp)
 {
-    mbed_bigint u, tmp1, tmp2, tmp3;
+    mbed_bigint a, u, tmp1, tmp2, tmp3;
     mbed_int i;
 
-    bgi_init(dest);
+    bgi_init(a);
     bgi_init(u);
     bgi_init(tmp3);
 
@@ -212,17 +212,20 @@ const mbed_int m, const mbed_int mp)
         bgi_init(tmp1);
         bgi_init(tmp2);
 
-        u[i] = ((dest[0] + (x[i] * y[0])) * mp) % MAX_MBED_INT;
+        u[i] = ((a[0] + (x[i] * y[0])) * mp) % MAX_MBED_INT;
 
         bgi_mul_bigint_by_int(tmp1, y, x[i]);
-        bgi_add(dest, dest, tmp1);
+        bgi_add(a, a, tmp1);
         bgi_mul_int_by_int(&(tmp2[0]), &(tmp2[1]), u[i], m);
-        bgi_add(dest, dest, tmp2);
-        bgi_lshift(dest, 1);
+        bgi_add(a, a, tmp2);
+        bgi_lshift(a, 1);
     }
 
     tmp3[0] = m;
 
-    if (bgi_cmp(dest, tmp3) != -1)
-       bgi_sub(dest, dest, tmp3); 
+    if (bgi_cmp(a, tmp3) != -1)
+       bgi_sub(a, a, tmp3); 
+
+    *dest = a[0];
 }
+
