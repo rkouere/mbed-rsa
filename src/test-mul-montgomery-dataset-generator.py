@@ -8,7 +8,7 @@
 import random
 import string
 from datetime import datetime
-from gmpy import invert
+from gmpy2 import invert
 from fractions import gcd
 
 # Number of tests
@@ -102,9 +102,9 @@ def main():
             tab_x = tab_x + ",\n\t" + generate_c_array(x)
         
         if i == 0:
-            tab_y = tab_y + str(hex(y))
+            tab_y = tab_y + str(hex(y)).replace('L', 'u')
         else:
-            tab_y = tab_y + ", " + str(hex(y))
+            tab_y = tab_y + ", " + str(hex(y).replace('L', 'u'))
         
         i = i + 1
 
