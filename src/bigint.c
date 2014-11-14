@@ -219,7 +219,7 @@ const mbed_int m, const mbed_int mp)
         bgi_init(tmp1);
         bgi_init(tmp2);
 
-        u[i] = ((a[0] + (x[i] * y[0])) * mp) % MAX_MBED_INT;
+        u[i] = (mbed_int) ((((mbed_long_int) a[0] + ((mbed_long_int) x[i] * (mbed_long_int) y[0])) * (mbed_long_int) mp) % (mbed_long_int) MAX_MBED_INT);
         /* DEBUG */ printf(" %8x |", u[i]);
 
         bgi_mul_bigint_by_int(tmp1, y, x[i]);
