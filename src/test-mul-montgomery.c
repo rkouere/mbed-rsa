@@ -26,9 +26,9 @@ mbed_int main()
             printf("\nNumber 1        : ");
             bgi_print(test_mont_mul_dataset_x[i]);
             printf("\nExpected result : ");
-            printf("%d", test_mont_mul_dataset_y[i]);
+            printf("%8x", test_mont_mul_dataset_y[i]);
             printf("\nReceived result : ");
-            printf("%d", dest);
+            printf("%8x", dest);
             putchar('\n');
             exit(EXIT_FAILURE);
         }
