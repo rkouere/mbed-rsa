@@ -209,8 +209,8 @@ const mbed_int m, const mbed_int mp)
     bgi_init(u);
     bgi_init(tmp3);
     
-    /* DEBUG */ printf("  i  |     xi    |  xi*y0   |    ui    |                  xi*y                   |   ui*m   |                       a\n");
-    /* DEBUG */ printf("------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    /* DEBUG */ printf("  i  |     xi    |  xi*y0   |    ui    |                  xi*y                   |   ui*m   |                  a\n");
+    /* DEBUG */ printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
 
     for (i = 0; i < BIGINT_SIZE; i++)
     {
@@ -244,7 +244,9 @@ const mbed_int m, const mbed_int mp)
     tmp3[0] = m;
 
     if (bgi_cmp(a, tmp3) != -1)
-       bgi_sub(a, a, tmp3); 
+        bgi_sub(a, a, tmp3);
+
+    /*bgi_print(a);*/
 
     *dest = a[0];
 }
