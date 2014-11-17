@@ -94,7 +94,7 @@ bgi_add(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
 
     for (i = (mbed_int) 0; i < BIGINT_SIZE; i++)
     {
-        dest[i] = (x[i] + y[i] + carry) % MAX_MBED_INT;
+        dest[i] = (x[i] + y[i] + carry);
         carry = (MAX_MBED_INT - x[i] - carry) < y[i]? (mbed_int) 1: (mbed_int) 0;
     }
 
@@ -113,7 +113,7 @@ bgi_sub(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
 
     for (i = (mbed_int) 0; i < BIGINT_SIZE; i++)
     {
-        dest[i] = (x[i] - y[i] + carry) % MAX_MBED_INT;
+        dest[i] = (x[i] - y[i] + carry);
         carry = (x[i] + carry) <= y[i]? (mbed_int) -1: (mbed_int) 0;
     }
 
@@ -149,9 +149,9 @@ bgi_mul_bigint_by_int(mbed_bigint dest, const mbed_bigint x, const mbed_int y)
     {
         temp = carry;
         bgi_mul_int_by_int(&carry, &rest, x[i], y);
-        if ( rest > MAX_MBED_INT-temp) 
+        if ( rest > MAX_MBED_INT - 1 - temp) 
         {
-            dest[i] = rest + temp % MAX_MBED_INT;
+            dest[i] = rest + temp;
             carry ++;
         }
         else 
@@ -221,9 +221,9 @@ const mbed_int m, const mbed_int mp)
 
         /*u[i] = (mbed_int) ((((mbed_long_int) a[0] + ((mbed_long_int) x[i] * (mbed_long_int) y[0])) * (mbed_long_int) mp) % (mbed_long_int) MAX_MBED_INT);*/
 
-        u[i] = ((x[i] * y[0]) % MAX_MBED_INT);
-        u[i] = ((a[0] + u[i]) % MAX_MBED_INT);
-        u[i] = ((u[i] * mp) % MAX_MBED_INT);
+        u[i] = (x[i] * y[0]);
+        u[i] = (a[0] + u[i]);
+        u[i] = (u[i] * mp);
         /* DEBUG */ printf(" %8x |", u[i]);
 
         bgi_mul_bigint_by_int(tmp1, y, x[i]);
