@@ -8,7 +8,7 @@
 import random
 import string
 from datetime import datetime
-from gmpy2 import invert
+from gmpy import invert
 from fractions import gcd
 
 # Number of tests
@@ -19,6 +19,8 @@ def generate_prime(base):
     while gcd(output,base) != 1 : 
         output = random.randint(0,base)
     return output
+
+modulus = (random.randint(0,1<<1023-1)<<1)|1
 
 def generate_c_header():
     '''
@@ -34,9 +36,8 @@ def generate_c_header():
     output = output + " **/\n\n"
     output = output + "#include \"bigint.h\"\n\n"
     output = output + "#define TEST_MONT_MUL_COUNT " + str(set_count) + "u\n\n"
-    tmp = generate_prime(pow(2,32))
-    output = output + "#define TEST_MONT_MUL_MODULUS " + str(tmp) + "u\n\n"
-    output = output + "#define TEST_MONT_MUL_MODULUS_INVERSE " + str(invert(tmp,pow(2,32))) + "u\n\n"
+#    output = output + "#define TEST_MONT_MUL_MODULUS " + str(modulus) + "u\n\n"
+#    output = output + "#define TEST_MONT_MUL_MODULUS_INVERSE " + str(-invert(modulus,pow(2,32))) + "\n\n"
     return output
 
 
@@ -90,27 +91,36 @@ def main():
 
     tab_x = ""
     tab_y = ""
+    tab_m = ""
 
     i = 0
     while i < set_count:
         x = random.randint(0, pow(pow(2, 32), 32))
-        y = pow(x, 2, pow(2, 32))
-        
+        modulus = (random.randint(0,1<<1023-1)<<1)|1
+        y = (x*x)%modulus
+	        
         if i == 0:
             tab_x = tab_x + "\t" + generate_c_array(x)
         else:
             tab_x = tab_x + ",\n\t" + generate_c_array(x)
         
         if i == 0:
-            tab_y = tab_y + str(hex(y)).replace('L', 'u')
+            tab_y = tab_y + "\t" + generate_c_array(y)
         else:
-            tab_y = tab_y + ", " + str(hex(y).replace('L', 'u'))
-        
+            tab_y = tab_y + ",\n\t" + generate_c_array(y)
+
+	if i == 0:
+            tab_m = tab_m + "\t" + generate_c_array(modulus)
+        else:
+            tab_m = tab_m + ",\n\t" + generate_c_array(modulus)
+
         i = i + 1
 
+    code = code + "mbed_int test_mont_mul_dataset_modulus[TEST_MONT_MUL_COUNT][BIGINT_SIZE + 1] = {\n" + tab_m +"\n};\n"
+    code = code + "mbed_int test_mont_mul_dataset_modulus_invert[TEST_MONT_MUL_COUNT] = -invert(modulus,pow(2,32));\n"
 
     code = code + "mbed_int test_mont_mul_dataset_x[TEST_MONT_MUL_COUNT][BIGINT_SIZE + 1] = {\n" + tab_x + "\n};\n"
-    code = code + "mbed_int test_mont_mul_dataset_y[TEST_MONT_MUL_COUNT] = {" + tab_y + "};\n"
+    code = code + "mbed_int test_mont_mul_dataset_y[TEST_MONT_MUL_COUNT][BIGINT_SIZE + 1] = {\n" + tab_y + "\n};\n"
 
     print code
 

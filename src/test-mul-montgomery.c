@@ -13,12 +13,11 @@
 mbed_int main()
 {
     mbed_int i = 0;
-    mbed_int dest;
+    mbed_bigint dest;
 
     while (i < TEST_MONT_MUL_COUNT)
     {
-        dest = 0;
-        bgi_mul(&dest, test_mont_mul_dataset_x[i], test_mont_mul_dataset_x[i], TEST_MONT_MUL_MODULUS , TEST_MONT_MUL_MODULUS_INVERSE);
+        bgi_mul(&dest, test_mont_mul_dataset_x[i], test_mont_mul_dataset_x[i], test_mont_mul_dataset_modulus[i] , test_mont_mul_dataset_modulus_invert[i]);
 
         if (dest, test_mont_mul_dataset_y[i] != 0)
         {
@@ -26,9 +25,9 @@ mbed_int main()
             printf("\nNumber 1        : ");
             bgi_print(test_mont_mul_dataset_x[i]);
             printf("\nExpected result : ");
-            printf("%8x", test_mont_mul_dataset_y[i]);
+            bgi_print(test_mont_mul_dataset_y[i]);
             printf("\nReceived result : ");
-            printf("%8x", dest);
+            bgi_print(dest);
             putchar('\n');
             exit(EXIT_FAILURE);
         }
