@@ -117,7 +117,7 @@ def main():
         i = i + 1
 
     code = code + "mbed_int test_mont_mul_dataset_modulus[TEST_MONT_MUL_COUNT][BIGINT_SIZE + 1] = {\n" + tab_m +"\n};\n"
-    code = code + "mbed_int test_mont_mul_dataset_modulus_invert[TEST_MONT_MUL_COUNT] = -invert(modulus,pow(2,32));\n"
+    code = code + "mbed_int test_mont_mul_dataset_modulus_invert[TEST_MONT_MUL_COUNT] = " + str(-invert(modulus,pow(2,32))) + ";\n"
 
     code = code + "mbed_int test_mont_mul_dataset_x[TEST_MONT_MUL_COUNT][BIGINT_SIZE + 1] = {\n" + tab_x + "\n};\n"
     code = code + "mbed_int test_mont_mul_dataset_y[TEST_MONT_MUL_COUNT][BIGINT_SIZE + 1] = {\n" + tab_y + "\n};\n"
