@@ -175,7 +175,7 @@ bgi_lshift(mbed_bigint x, mbed_int shift)
         x[i + shift] = x[i];
 
     for (i = shift; i > 0; i--)
-        x[i] = 0x0u;
+        x[i - 1] = 0x0u;
 }
 
 
