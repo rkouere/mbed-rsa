@@ -17,7 +17,8 @@ mbed_int main()
 
     while (i < TEST_MONT_MUL_COUNT)
     {
-        bgi_mul(&dest, test_mont_mul_dataset_x[i], test_mont_mul_dataset_x[i], test_mont_mul_dataset_modulus[i] , test_mont_mul_dataset_modulus_invert[i]);
+        bgi_init(dest);
+        bgi_mul(dest, test_mont_mul_dataset_x[i], test_mont_mul_dataset_x[i], test_mont_mul_dataset_modulus[i] , test_mont_mul_dataset_modulus_invert[i]);
 
         if (dest, test_mont_mul_dataset_y[i] != 0)
         {

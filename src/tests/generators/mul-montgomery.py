@@ -92,6 +92,7 @@ def main():
     tab_x = ""
     tab_y = ""
     tab_m = ""
+    tab_mp = ""
 
     i = 0
     while i < set_count:
@@ -113,11 +114,16 @@ def main():
             tab_m = tab_m + "\t" + generate_c_array(modulus)
         else:
             tab_m = tab_m + ",\n\t" + generate_c_array(modulus)
+	
+        if i == 0:
+            tab_mp = tab_mp + "\t" + str(hex(invert(modulus,pow(2,32)))) + "u"
+        else:
+            tab_mp = tab_mp + ",\n\t" + str(hex(invert(modulus,pow(2,32)))) + "u"
 
         i = i + 1
 
-    code = code + "mbed_int test_mont_mul_dataset_modulus[TEST_MONT_MUL_COUNT][BIGINT_SIZE + 1] = {\n" + tab_m +"\n};\n"
-    code = code + "mbed_int test_mont_mul_dataset_modulus_invert[TEST_MONT_MUL_COUNT] = " + str(-invert(modulus,pow(2,32))) + ";\n"
+    code = code + "mbed_int test_mont_mul_dataset_modulus[TEST_MONT_MUL_COUNT][BIGINT_SIZE + 1] = {\n" + tab_m + "\n};\n"
+    code = code + "mbed_int test_mont_mul_dataset_modulus_invert[TEST_MONT_MUL_COUNT]  = {\n" + tab_mp + "\n};\n"
 
     code = code + "mbed_int test_mont_mul_dataset_x[TEST_MONT_MUL_COUNT][BIGINT_SIZE + 1] = {\n" + tab_x + "\n};\n"
     code = code + "mbed_int test_mont_mul_dataset_y[TEST_MONT_MUL_COUNT][BIGINT_SIZE + 1] = {\n" + tab_y + "\n};\n"

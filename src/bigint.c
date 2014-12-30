@@ -29,7 +29,7 @@ bgi_cpy(mbed_bigint dest, const mbed_bigint src)
 {
     mbed_int i;
 
-    for(i = (mbed_int) 0; i <= BIGINT_SIZE + 1; i++)
+    for(i = (mbed_int) 0; i <= BIGINT_SIZE + 1 ; i++)
         dest[i] = src[i];
 }
 
@@ -202,12 +202,12 @@ void
 bgi_mul(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y, 
 const mbed_bigint m, const mbed_int mp)
 {
-    mbed_bigint a, u, tmp1, tmp2, tmp3;
+    mbed_bigint a, u, tmp1, tmp2;
     mbed_int i;
 
     bgi_init(a);
     bgi_init(u);
-    bgi_init(tmp3);
+    
     
     /* DEBUG */ printf("  i  |     xi    |  xi*y0   |    ui    |                  xi*y                   |   ui*m   |                  a\n");
     /* DEBUG */ printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
@@ -221,12 +221,12 @@ const mbed_bigint m, const mbed_int mp)
         bgi_init(tmp1);
         bgi_init(tmp2);
 
-        /*u[i] = (mbed_int) ((((mbed_long_int) a[0] + ((mbed_long_int) x[i] * (mbed_long_int) y[0])) * (mbed_long_int) mp) % (mbed_long_int) MAX_MBED_INT);*/
-
-        u[i] = (x[i] * y[0]);
-        u[i] = (a[0] + u[i]);
-        u[i] = (u[i] * mp);
+        u[i] = ((a[0] + (x[i] * y[0])) * (-mp));
         /* DEBUG */ printf(" %8x |", u[i]);
+
+
+
+
 
         bgi_mul_bigint_by_int(tmp1, y, x[i]);
         /* DEBUG */ printf(" %8x %8x %8x %8x ... |", tmp1[0], tmp1[1], tmp1[2], tmp1[3]);
@@ -236,10 +236,23 @@ const mbed_bigint m, const mbed_int mp)
         /*tmp2[0] = u[i] * m;*/
         /* DEBUG */ printf(" %8x |", tmp2[0]);
         bgi_add(a, a, tmp2);
+
+
+
+
         bgi_rshift(a, 1);
         /* DEBUG */ printf(" %8x %8x %8x %8x ...", a[0], a[1], a[2], a[3]);
-        
+       
+
         /* DEBUG */ printf("\n");
+       if(0){
+        /* DEBUG */ printf("##########");
+        /* DEBUG */ printf("\n");
+        bgi_print(a);
+        /* DEBUG */ printf("\n");
+        /* DEBUG */ printf("##########");
+        /* DEBUG */ printf("\n");
+        }
     }
 
     if (bgi_cmp(a, m) != -1)
@@ -247,6 +260,6 @@ const mbed_bigint m, const mbed_int mp)
 
     /*bgi_print(a);*/
 
-    dest = a;
+    bgi_cpy(dest,a);
 }
 
