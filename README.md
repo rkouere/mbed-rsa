@@ -4,7 +4,7 @@
 
 To install dependencies:
 ```sh
-sudo aptitude install lib32c-dev
+sudo aptitude install lib32c-dev python-gmpy
 ```
 
 ## Compilation
