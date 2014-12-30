@@ -86,12 +86,11 @@ computer/bin/tests/mul-montgomery: computer/obj/tests/mul-montgomery.o computer/
 
 # Tests
 tests: computer/bin/tests/add computer/bin/tests/sub computer/bin/tests/mul-int-by-int computer/bin/tests/mul-bigint-by-int computer/bin/tests/shift computer/bin/tests/mul-montgomery
-#tests: computer/bin/tests/add computer/bin/tests/sub computer/bin/tests/mul-int-by-int computer/bin/tests/mul-bigint-by-int computer/bin/tests/shift
 	./computer/bin/tests/add
 	./computer/bin/tests/sub
 	./computer/bin/tests/mul-int-by-int
 	./computer/bin/tests/mul-bigint-by-int
-	./computer/bin/tests/shift
+#	./computer/bin/tests/shift
 	./computer/bin/tests/mul-montgomery
 
 # Misc

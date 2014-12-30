@@ -204,63 +204,61 @@ const mbed_bigint m, const mbed_int mp)
 {
     mbed_bigint a, u, tmp1, tmp2;
     mbed_int i;
+    mbed_int debug = 1; /* DEBUG */
 
     bgi_init(a);
     bgi_init(u);
     
-    
-    /* DEBUG */ printf("  i  |     xi    |  xi*y0   |    ui    |                  xi*y                   |   ui*m   |                  a\n");
-    /* DEBUG */ printf("--------------------------------------------------------------------------------------------------------------------------------------\n");
+    if (debug)
+    {
+        printf("  i  |     xi    |  xi*y0   |    ui    |                                                                                                                                                       xi*y                                                                                                                                      |   ui*m   |                                                                                                                                                               a\n");
+        printf("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    }
 
     for (i = 0; i < BIGINT_SIZE; i++)
     {
-        /* DEBUG */ printf(" %2d  | ", i);
-        /* DEBUG */ printf(" %8x |", x[i]);
-        /* DEBUG */ printf(" %8x |", x[i] * y[0]);
+        if (debug)
+        {
+            printf(" %2d  | ", i);
+            printf(" %8x |", x[i]);
+            printf(" %8x |", x[i] * y[0]);
+        }
 
         bgi_init(tmp1);
         bgi_init(tmp2);
 
         u[i] = ((a[0] + (x[i] * y[0])) * (-mp));
-        /* DEBUG */ printf(" %8x |", u[i]);
 
-
-
-
+        if (debug)
+            printf(" %8x |", u[i]);
 
         bgi_mul_bigint_by_int(tmp1, y, x[i]);
-        /* DEBUG */ printf(" %8x %8x %8x %8x ... |", tmp1[0], tmp1[1], tmp1[2], tmp1[3]);
+
+        if (debug)
+        {
+            bgi_print(tmp1);
+            printf(" |");
+        }
+
         bgi_add(a, a, tmp1);
-        /*bgi_mul_int_by_int(&(tmp2[0]), &(tmp2[1]), u[i], m);*/
 	bgi_mul_bigint_by_int(tmp2,m,u[i]);
-        /*tmp2[0] = u[i] * m;*/
-        /* DEBUG */ printf(" %8x |", tmp2[0]);
+
+        if (debug)
+            printf(" %8x |", tmp2[0]);
+
         bgi_add(a, a, tmp2);
 
-
-
-
         bgi_rshift(a, 1);
-        /* DEBUG */ printf(" %8x %8x %8x %8x ...", a[0], a[1], a[2], a[3]);
-       
 
-        /* DEBUG */ printf("\n");
-       if(0){
-        /* DEBUG */ printf("##########");
-        /* DEBUG */ printf("\n");
-        bgi_print(a);
-        /* DEBUG */ printf("\n");
-        /* DEBUG */ printf("##########");
-        /* DEBUG */ printf("\n");
+        if (debug)
+        {
+            bgi_print(a);
+            printf("\n");
         }
     }
-    bgi_print(a);
 
     if (bgi_cmp(a, m) != -1)
         bgi_sub(a, a, m);
-    bgi_print(a);
-
-    /*bgi_print(a);*/
 
     bgi_cpy(dest,a);
 }
