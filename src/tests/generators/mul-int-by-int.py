@@ -24,7 +24,7 @@ def generate_c_header():
     output = output + " * @author Cyrille Toulet, <cyrille.toulet@gmail.com>\n"
     output = output + " * @author Benjamin Burnouf, <benjamin76360@gmail.com>\n"
     output = output + " **/\n\n"
-    output = output + "#include \"bigint.h\"\n\n"
+    output = output + "#include \"../../bigint.h\"\n\n"
     output = output + "#define TEST_MUL_INT_BY_INT_COUNT " + str(set_count) + "u\n\n"
     return output
 

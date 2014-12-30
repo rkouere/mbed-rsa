@@ -7,8 +7,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "bigint.h"
-#include "test-mul-montgomery-dataset.c"
+#include "../bigint.h"
+#include "datasets/mul-montgomery.c"
 
 mbed_int main()
 {

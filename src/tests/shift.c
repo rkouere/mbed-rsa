@@ -7,8 +7,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "bigint.h"
-#include "test-add-dataset.c"
+#include "../bigint.h"
+#include "datasets/add.c"
 
 mbed_int main()
 {

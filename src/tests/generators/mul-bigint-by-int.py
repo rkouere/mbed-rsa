@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # RSA implementation and attack on Mbed
-# Data generator for bgi_add testing
+# Data generator for bgi_mul_int testing
 # @author Cyrille Toulet, <cyrille.toulet@gmail.com>
 # @author Benjamin Burnouf, <benjamin76360@gmail.com>
 
@@ -19,13 +19,13 @@ def generate_c_header():
     '''
     output = "/**\n"
     output = output + " * RSA implementation and attack on Mbed\n"
-    output = output + " * Data set used to test bgi_add function in bigint library\n"
+    output = output + " * Data set used to test bgi_mul_bigint_by_int function in bigint library\n"
     output = output + " * Generated at compilation the " + str(datetime.now()) + "\n"
     output = output + " * @author Cyrille Toulet, <cyrille.toulet@gmail.com>\n"
     output = output + " * @author Benjamin Burnouf, <benjamin76360@gmail.com>\n"
     output = output + " **/\n\n"
-    output = output + "#include \"bigint.h\"\n\n"
-    output = output + "#define TEST_ADD_COUNT " + str(set_count) + "u\n\n"
+    output = output + "#include \"../../bigint.h\"\n\n"
+    output = output + "#define TEST_MUL_BIGINT_BY_INT_COUNT " + str(set_count) + "u\n\n"
     return output
 
 
@@ -76,17 +76,16 @@ def main():
     Run the main application
     '''
     code = generate_c_header()
-    
+
     tab_x = ""
     tab_y = ""
     tab_r = ""
 
     i = 0
-
     while i < set_count:
         x = random.randint(0, pow(pow(2, 32), 32))
-        y = random.randint(0, pow(pow(2, 32), 32))
-        r = x + y
+        y = random.randint(0, pow(2, 32))
+        r = x * y
         
         if i == 0:
             tab_x = tab_x + "\t" + generate_c_array(x)
@@ -94,22 +93,21 @@ def main():
             tab_x = tab_x + ",\n\t" + generate_c_array(x)
         
         if i == 0:
-            tab_y = tab_y + "\t" + generate_c_array(y)
+            tab_y = tab_y + str(hex(y))
         else:
-            tab_y = tab_y + ",\n\t" + generate_c_array(y)
+            tab_y = tab_y + ", " + str(hex(y))
         
         if i == 0:
             tab_r = tab_r + "\t" + generate_c_array(r)
         else:
             tab_r = tab_r + ",\n\t" + generate_c_array(r)
 
-    
         i = i + 1
 
 
-    code = code + "mbed_int test_add_dataset_x[TEST_ADD_COUNT][BIGINT_SIZE + 1] = {\n" + tab_x + "\n};\n"
-    code = code + "mbed_int test_add_dataset_y[TEST_ADD_COUNT][BIGINT_SIZE + 1] = {\n" + tab_y + "\n};\n"
-    code = code + "mbed_int test_add_dataset_r[TEST_ADD_COUNT][BIGINT_SIZE + 1] = {\n" + tab_r + "\n};\n"
+    code = code + "mbed_int test_mul_bigint_by_int_dataset_x[TEST_MUL_BIGINT_BY_INT_COUNT][BIGINT_SIZE + 1] = {\n" + tab_x + "\n};\n"
+    code = code + "mbed_int test_mul_bigint_by_int_dataset_y[TEST_MUL_BIGINT_BY_INT_COUNT] = {" + tab_y + "};\n"
+    code = code + "mbed_int test_mul_bigint_by_int_dataset_r[TEST_MUL_BIGINT_BY_INT_COUNT][BIGINT_SIZE + 1] = {\n" + tab_r + "\n};\n"
 
     print code
 
