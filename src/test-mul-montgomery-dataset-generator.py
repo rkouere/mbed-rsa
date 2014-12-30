@@ -20,7 +20,7 @@ def generate_prime(base):
         output = random.randint(0,base)
     return output
 
-modulus = (random.randint(0,1<<1023-1)<<1)|1
+# modulus = (random.randint(0,1<<1023-1)<<1)|1
 
 def generate_c_header():
     '''
