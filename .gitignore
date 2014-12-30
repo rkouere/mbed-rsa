@@ -29,10 +29,4 @@
 *.hex
 
 # Generated files
-src/test-*-dataset.c
-computer
-computer/*
-mbed
-mbed/*
 *.swp
-src/*.swp

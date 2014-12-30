@@ -34,7 +34,7 @@ def generate_c_header():
     output = output + " * @author Cyrille Toulet, <cyrille.toulet@gmail.com>\n"
     output = output + " * @author Benjamin Burnouf, <benjamin76360@gmail.com>\n"
     output = output + " **/\n\n"
-    output = output + "#include \"bigint.h\"\n\n"
+    output = output + "#include \"../../bigint.h\"\n\n"
     output = output + "#define TEST_MONT_MUL_COUNT " + str(set_count) + "u\n\n"
 #    output = output + "#define TEST_MONT_MUL_MODULUS " + str(modulus) + "u\n\n"
 #    output = output + "#define TEST_MONT_MUL_MODULUS_INVERSE " + str(-invert(modulus,pow(2,32))) + "\n\n"
