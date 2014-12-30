@@ -254,9 +254,11 @@ const mbed_bigint m, const mbed_int mp)
         /* DEBUG */ printf("\n");
         }
     }
+    bgi_print(a);
 
     if (bgi_cmp(a, m) != -1)
         bgi_sub(a, a, m);
+    bgi_print(a);
 
     /*bgi_print(a);*/
 
