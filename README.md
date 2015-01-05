@@ -9,27 +9,16 @@ sudo aptitude install lib32c-dev python-gmpy
 
 ## Compilation
 
-### Computer compilation
-
-To compile for computer:
-```sh
-make computer
-```
-
-### Mbed compilation
-
-To compile for mbed:
-```sh
-make mbed
-```
-
-### Both compilation
-
-To compile for all devices:
+To compile:
 ```sh
 make
-# or
-make all
+```
+
+### Tests
+
+To make tests:
+```sh
+make tests
 ```
 
 ### Clean project

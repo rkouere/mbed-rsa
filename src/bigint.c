@@ -57,7 +57,7 @@ bgi_print(const mbed_bigint x)
 mbed_int
 bgi_cmp(const mbed_bigint x, const mbed_bigint y)
 {
-    mbed_int i = (BIGINT_SIZE - 1);
+    mbed_int i = BIGINT_SIZE;
 
     while (i > 0) 
         if (x[i] != y[i]) 
@@ -100,7 +100,7 @@ bgi_add(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
         carry = (MAX_MBED_INT - x[i] - carry) < y[i]? (mbed_int) 1: (mbed_int) 0;
     }
 
-    dest[i] = carry;
+    dest[i] += carry;
 }
 
 
@@ -187,7 +187,7 @@ bgi_rshift(mbed_bigint x, mbed_int shift)
 {
     mbed_int i;
 
-    for (i = 0 + shift; i <= BIGINT_SIZE; i++)
+    for (i = 0; i <= BIGINT_SIZE - shift; i++)
         x[i] = x[i + shift];
 
     for (i = BIGINT_SIZE + 1 - shift; i <= BIGINT_SIZE; i++)
