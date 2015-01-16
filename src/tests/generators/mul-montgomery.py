@@ -98,7 +98,11 @@ def main():
     while i < set_count:
         x = random.randint(0, pow(pow(2, 32), 32))
         modulus = (random.randint(0,1<<1023-1)<<1)|1
-        y = (x*x)%modulus
+	b = pow(2,32)
+	n = 32
+	r = pow(b, n)
+	rp = invert(r, modulus)
+        y = (x*x*rp)%modulus
 	        
         if i == 0:
             tab_x = tab_x + "\t" + generate_c_array(x)
@@ -116,9 +120,9 @@ def main():
             tab_m = tab_m + ",\n\t" + generate_c_array(modulus)
 	
         if i == 0:
-            tab_mp = tab_mp + "\t" + str(hex(invert(modulus,pow(2,32)))) + "u"
+            tab_mp = tab_mp + "\t" + str(hex((-invert(modulus,pow(2,32)) % pow(2, 32)))) + "u"
         else:
-            tab_mp = tab_mp + ",\n\t" + str(hex(invert(modulus,pow(2,32)))) + "u"
+            tab_mp = tab_mp + ",\n\t" + str(hex((-invert(modulus,pow(2,32)) % pow(2, 32)))) + "u"
 
         i = i + 1
 
