@@ -2,7 +2,7 @@
 
 # RSA implementation and attack on Mbed
 # Data generator for bgi_mul_int testing
-# @author Cyrille Toulet, <cyrille.toulet@gmail.com>
+# @author Cyrille Toulet, <cyrille.toulet@linux.com>
 # @author Benjamin Burnouf, <benjamin76360@gmail.com>
 
 import random
@@ -21,7 +21,7 @@ def generate_c_header():
     output = output + " * RSA implementation and attack on Mbed\n"
     output = output + " * Data set used to test bgi_mul_int_by_int function in bigint library\n"
     output = output + " * Generated at compilation the " + str(datetime.now()) + "\n"
-    output = output + " * @author Cyrille Toulet, <cyrille.toulet@gmail.com>\n"
+    output = output + " * @author Cyrille Toulet, <cyrille.toulet@linux.com>\n"
     output = output + " * @author Benjamin Burnouf, <benjamin76360@gmail.com>\n"
     output = output + " **/\n\n"
     output = output + "#include \"../../bigint.h\"\n\n"

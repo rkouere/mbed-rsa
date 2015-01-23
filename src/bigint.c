@@ -1,7 +1,7 @@
 /**
  * RSA implementation and attack on Mbed
  * Big integers library
- * @author Cyrille Toulet, <cyrille.toulet@gmail.com>
+ * @author Cyrille Toulet, <cyrille.toulet@linux.com>
  * @author Benjamin Burnouf, <benjamin76360@gmail.com>
  */
 

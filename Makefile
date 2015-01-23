@@ -1,6 +1,6 @@
 # RSA implementation and attack on Mbed
 # Makefile
-# @author Cyrille Toulet, <cyrille.toulet@gmail.com>
+# @author Cyrille Toulet, <cyrille.toulet@linux.com>
 # @author Benjamin Burnouf, <benjamin76360@gmail.com>
 
 COMPUTER_DATA  = src/tests/datasets/add.c
