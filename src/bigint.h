@@ -26,7 +26,7 @@
     #define MAX_MBED_INT 4294967296ul
 
     /* Mbed bigint */
-    typedef mbed_int mbed_bigint[BIGINT_SIZE + 1];
+    typedef mbed_int mbed_bigint[BIGINT_SIZE + 2];
 
     /**
      * Init to 0 a big int
