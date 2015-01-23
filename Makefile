@@ -62,8 +62,8 @@ computer/obj/tests/mul-int-by-int.o: src/tests/mul-int-by-int.c src/tests/datase
 computer/obj/tests/shift.o: src/tests/shift.c src/tests/datasets/add.c
 	gcc -m32 -c -o computer/obj/tests/shift.o src/tests/shift.c -D_COMPUTER_VERSION
 
-#computer/obj/tests/mul-montgomery.o: src/tests/mul-montgomery.c src/tests/datasets/mul-montgomery.c
-computer/obj/tests/mul-montgomery.o: src/tests/mul-montgomery.c
+computer/obj/tests/mul-montgomery.o: src/tests/mul-montgomery.c src/tests/datasets/mul-montgomery.c
+#computer/obj/tests/mul-montgomery.o: src/tests/mul-montgomery.c
 	gcc -m32 -c -o computer/obj/tests/mul-montgomery.o src/tests/mul-montgomery.c -D_COMPUTER_VERSION
 
 # Binaries
