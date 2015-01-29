@@ -20,8 +20,6 @@ def generate_prime(base):
         output = random.randint(0,base)
     return output
 
-# modulus = (random.randint(0,1<<1023-1)<<1)|1
-
 def generate_c_header():
     '''
     Generate the C file header
@@ -36,8 +34,6 @@ def generate_c_header():
     output = output + " **/\n\n"
     output = output + "#include \"../../bigint.h\"\n\n"
     output = output + "#define TEST_MONT_MUL_COUNT " + str(set_count) + "u\n\n"
-#    output = output + "#define TEST_MONT_MUL_MODULUS " + str(modulus) + "u\n\n"
-#    output = output + "#define TEST_MONT_MUL_MODULUS_INVERSE " + str(-invert(modulus,pow(2,32))) + "\n\n"
     return output
 
 

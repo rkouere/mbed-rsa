@@ -31,7 +31,7 @@ bgi_cpy(mbed_bigint dest, const mbed_bigint src)
     mbed_int i;
 
     /* Copy the 32 digits + the 2 carry's digits to "dest" */
-    for(i = (mbed_int) 0; i < BIGINT_SIZE + 2 ; i++)
+    for(i = (mbed_int) 0; i < BIGINT_SIZE + 2; i++)
         dest[i] = src[i];
 }
 
@@ -61,7 +61,7 @@ bgi_print(const mbed_bigint x)
 mbed_int
 bgi_cmp(const mbed_bigint x, const mbed_bigint y)
 {
-    mbed_int i = BIGINT_SIZE + 1;
+    mbed_int i = BIGINT_SIZE - 1;
 
     while (i > 0) 
         /* Compare digit by digit */
@@ -194,7 +194,7 @@ const mbed_bigint m, const mbed_int mp)
 {
     mbed_bigint a, u, tmp1, tmp2, tmp3;
     mbed_int i;
-    mbed_int debug = 1; /* DEBUG */
+    mbed_int debug = 0; /* DEBUG */
 
     bgi_init(a);
     bgi_init(u);
