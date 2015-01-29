@@ -42,14 +42,14 @@ def generate_c_array(x):
         tmp2 = str_x[2:len(str_x)]
 
     tmp1 = ""
-    counter = 33
+    counter = 34
     output = "{"
 
     while len(tmp2) > 8:
         counter = counter - 1
         tmp1 = tmp2[len(tmp2) - 8: len(tmp2)]
         tmp2 = tmp2[0 : len(tmp2) - 8]
-        if counter == 32:
+        if counter == 33:
             output = output + "0x" + tmp1 + "u"
         else:
             output = output + ", 0x" + tmp1 + "u"
@@ -57,7 +57,7 @@ def generate_c_array(x):
     if len(tmp2) > 0:
         counter = counter - 1
         padding_size = 8 - len(tmp2)
-        if counter == 32:
+        if counter == 33:
             output = output + "0x" + string.rjust(tmp2, 8, '0') + "u"
         else:
             output = output + ", 0x" + string.rjust(tmp2, 8, '0') + "u"
@@ -105,9 +105,9 @@ def main():
         i = i + 1
 
 
-    code = code + "mbed_int test_mul_bigint_by_int_dataset_x[TEST_MUL_BIGINT_BY_INT_COUNT][BIGINT_SIZE + 1] = {\n" + tab_x + "\n};\n"
+    code = code + "mbed_int test_mul_bigint_by_int_dataset_x[TEST_MUL_BIGINT_BY_INT_COUNT][BIGINT_SIZE + 2] = {\n" + tab_x + "\n};\n"
     code = code + "mbed_int test_mul_bigint_by_int_dataset_y[TEST_MUL_BIGINT_BY_INT_COUNT] = {" + tab_y + "};\n"
-    code = code + "mbed_int test_mul_bigint_by_int_dataset_r[TEST_MUL_BIGINT_BY_INT_COUNT][BIGINT_SIZE + 1] = {\n" + tab_r + "\n};\n"
+    code = code + "mbed_int test_mul_bigint_by_int_dataset_r[TEST_MUL_BIGINT_BY_INT_COUNT][BIGINT_SIZE + 2] = {\n" + tab_r + "\n};\n"
 
     print code
 

@@ -42,14 +42,14 @@ def generate_c_array(x):
         tmp2 = str_x[2:len(str_x)]
 
     tmp1 = ""
-    counter = 33
+    counter = 34
     output = "{"
 
     while len(tmp2) > 8:
         counter = counter - 1
         tmp1 = tmp2[len(tmp2) - 8: len(tmp2)]
         tmp2 = tmp2[0 : len(tmp2) - 8]
-        if counter == 32:
+        if counter == 33:
             output = output + "0x" + tmp1 + "u"
         else:
             output = output + ", 0x" + tmp1 + "u"
@@ -57,7 +57,7 @@ def generate_c_array(x):
     if len(tmp2) > 0:
         counter = counter - 1
         padding_size = 8 - len(tmp2)
-        if counter == 32:
+        if counter == 33:
             output = output + "0x" + string.rjust(tmp2, 8, '0') + "u"
         else:
             output = output + ", 0x" + string.rjust(tmp2, 8, '0') + "u"
@@ -78,7 +78,7 @@ def main():
     code = generate_c_header()
 
     i = 0
-    code = code + "mbed_int test_sub_dataset[TEST_SUB_COUNT][3][BIGINT_SIZE + 1] = {\n"
+    code = code + "mbed_int test_sub_dataset[TEST_SUB_COUNT][3][BIGINT_SIZE + 2] = {\n"
 
     while i < set_count:
         a = random.randint(0, pow(pow(2, 32), 32))

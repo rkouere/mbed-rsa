@@ -56,13 +56,6 @@
     extern mbed_int bgi_cmp(const mbed_bigint x, const mbed_bigint y);
 
     /**
-     * Check if a big int is null or not
-     * @param x The big int to check
-     * @return 1 if x is null, or 0 if not
-     */
-    extern mbed_int bgi_is_null(const mbed_bigint x);
-
-    /**
      * Add two big integers and put result in dest
      * @param dest The sum x+y
      * @param x The first big int of addition
@@ -110,13 +103,6 @@
     extern void bgi_mul(mbed_bigint dest, const mbed_bigint x, 
         const mbed_bigint y, const mbed_bigint m, const mbed_int mp);
 
-    /**
-     * Shift a number to the left
-     * @param x The big int to shift
-     * @param shift The shift value
-     */
-    extern void bgi_lshift(mbed_bigint x, mbed_int shift);
-    
     /**
      * Shift a number to the rught
      * @param x The big int to shift

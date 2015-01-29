@@ -33,7 +33,7 @@ mbed_int main()
             printf("\nReceived result : ");
             bgi_print(dest);
             putchar('\n');
-            /*exit(EXIT_FAILURE);*/
+            exit(EXIT_FAILURE);
         }
 	else
 	{

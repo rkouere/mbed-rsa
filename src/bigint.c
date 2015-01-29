@@ -72,22 +72,6 @@ bgi_cmp(const mbed_bigint x, const mbed_bigint y)
 /**
  * @see bigint.h
  */
-mbed_int
-bgi_is_null(const mbed_bigint x)
-{
-    mbed_int i = 0;
-
-    while (i < BIGINT_SIZE + 1)
-        if (x[i++] != (mbed_int) 0)
-            return 1;
-
-    return 0;
-}
-
-
-/**
- * @see bigint.h
- */
 void
 bgi_add(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
 {
@@ -161,22 +145,6 @@ bgi_mul_bigint_by_int(mbed_bigint dest, const mbed_bigint x, const mbed_int y)
             dest[i] = rest + temp;
     }
     dest[i] = carry;
-}
-
-
-/**
- * @see bigint.h
- */
-void 
-bgi_lshift(mbed_bigint x, mbed_int shift)
-{
-    mbed_int i;
-
-    for (i = BIGINT_SIZE - shift; i > 0; i--)
-        x[i + shift] = x[i];
-
-    for (i = shift; i > 0; i--)
-        x[i - 1] = 0x0u;
 }
 
 
