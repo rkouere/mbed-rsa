@@ -12,7 +12,8 @@
 
 mbed_int main()
 {
-    mbed_int i = 0;
+    long int failures = 0;
+    long int i = 0;
     mbed_bigint dest;
 
     while (i < TEST_MONT_MUL_COUNT)
@@ -24,23 +25,38 @@ mbed_int main()
         {
             printf("[FAIL] Test bgi_mul %d / %d", i + 1, TEST_MONT_MUL_COUNT);
 
-            printf("\nNumber 1        : ");
+            printf("\nNumber x        : ");
             bgi_print(test_mont_mul_dataset_x[i]);
+            printf("\nNumber y        : ");
+            bgi_print(test_mont_mul_dataset_x[i]);
+            printf("\nModulus         : ");
+            bgi_print(test_mont_mul_dataset_modulus[i]);
             printf("\nExpected result : ");
             bgi_print(test_mont_mul_dataset_y[i]);
             printf("\nReceived result : ");
             bgi_print(dest);
             putchar('\n');
 
-            exit(EXIT_FAILURE);
+            failures ++;
+            /*exit(EXIT_FAILURE);*/
         }
 	else
 	{
-        	printf("[PASS] Test bgi_mul %d / %d\n", i + 1, TEST_MONT_MUL_COUNT);
+            /*printf("[PASS] Test bgi_mul %d / %d\n", i + 1, TEST_MONT_MUL_COUNT);*/
 	}
+
+        if (i % 50000 == 0)
+        {
+            printf("[%ld tests]", i);
+        }
 
         i++;
     }
+
+    printf("\n\n##################################\n\n");
+    printf("End of tests!\n");
+    printf("%ld failures / %ld tests\n", failures, TEST_MONT_MUL_COUNT);
+    printf("\n##################################\n");
 
     exit(EXIT_SUCCESS);
 }
