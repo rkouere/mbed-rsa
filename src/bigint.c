@@ -84,7 +84,7 @@ bgi_add(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
     mbed_int i;
 
     /* Add two big integers digit by digit */
-    for (i = (mbed_int) 0; i < BIGINT_SIZE + 2; i++)
+    for (i = (mbed_int) 0; i < BIGINT_SIZE + 1; i++)
     {
         dest[i] = (x[i] + y[i] + carry);
 
@@ -109,7 +109,7 @@ bgi_sub(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
     mbed_int i;
 
     /* Subtracts two big integers digit by digit */
-    for (i = (mbed_int) 0; i < BIGINT_SIZE; i++)
+    for (i = (mbed_int) 0; i < BIGINT_SIZE + 1; i++)
     {
         dest[i] = (x[i] - y[i] + carry);
         carry = (x[i] + carry) <= y[i]? (mbed_int) -1: (mbed_int) 0;
@@ -154,7 +154,7 @@ bgi_mul_bigint_by_int(mbed_bigint dest, const mbed_bigint x, const mbed_int y)
         temp = carry;
         bgi_mul_int_by_int(&carry, &rest, x[i], y);
 
-        if ( rest > MAX_MBED_INT - 1 - temp) 
+        if (rest > MAX_MBED_INT - 1 - temp) 
         {
             dest[i] = rest + temp;
             carry ++;
@@ -192,17 +192,39 @@ void
 bgi_mul(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y, 
 const mbed_bigint m, const mbed_int mp)
 {
-    mbed_bigint a, u, tmp1, tmp2, tmp3;
+    mbed_bigint u;
+    mbed_bigint y_xi;
+    mbed_bigint ui_m;
+    mbed_bigint tmp;
     mbed_int i;
     mbed_int debug = 0; /* DEBUG */
 
-    bgi_init(a);
+    bgi_init(dest);
     bgi_init(u);
     
     if (debug)
     {
-        printf("  i  |     xi    |  xi*y0   |    ui    |                                                                                                                                                       xi*y                                                                                                                                      |   ui*m   |                                                                                                                                                               a\n");
-        printf("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+        printf(
+            "  i  |     xi    |  xi*y0   |    ui    |                      " \
+            "                                                              " \
+            "                                                              " \
+            "     xi*y                                                     " \
+            "                                                              " \
+            "                   |   ui*m   |                               " \
+            "                                                              " \
+            "                                                              " \
+            "    a\n----------" \
+            "--------------------------------------------------------------" \
+            "--------------------------------------------------------------" \
+            "--------------------------------------------------------------" \
+            "--------------------------------------------------------------" \
+            "--------------------------------------------------------------" \
+            "--------------------------------------------------------------" \
+            "--------------------------------------------------------------" \
+            "--------------------------------------------------------------" \
+            "--------------------------------------------------------------" \
+            "------------------------------------------------------------\n"
+        );
     }
 
     for (i = 0; i < BIGINT_SIZE; i++)
@@ -214,43 +236,41 @@ const mbed_bigint m, const mbed_int mp)
             printf(" %8x |", x[i] * y[0]);
         }
 
-        bgi_init(tmp1);
-        bgi_init(tmp2);
-        bgi_init(tmp3);
+        bgi_init(y_xi);
+        bgi_init(ui_m);
+        bgi_init(tmp);
 
-        u[i] = ((a[0] + (x[i] * y[0])) * mp);
+        u[i] = ((dest[0] + (x[i] * y[0])) * mp);
 
         if (debug)
             printf(" %8x |", u[i]);
 
-        bgi_mul_bigint_by_int(tmp1, y, x[i]);
+        bgi_mul_bigint_by_int(y_xi, y, x[i]);
 
         if (debug)
         {
-            bgi_print(tmp1);
+            bgi_print(y_xi);
             printf(" |");
         }
 
-        bgi_add(tmp3, a, tmp1);
-	bgi_mul_bigint_by_int(tmp2,m,u[i]);
+        bgi_add(tmp, dest, y_xi);
+	bgi_mul_bigint_by_int(ui_m, m, u[i]);
 
         if (debug)
-            printf(" %8x |", tmp2[1]);
+            printf(" %8x |", ui_m[1]);
 
-        bgi_add(a, tmp3, tmp2);
+        bgi_add(dest, tmp, ui_m);
 
-        bgi_rshift(a, 1);
+        bgi_rshift(dest, 1);
 
         if (debug)
         {
-            bgi_print(a);
+            bgi_print(dest);
             printf("\n");
         }
     }
 
-    if (bgi_cmp(a, m) != -1)
-        bgi_sub(a, a, m);
-
-    bgi_cpy(dest,a);
+    if (bgi_cmp(dest, m) != -1)
+        bgi_sub(dest, dest, m);
 }
 

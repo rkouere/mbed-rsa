@@ -13,7 +13,6 @@
 mbed_int main()
 {
     mbed_int i = 0;
-
     mbed_bigint dest;
 
     while (i < TEST_MONT_MUL_COUNT)
