@@ -46,8 +46,15 @@ bgi_print(const mbed_bigint x)
         mbed_int i;
 
         /* Print the the 31 firsts digits of the bigint */
-        for (i = (BIGINT_SIZE - 1); i > 0; i--)
-            printf("%8x ", x[i]);
+        for (i = (BIGINT_SIZE + 2 - 1); i > 0; i--)
+        {
+            if (i == (BIGINT_SIZE + 1))
+                printf("[%8x ", x[i]);
+            else if (i == BIGINT_SIZE)
+                printf("%8x] ", x[i]);
+            else
+                printf("%8x ", x[i]);
+        }
 
 	/* And the last one */
         printf("%8x ", x[0]);
@@ -144,23 +151,20 @@ void
 bgi_mul_bigint_by_int(mbed_bigint dest, const mbed_bigint x, const mbed_int y)
 {
     mbed_int rest;
-    mbed_int temp = 0;
+    mbed_int tmp = 0;
     mbed_int carry = 0;
     mbed_int i;
 
     /* Do a basic multiplication */
     for (i = (mbed_int) 0; i < BIGINT_SIZE + 1; i++)
     {
-        temp = carry;
+        tmp = carry;
         bgi_mul_int_by_int(&carry, &rest, x[i], y);
 
-        if (rest > MAX_MBED_INT - 1 - temp) 
-        {
-            dest[i] = rest + temp;
+        if (rest > MAX_MBED_INT - 1 - tmp) 
             carry ++;
-        }
-        else 
-            dest[i] = rest + temp;
+
+        dest[i] = rest + tmp;
     }
 
     dest[i] = carry;
@@ -197,23 +201,24 @@ const mbed_bigint m, const mbed_int mp)
     mbed_bigint ui_m;
     mbed_bigint tmp;
     mbed_int i;
-    mbed_int debug = 0; /* DEBUG */
+    mbed_int debug = 1; /* DEBUG */
 
     bgi_init(dest);
     bgi_init(u);
     
+    #ifdef _COMPUTER_VERSION
     if (debug)
     {
         printf(
             "  i  |     xi    |  xi*y0   |    ui    |                      " \
             "                                                              " \
             "                                                              " \
-            "     xi*y                                                     " \
+            "               xi*y                                           " \
             "                                                              " \
-            "                   |   ui*m   |                               " \
+            "                                       |   ui*m   |           " \
             "                                                              " \
             "                                                              " \
-            "    a\n----------" \
+            "                        a\n----------" \
             "--------------------------------------------------------------" \
             "--------------------------------------------------------------" \
             "--------------------------------------------------------------" \
@@ -223,18 +228,22 @@ const mbed_bigint m, const mbed_int mp)
             "--------------------------------------------------------------" \
             "--------------------------------------------------------------" \
             "--------------------------------------------------------------" \
-            "------------------------------------------------------------\n"
+            "--------------------------------------------------------------" \
+            "---------------------------------------\n"
         );
     }
+    #endif
 
     for (i = 0; i < BIGINT_SIZE; i++)
     {
+    	#ifdef _COMPUTER_VERSION
         if (debug)
         {
             printf(" %2d  | ", i);
             printf(" %8x |", x[i]);
             printf(" %8x |", x[i] * y[0]);
         }
+    	#endif
 
         bgi_init(y_xi);
         bgi_init(ui_m);
@@ -242,32 +251,40 @@ const mbed_bigint m, const mbed_int mp)
 
         u[i] = ((dest[0] + (x[i] * y[0])) * mp);
 
+    	#ifdef _COMPUTER_VERSION
         if (debug)
             printf(" %8x |", u[i]);
+    	#endif
 
         bgi_mul_bigint_by_int(y_xi, y, x[i]);
 
+    	#ifdef _COMPUTER_VERSION
         if (debug)
         {
             bgi_print(y_xi);
             printf(" |");
         }
+    	#endif
 
         bgi_add(tmp, dest, y_xi);
 	bgi_mul_bigint_by_int(ui_m, m, u[i]);
 
+    	#ifdef _COMPUTER_VERSION
         if (debug)
             printf(" %8x |", ui_m[1]);
+    	#endif
 
         bgi_add(dest, tmp, ui_m);
 
         bgi_rshift(dest, 1);
 
+    	#ifdef _COMPUTER_VERSION
         if (debug)
         {
             bgi_print(dest);
             printf("\n");
         }
+    	#endif
     }
 
     if (bgi_cmp(dest, m) != -1)

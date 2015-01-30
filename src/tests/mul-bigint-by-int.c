@@ -34,7 +34,7 @@ mbed_int main()
             exit(EXIT_FAILURE);
         }
 
-        printf("[PASS] Test bgi_mul_int %d / %d\n", i + 1, TEST_MUL_BIGINT_BY_INT_COUNT);
+        printf("[PASS] Test bgi_mul_bigint_by_int %d / %d\n", i + 1, TEST_MUL_BIGINT_BY_INT_COUNT);
         i++;
     }
 
