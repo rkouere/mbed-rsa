@@ -116,7 +116,7 @@ bgi_sub(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
     mbed_int i;
 
     /* Subtracts two big integers digit by digit */
-    for (i = (mbed_int) 0; i < BIGINT_SIZE + 2; i++)
+    for (i = (mbed_int) 0; i < BIGINT_SIZE + 1; i++)
     {
         dest[i] = (x[i] - (y[i] + carry));
         carry = (x[i] < (carry + y[i]))? (mbed_int) 1: (mbed_int) 0;
