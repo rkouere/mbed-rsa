@@ -92,8 +92,9 @@ def main():
 
     i = 0
     while i < set_count:
-        x = random.randint(0, pow(pow(2, 32), 32))
+        #x = random.randint(0, pow(pow(2, 32), 32))
         modulus = (random.randint(0,1<<1023-1)<<1)|1
+        x = random.randint(0,modulus-1)
 	b = pow(2,32)
 	n = 32
 	r = pow(b, n)

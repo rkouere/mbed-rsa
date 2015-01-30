@@ -22,3 +22,11 @@ You can clean the compilated files by typping ```make clean```.
 
 To test the bigint library, type ```make tests```.
 
+## Debug 2015-30-01
+
+Probleme de soustraction qui allait pas assez loin, 
+probleme de shift qui allait pas assez loin, 
+probleme d'accolade autour du if final de montgomery
+manquait une copy dans la soustraction finale
+conditions de départ x < m 
+assert sources<>dest

@@ -68,7 +68,7 @@ bgi_print(const mbed_bigint x)
 mbed_int
 bgi_cmp(const mbed_bigint x, const mbed_bigint y)
 {
-    mbed_int i = BIGINT_SIZE - 1;
+    mbed_int i = BIGINT_SIZE;
 
     while (i > 0) 
         /* Compare digit by digit */
@@ -116,10 +116,10 @@ bgi_sub(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
     mbed_int i;
 
     /* Subtracts two big integers digit by digit */
-    for (i = (mbed_int) 0; i < BIGINT_SIZE + 1; i++)
+    for (i = (mbed_int) 0; i < BIGINT_SIZE + 2; i++)
     {
-        dest[i] = (x[i] - y[i] + carry);
-        carry = (x[i] + carry) <= y[i]? (mbed_int) -1: (mbed_int) 0;
+        dest[i] = (x[i] - (y[i] + carry));
+        carry = (x[i] < (carry + y[i]))? (mbed_int) 1: (mbed_int) 0;
     }
 
     /* And don't forget the carry! */
@@ -180,11 +180,11 @@ bgi_rshift(mbed_bigint x, mbed_int shift)
     mbed_int i;
 
     /* Shift the digits */
-    for (i = 0; i <= BIGINT_SIZE + 1 - shift - 1; i++)
+    for (i = 0; i <= BIGINT_SIZE + 1 - shift; i++)
         x[i] = x[i + shift];
 
     /* Complete digits with "0" */
-    for (i = BIGINT_SIZE + 1 - shift; i <= BIGINT_SIZE + 1; i++)
+    for (i = BIGINT_SIZE + 1 - shift + 1; i <= BIGINT_SIZE + 1; i++)
         x[i] = 0x0u;
 }
 
@@ -200,6 +200,7 @@ const mbed_bigint m, const mbed_int mp)
     mbed_bigint y_xi;
     mbed_bigint ui_m;
     mbed_bigint tmp;
+    mbed_bigint tmp2;
     mbed_int i;
     mbed_int debug = 1; /* DEBUG */
 
@@ -248,6 +249,7 @@ const mbed_bigint m, const mbed_int mp)
         bgi_init(y_xi);
         bgi_init(ui_m);
         bgi_init(tmp);
+        bgi_init(tmp2);
 
         u[i] = ((dest[0] + (x[i] * y[0])) * mp);
 
@@ -287,7 +289,14 @@ const mbed_bigint m, const mbed_int mp)
     	#endif
     }
 
-    if (bgi_cmp(dest, m) != -1)
-        bgi_sub(dest, dest, m);
+    if (bgi_cmp(dest, m) != -1) {
+        bgi_print(dest);
+        printf("\n");
+        bgi_print(m);
+        printf("\n");
+        bgi_cpy(tmp2,dest);
+        bgi_sub(dest, tmp2, m);
+        printf("################################## Soustraction finale");
+    }
 }
 
