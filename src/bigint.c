@@ -116,7 +116,7 @@ bgi_sub(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
     mbed_int i;
 
     /* Subtracts two big integers digit by digit */
-    for (i = (mbed_int) 0; i < BIGINT_SIZE + 2; i++)
+    for (i = (mbed_int) 0; i < BIGINT_SIZE + 1; i++)
     {
         dest[i] = (x[i] - (y[i] + carry));
         carry = (x[i] < (carry + y[i]))? (mbed_int) 1: (mbed_int) 0;
@@ -202,7 +202,7 @@ const mbed_bigint m, const mbed_int mp)
     mbed_bigint tmp;
     mbed_bigint tmp2;
     mbed_int i;
-    mbed_int debug = 1; /* DEBUG */
+    mbed_int debug = 0; /* DEBUG */
 
     bgi_init(dest);
     bgi_init(u);
@@ -289,14 +289,25 @@ const mbed_bigint m, const mbed_int mp)
     	#endif
     }
 
-    if (bgi_cmp(dest, m) != -1) {
-        bgi_print(dest);
-        printf("\n");
-        bgi_print(m);
-        printf("\n");
+    if (bgi_cmp(dest, m) != -1)
+    {
+    	#ifdef _COMPUTER_VERSION
+        if (debug)
+        {
+            bgi_print(dest);
+            printf("\n");
+            bgi_print(m);
+            printf("\n");
+        }
+    	#endif
+
         bgi_cpy(tmp2,dest);
         bgi_sub(dest, tmp2, m);
-        printf("################################## Soustraction finale");
+
+    	#ifdef _COMPUTER_VERSION
+        if (debug)
+            printf("################################## Soustraction finale");
+    	#endif
     }
 }
 
