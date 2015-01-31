@@ -29,9 +29,7 @@ You can clean the compilated files by typping ```make clean```.
 To test the bigint library, type ```make tests```.
 
 
-
-
-## Debug 2015-30-01
+## Debug 2015-01-30
 
  - Probleme de soustraction qui allait pas assez loin
  - probleme de shift qui allait pas assez loin, 
@@ -39,3 +37,9 @@ To test the bigint library, type ```make tests```.
  - manquait une copy dans la soustraction finale
  - conditions de départ x < m 
  - assert sources<>dest
+
+
+## Tests (2015-01-31)
+
+1 failure in 5,000,000 tests of Montgomery multiplication:
+[See logs](logs/tests.20150131.log).
