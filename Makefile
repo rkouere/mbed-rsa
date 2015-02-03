@@ -16,6 +16,7 @@ COMPUTER_OBJ  += computer/obj/tests/mul-int-by-int.o
 COMPUTER_OBJ  += computer/obj/tests/mul-bigint-by-int.o
 COMPUTER_OBJ  += computer/obj/tests/shift.o
 COMPUTER_OBJ  += computer/obj/tests/mul-montgomery.o
+COMPUTER_OBJ  += computer/obj/tests/failed-mul-montgomery.o
 
 COMPUTER_BIN   = computer/bin/tests/add
 COMPUTER_BIN  += computer/bin/tests/sub
@@ -23,6 +24,7 @@ COMPUTER_BIN  += computer/bin/tests/mul-int-by-int
 COMPUTER_BIN  += computer/bin/tests/mul-bigint-by-int
 COMPUTER_BIN  += computer/bin/tests/shift
 COMPUTER_BIN  += computer/bin/tests/mul-montgomery
+COMPUTER_BIN  += computer/bin/tests/failed-mul-montgomery
 
 # Generic
 all: $(COMPUTER_BIN)
@@ -66,6 +68,9 @@ computer/obj/tests/mul-montgomery.o: src/tests/mul-montgomery.c src/tests/datase
 #computer/obj/tests/mul-montgomery.o: src/tests/mul-montgomery.c
 	gcc -m32 -c -o computer/obj/tests/mul-montgomery.o src/tests/mul-montgomery.c -D_COMPUTER_VERSION
 
+computer/obj/tests/failed-mul-montgomery.o: src/tests/failed-mul-montgomery.c
+	gcc -m32 -c -o computer/obj/tests/failed-mul-montgomery.o src/tests/failed-mul-montgomery.c -D_COMPUTER_VERSION
+
 # Binaries
 computer/bin/tests/add: computer/obj/tests/add.o computer/obj/bigint.o
 	gcc -m32 -o computer/bin/tests/add computer/obj/tests/add.o computer/obj/bigint.o -D_COMPUTER_VERSION
@@ -85,6 +90,9 @@ computer/bin/tests/shift: computer/obj/tests/shift.o computer/obj/bigint.o
 computer/bin/tests/mul-montgomery: computer/obj/tests/mul-montgomery.o computer/obj/bigint.o
 	gcc -m32 -o computer/bin/tests/mul-montgomery computer/obj/tests/mul-montgomery.o computer/obj/bigint.o -D_COMPUTER_VERSION
 
+computer/bin/tests/failed-mul-montgomery: computer/obj/tests/failed-mul-montgomery.o computer/obj/bigint.o
+	gcc -m32 -o computer/bin/tests/failed-mul-montgomery computer/obj/tests/failed-mul-montgomery.o computer/obj/bigint.o -D_COMPUTER_VERSION
+
 # Tests
 tests: computer/bin/tests/add computer/bin/tests/sub computer/bin/tests/mul-int-by-int computer/bin/tests/mul-bigint-by-int computer/bin/tests/shift computer/bin/tests/mul-montgomery
 	./computer/bin/tests/add
@@ -93,6 +101,7 @@ tests: computer/bin/tests/add computer/bin/tests/sub computer/bin/tests/mul-int-
 	./computer/bin/tests/mul-bigint-by-int
 #       ./computer/bin/tests/shift
 	./computer/bin/tests/mul-montgomery
+	./computer/bin/tests/failed-mul-montgomery
 
 # Misc
 .PHONY: clean

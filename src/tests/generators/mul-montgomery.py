@@ -12,7 +12,7 @@ from gmpy import invert
 from fractions import gcd
 
 # Number of tests
-set_count = 100
+set_count = 10
 
 def generate_prime(base):
     output = random.randint(0,base)
