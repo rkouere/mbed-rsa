@@ -202,7 +202,7 @@ const mbed_bigint m, const mbed_int mp)
     mbed_bigint tmp;
     mbed_bigint tmp2;
     mbed_int i;
-    mbed_int debug = 0; /* DEBUG */
+    mbed_int debug = 1; /* DEBUG */
 
     bgi_init(dest);
     bgi_init(u);

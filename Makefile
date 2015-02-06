@@ -50,51 +50,51 @@ src/tests/datasets/mul-montgomery.c: ./src/tests/generators/mul-montgomery.py
 
 # Objects
 tests/obj/bigint.o: src/bigint.c
-	gcc -m32 -c -o tests/obj/bigint.o src/bigint.c -D_VERSION
+	gcc -m32 -c -o tests/obj/bigint.o src/bigint.c -D_COMPUTER_VERSION
 
 tests/obj/tests/add.o: src/tests/add.c src/tests/datasets/add.c
-	gcc -m32 -c -o tests/obj/tests/add.o src/tests/add.c -D_VERSION
+	gcc -m32 -c -o tests/obj/tests/add.o src/tests/add.c -D_COMPUTER_VERSION
 
 tests/obj/tests/sub.o: src/tests/sub.c src/tests/datasets/sub.c
-	gcc -m32 -c -o tests/obj/tests/sub.o src/tests/sub.c -D_VERSION
+	gcc -m32 -c -o tests/obj/tests/sub.o src/tests/sub.c -D_COMPUTER_VERSION
 
 tests/obj/tests/mul-bigint-by-int.o: src/tests/mul-bigint-by-int.c src/tests/datasets/mul-bigint-by-int.c
-	gcc -m32 -c -o tests/obj/tests/mul-bigint-by-int.o src/tests/mul-bigint-by-int.c -D_VERSION
+	gcc -m32 -c -o tests/obj/tests/mul-bigint-by-int.o src/tests/mul-bigint-by-int.c -D_COMPUTER_VERSION
 
 tests/obj/tests/mul-int-by-int.o: src/tests/mul-int-by-int.c src/tests/datasets/mul-int-by-int.c
-	gcc -m32 -c -o tests/obj/tests/mul-int-by-int.o src/tests/mul-int-by-int.c -D_VERSION
+	gcc -m32 -c -o tests/obj/tests/mul-int-by-int.o src/tests/mul-int-by-int.c -D_COMPUTER_VERSION
 
 tests/obj/tests/shift.o: src/tests/shift.c src/tests/datasets/add.c
-	gcc -m32 -c -o tests/obj/tests/shift.o src/tests/shift.c -D_VERSION
+	gcc -m32 -c -o tests/obj/tests/shift.o src/tests/shift.c -D_COMPUTER_VERSION
 
 tests/obj/tests/mul-montgomery.o: src/tests/mul-montgomery.c src/tests/datasets/mul-montgomery.c
-	gcc -m32 -c -o tests/obj/tests/mul-montgomery.o src/tests/mul-montgomery.c -D_VERSION
+	gcc -m32 -c -o tests/obj/tests/mul-montgomery.o src/tests/mul-montgomery.c -D_COMPUTER_VERSION
 
 tests/obj/tests/failed-mul-montgomery.o: src/tests/failed-mul-montgomery.c
-	gcc -m32 -c -o tests/obj/tests/failed-mul-montgomery.o src/tests/failed-mul-montgomery.c -D_VERSION
+	gcc -m32 -c -o tests/obj/tests/failed-mul-montgomery.o src/tests/failed-mul-montgomery.c -D_COMPUTER_VERSION
 
 
 # Testing and debuging binaries
 tests/bin/tests/add: tests/obj/tests/add.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/add tests/obj/tests/add.o tests/obj/bigint.o -D_VERSION
+	gcc -m32 -o tests/bin/tests/add tests/obj/tests/add.o tests/obj/bigint.o -D_COMPUTER_VERSION
 
 tests/bin/tests/sub: tests/obj/tests/sub.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/sub tests/obj/tests/sub.o tests/obj/bigint.o -D_VERSION
+	gcc -m32 -o tests/bin/tests/sub tests/obj/tests/sub.o tests/obj/bigint.o -D_COMPUTER_VERSION
 
 tests/bin/tests/mul-int-by-int: tests/obj/tests/mul-int-by-int.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/mul-int-by-int tests/obj/tests/mul-int-by-int.o tests/obj/bigint.o -D_VERSION
+	gcc -m32 -o tests/bin/tests/mul-int-by-int tests/obj/tests/mul-int-by-int.o tests/obj/bigint.o -D_COMPUTER_VERSION
 
 tests/bin/tests/mul-bigint-by-int: tests/obj/tests/mul-bigint-by-int.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/mul-bigint-by-int tests/obj/tests/mul-bigint-by-int.o tests/obj/bigint.o -D_VERSION
+	gcc -m32 -o tests/bin/tests/mul-bigint-by-int tests/obj/tests/mul-bigint-by-int.o tests/obj/bigint.o -D_COMPUTER_VERSION
 
 tests/bin/tests/shift: tests/obj/tests/shift.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/shift tests/obj/tests/shift.o tests/obj/bigint.o -D_VERSION
+	gcc -m32 -o tests/bin/tests/shift tests/obj/tests/shift.o tests/obj/bigint.o -D_COMPUTER_VERSION
 
 tests/bin/tests/mul-montgomery: tests/obj/tests/mul-montgomery.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/mul-montgomery tests/obj/tests/mul-montgomery.o tests/obj/bigint.o -D_VERSION
+	gcc -m32 -o tests/bin/tests/mul-montgomery tests/obj/tests/mul-montgomery.o tests/obj/bigint.o -D_COMPUTER_VERSION
 
 tests/bin/tests/failed-mul-montgomery: tests/obj/tests/failed-mul-montgomery.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/failed-mul-montgomery tests/obj/tests/failed-mul-montgomery.o tests/obj/bigint.o -D_VERSION
+	gcc -m32 -o tests/bin/tests/failed-mul-montgomery tests/obj/tests/failed-mul-montgomery.o tests/obj/bigint.o -D_COMPUTER_VERSION
 
 
 # Testing
