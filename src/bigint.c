@@ -301,7 +301,7 @@ const mbed_bigint m, const mbed_int mp)
         }
     	#endif
 
-        bgi_cpy(tmp2,dest);
+        bgi_cpy(tmp2, dest);
         bgi_sub(dest, tmp2, m);
 
     	#ifdef _COMPUTER_VERSION
@@ -317,7 +317,35 @@ const mbed_bigint m, const mbed_int mp)
  */
 void 
 montgomery_exponentiation(mbed_bigint dest, mbed_bigint x, mbed_bigint e, 
-const mbed_bigint m, const mbed_int mp)
+const mbed_bigint m, const mbed_int mp, const mbed_int rm, const mbed_int r2)
 {
-	
+    mbed_bigint xp;
+    mbed_bigint a;
+    mbed_bigint tmp;
+    mbed_bigint one;
+    mbed_int i;
+    mbed_int t;
+
+    bgi_mul(xp, x, r2, m, mp);
+    bgi_cpy(a, rm);
+
+    /*t = TODO*/
+
+    for(i = t; i >= 0; i--)
+    {
+        bgi_cpy(tmp, a);
+        bgi_mul(a, tmp, tmp, m, mp);
+
+        /*if(TODO ei = 1)
+        {
+            bgi_cpy(tmp, a);
+            bgi_mul(a, tmp, xp, m, mp);
+        }*/
+    }
+
+    bgi_init(one);
+    one[0] = 1;
+
+    bgi_cpy(tmp, a);
+    bgi_mul(a, tmp, one, m, mp);
 }
