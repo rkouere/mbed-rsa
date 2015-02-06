@@ -103,7 +103,7 @@ tests: tests/bin/tests/add tests/bin/tests/sub tests/bin/tests/mul-int-by-int te
 	./tests/bin/tests/sub
 	./tests/bin/tests/mul-int-by-int
 	./tests/bin/tests/mul-bigint-by-int
-#	./tests/bin/tests/shift
+	./tests/bin/tests/shift
 	./tests/bin/tests/mul-montgomery
 
 
