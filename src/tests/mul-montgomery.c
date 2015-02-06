@@ -38,25 +38,20 @@ mbed_int main()
             putchar('\n');
 
             failures ++;
-            /*exit(EXIT_FAILURE);*/
+            exit(EXIT_FAILURE);
         }
 	else
 	{
-            /*printf("[PASS] Test bgi_mul %d / %d\n", i + 1, TEST_MONT_MUL_COUNT);*/
+            printf("[PASS] Test bgi_mul %d / %d\n", i + 1, TEST_MONT_MUL_COUNT);
 	}
-
-        if (i % 50000 == 0)
-        {
-            printf("[%ld tests]", i);
-        }
 
         i++;
     }
 
-    printf("\n\n##################################\n\n");
+    /*printf("\n\n##################################\n\n");
     printf("End of tests!\n");
     printf("%ld failures / %ld tests\n", failures, TEST_MONT_MUL_COUNT);
-    printf("\n##################################\n");
+    printf("\n##################################\n");*/
 
     exit(EXIT_SUCCESS);
 }
