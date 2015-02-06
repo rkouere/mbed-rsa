@@ -62,11 +62,11 @@ using our libraries.
 
 The computer compilation requires few dependencies:
  - lib32c-dev
- - python-gmpy
+ - multiarch-support
+ - python-gmpy2
+ - make
+ - gcc
 
-```sh
-sudo aptitude install lib32c-dev multiarch-support python-gmpy
-```
 
 # Bugs
 

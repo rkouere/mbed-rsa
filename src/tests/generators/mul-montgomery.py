@@ -8,7 +8,7 @@
 import random
 import string
 from datetime import datetime
-from gmpy import invert
+from gmpy2 import invert
 from fractions import gcd
 
 # Number of tests

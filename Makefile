@@ -3,33 +3,35 @@
 # @author Cyrille Toulet, <cyrille.toulet@linux.com>
 # @author Benjamin Burnouf, <benjamin76360@gmail.com>
 
-COMPUTER_DATA  = src/tests/datasets/add.c
-COMPUTER_DATA += src/tests/datasets/sub.c
-COMPUTER_DATA += src/tests/datasets/mul-int-by-int.c
-COMPUTER_DATA += src/tests/datasets/mul-bigint-by-int.c
-COMPUTER_DATA += src/tests/datasets/mul-montgomery.c
+DATA  = src/tests/datasets/add.c
+DATA += src/tests/datasets/sub.c
+DATA += src/tests/datasets/mul-int-by-int.c
+DATA += src/tests/datasets/mul-bigint-by-int.c
+DATA += src/tests/datasets/mul-montgomery.c
 
-COMPUTER_OBJ   = computer/obj/bigint.o
-COMPUTER_OBJ  += computer/obj/tests/add.o
-COMPUTER_OBJ  += computer/obj/tests/sub.o
-COMPUTER_OBJ  += computer/obj/tests/mul-int-by-int.o
-COMPUTER_OBJ  += computer/obj/tests/mul-bigint-by-int.o
-COMPUTER_OBJ  += computer/obj/tests/shift.o
-COMPUTER_OBJ  += computer/obj/tests/mul-montgomery.o
-COMPUTER_OBJ  += computer/obj/tests/failed-mul-montgomery.o
+OBJ   = tests/obj/bigint.o
+OBJ  += tests/obj/tests/add.o
+OBJ  += tests/obj/tests/sub.o
+OBJ  += tests/obj/tests/mul-int-by-int.o
+OBJ  += tests/obj/tests/mul-bigint-by-int.o
+OBJ  += tests/obj/tests/shift.o
+OBJ  += tests/obj/tests/mul-montgomery.o
+OBJ  += tests/obj/tests/failed-mul-montgomery.o
 
-COMPUTER_BIN   = computer/bin/tests/add
-COMPUTER_BIN  += computer/bin/tests/sub
-COMPUTER_BIN  += computer/bin/tests/mul-int-by-int
-COMPUTER_BIN  += computer/bin/tests/mul-bigint-by-int
-COMPUTER_BIN  += computer/bin/tests/shift
-COMPUTER_BIN  += computer/bin/tests/mul-montgomery
-COMPUTER_BIN  += computer/bin/tests/failed-mul-montgomery
+BIN   = tests/bin/tests/add
+BIN  += tests/bin/tests/sub
+BIN  += tests/bin/tests/mul-int-by-int
+BIN  += tests/bin/tests/mul-bigint-by-int
+BIN  += tests/bin/tests/shift
+BIN  += tests/bin/tests/mul-montgomery
+BIN  += tests/bin/tests/failed-mul-montgomery
 
-# Generic
-all: $(COMPUTER_BIN)
 
-# Datasets
+# Global rule
+all: $(BIN)
+
+
+# Testing datasets
 src/tests/datasets/add.c: ./src/tests/generators/add.py
 	python src/tests/generators/add.py > src/tests/datasets/add.c
 
@@ -45,69 +47,79 @@ src/tests/datasets/mul-bigint-by-int.c: ./src/tests/generators/mul-bigint-by-int
 src/tests/datasets/mul-montgomery.c: ./src/tests/generators/mul-montgomery.py
 	python src/tests/generators/mul-montgomery.py > src/tests/datasets/mul-montgomery.c
 
+
 # Objects
-computer/obj/bigint.o: src/bigint.c
-	gcc -m32 -c -o computer/obj/bigint.o src/bigint.c -D_COMPUTER_VERSION
+tests/obj/bigint.o: src/bigint.c
+	gcc -m32 -c -o tests/obj/bigint.o src/bigint.c -D_VERSION
 
-computer/obj/tests/add.o: src/tests/add.c src/tests/datasets/add.c
-	gcc -m32 -c -o computer/obj/tests/add.o src/tests/add.c -D_COMPUTER_VERSION
+tests/obj/tests/add.o: src/tests/add.c src/tests/datasets/add.c
+	gcc -m32 -c -o tests/obj/tests/add.o src/tests/add.c -D_VERSION
 
-computer/obj/tests/sub.o: src/tests/sub.c src/tests/datasets/sub.c
-	gcc -m32 -c -o computer/obj/tests/sub.o src/tests/sub.c -D_COMPUTER_VERSION
+tests/obj/tests/sub.o: src/tests/sub.c src/tests/datasets/sub.c
+	gcc -m32 -c -o tests/obj/tests/sub.o src/tests/sub.c -D_VERSION
 
-computer/obj/tests/mul-bigint-by-int.o: src/tests/mul-bigint-by-int.c src/tests/datasets/mul-bigint-by-int.c
-	gcc -m32 -c -o computer/obj/tests/mul-bigint-by-int.o src/tests/mul-bigint-by-int.c -D_COMPUTER_VERSION
+tests/obj/tests/mul-bigint-by-int.o: src/tests/mul-bigint-by-int.c src/tests/datasets/mul-bigint-by-int.c
+	gcc -m32 -c -o tests/obj/tests/mul-bigint-by-int.o src/tests/mul-bigint-by-int.c -D_VERSION
 
-computer/obj/tests/mul-int-by-int.o: src/tests/mul-int-by-int.c src/tests/datasets/mul-int-by-int.c
-	gcc -m32 -c -o computer/obj/tests/mul-int-by-int.o src/tests/mul-int-by-int.c -D_COMPUTER_VERSION
+tests/obj/tests/mul-int-by-int.o: src/tests/mul-int-by-int.c src/tests/datasets/mul-int-by-int.c
+	gcc -m32 -c -o tests/obj/tests/mul-int-by-int.o src/tests/mul-int-by-int.c -D_VERSION
 
-computer/obj/tests/shift.o: src/tests/shift.c src/tests/datasets/add.c
-	gcc -m32 -c -o computer/obj/tests/shift.o src/tests/shift.c -D_COMPUTER_VERSION
+tests/obj/tests/shift.o: src/tests/shift.c src/tests/datasets/add.c
+	gcc -m32 -c -o tests/obj/tests/shift.o src/tests/shift.c -D_VERSION
 
-computer/obj/tests/mul-montgomery.o: src/tests/mul-montgomery.c src/tests/datasets/mul-montgomery.c
-#computer/obj/tests/mul-montgomery.o: src/tests/mul-montgomery.c
-	gcc -m32 -c -o computer/obj/tests/mul-montgomery.o src/tests/mul-montgomery.c -D_COMPUTER_VERSION
+tests/obj/tests/mul-montgomery.o: src/tests/mul-montgomery.c src/tests/datasets/mul-montgomery.c
+	gcc -m32 -c -o tests/obj/tests/mul-montgomery.o src/tests/mul-montgomery.c -D_VERSION
 
-computer/obj/tests/failed-mul-montgomery.o: src/tests/failed-mul-montgomery.c
-	gcc -m32 -c -o computer/obj/tests/failed-mul-montgomery.o src/tests/failed-mul-montgomery.c -D_COMPUTER_VERSION
+tests/obj/tests/failed-mul-montgomery.o: src/tests/failed-mul-montgomery.c
+	gcc -m32 -c -o tests/obj/tests/failed-mul-montgomery.o src/tests/failed-mul-montgomery.c -D_VERSION
 
-# Binaries
-computer/bin/tests/add: computer/obj/tests/add.o computer/obj/bigint.o
-	gcc -m32 -o computer/bin/tests/add computer/obj/tests/add.o computer/obj/bigint.o -D_COMPUTER_VERSION
 
-computer/bin/tests/sub: computer/obj/tests/sub.o computer/obj/bigint.o
-	gcc -m32 -o computer/bin/tests/sub computer/obj/tests/sub.o computer/obj/bigint.o -D_COMPUTER_VERSION
+# Testing and debuging binaries
+tests/bin/tests/add: tests/obj/tests/add.o tests/obj/bigint.o
+	gcc -m32 -o tests/bin/tests/add tests/obj/tests/add.o tests/obj/bigint.o -D_VERSION
 
-computer/bin/tests/mul-int-by-int: computer/obj/tests/mul-int-by-int.o computer/obj/bigint.o
-	gcc -m32 -o computer/bin/tests/mul-int-by-int computer/obj/tests/mul-int-by-int.o computer/obj/bigint.o -D_COMPUTER_VERSION
+tests/bin/tests/sub: tests/obj/tests/sub.o tests/obj/bigint.o
+	gcc -m32 -o tests/bin/tests/sub tests/obj/tests/sub.o tests/obj/bigint.o -D_VERSION
 
-computer/bin/tests/mul-bigint-by-int: computer/obj/tests/mul-bigint-by-int.o computer/obj/bigint.o
-	gcc -m32 -o computer/bin/tests/mul-bigint-by-int computer/obj/tests/mul-bigint-by-int.o computer/obj/bigint.o -D_COMPUTER_VERSION
+tests/bin/tests/mul-int-by-int: tests/obj/tests/mul-int-by-int.o tests/obj/bigint.o
+	gcc -m32 -o tests/bin/tests/mul-int-by-int tests/obj/tests/mul-int-by-int.o tests/obj/bigint.o -D_VERSION
 
-computer/bin/tests/shift: computer/obj/tests/shift.o computer/obj/bigint.o
-	gcc -m32 -o computer/bin/tests/shift computer/obj/tests/shift.o computer/obj/bigint.o -D_COMPUTER_VERSION
+tests/bin/tests/mul-bigint-by-int: tests/obj/tests/mul-bigint-by-int.o tests/obj/bigint.o
+	gcc -m32 -o tests/bin/tests/mul-bigint-by-int tests/obj/tests/mul-bigint-by-int.o tests/obj/bigint.o -D_VERSION
 
-computer/bin/tests/mul-montgomery: computer/obj/tests/mul-montgomery.o computer/obj/bigint.o
-	gcc -m32 -o computer/bin/tests/mul-montgomery computer/obj/tests/mul-montgomery.o computer/obj/bigint.o -D_COMPUTER_VERSION
+tests/bin/tests/shift: tests/obj/tests/shift.o tests/obj/bigint.o
+	gcc -m32 -o tests/bin/tests/shift tests/obj/tests/shift.o tests/obj/bigint.o -D_VERSION
 
-computer/bin/tests/failed-mul-montgomery: computer/obj/tests/failed-mul-montgomery.o computer/obj/bigint.o
-	gcc -m32 -o computer/bin/tests/failed-mul-montgomery computer/obj/tests/failed-mul-montgomery.o computer/obj/bigint.o -D_COMPUTER_VERSION
+tests/bin/tests/mul-montgomery: tests/obj/tests/mul-montgomery.o tests/obj/bigint.o
+	gcc -m32 -o tests/bin/tests/mul-montgomery tests/obj/tests/mul-montgomery.o tests/obj/bigint.o -D_VERSION
 
-# Tests
-tests: computer/bin/tests/add computer/bin/tests/sub computer/bin/tests/mul-int-by-int computer/bin/tests/mul-bigint-by-int computer/bin/tests/shift computer/bin/tests/mul-montgomery
-	./computer/bin/tests/add
-	./computer/bin/tests/sub
-	./computer/bin/tests/mul-int-by-int
-	./computer/bin/tests/mul-bigint-by-int
-#       ./computer/bin/tests/shift
-	./computer/bin/tests/mul-montgomery
-	./computer/bin/tests/failed-mul-montgomery
+tests/bin/tests/failed-mul-montgomery: tests/obj/tests/failed-mul-montgomery.o tests/obj/bigint.o
+	gcc -m32 -o tests/bin/tests/failed-mul-montgomery tests/obj/tests/failed-mul-montgomery.o tests/obj/bigint.o -D_VERSION
+
+
+# Testing
+tests: tests/bin/tests/add tests/bin/tests/sub tests/bin/tests/mul-int-by-int tests/bin/tests/mul-bigint-by-int tests/bin/tests/shift tests/bin/tests/mul-montgomery
+	./tests/bin/tests/add
+	./tests/bin/tests/sub
+	./tests/bin/tests/mul-int-by-int
+	./tests/bin/tests/mul-bigint-by-int
+	./tests/bin/tests/shift
+	./tests/bin/tests/mul-montgomery
+
+
+# Debuging
+debug: tests/bin/tests/failed-mul-montgomery
+	./tests/bin/tests/failed-mul-montgomery
+
+
+# Clean
+clean:
+	rm -f $(DATA)
+	rm -f $(OBJ)
+	rm -f $(BIN)
+
 
 # Misc
-.PHONY: clean
+.PHONY: clean tests debug
 
-clean:
-	rm -f $(COMPUTER_DATA)
-	rm -f $(COMPUTER_OBJ)
-	rm -f $(COMPUTER_BIN)
 
