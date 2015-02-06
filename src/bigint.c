@@ -313,6 +313,29 @@ const mbed_bigint m, const mbed_int mp)
 
 
 /**
+ * Get the highest bit (t) of a big interger
+ * @param x The big integer
+ * @param t The highest bit
+ */
+void
+bgi_highest_bit(const mbed_bigint x, mbed_int *t)
+{
+    mbed_int i;
+    mbed_int j;
+
+    for(i = (BIGINT_SIZE - 1); i > 0; i--)
+        if(((x[i] >> j) & 0x1) != 0)
+            break;
+
+    for(j = 32; j > 0; j--)
+        if((x[i]) == 1)
+            break;
+
+    *t = (BIGINT_SIZE - (i + 1)) * 32 + (32 - j);
+}
+
+
+/**
  * @see bigint.h
  */
 void 
@@ -329,18 +352,24 @@ const mbed_bigint m, const mbed_int mp, const mbed_int rm, const mbed_int r2)
     bgi_mul(xp, x, r2, m, mp);
     bgi_cpy(a, rm);
 
-    /*t = TODO*/
+    bgi_highest_bit(e, &t);
 
     for(i = t; i >= 0; i--)
     {
+        bgi_int j;
+        bgi_int k;
+
         bgi_cpy(tmp, a);
         bgi_mul(a, tmp, tmp, m, mp);
 
-        /*if(TODO ei = 1)
+        j = BIGINT_SIZE - (1 + (i / 32)));
+        k = 32 - (i % 32);
+
+        if(((e[j] >> k) & 0x1) == 0x1)
         {
             bgi_cpy(tmp, a);
             bgi_mul(a, tmp, xp, m, mp);
-        }*/
+        }
     }
 
     bgi_init(one);
