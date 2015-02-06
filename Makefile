@@ -110,6 +110,7 @@ tests: tests/bin/tests/add tests/bin/tests/sub tests/bin/tests/mul-int-by-int te
 # Debuging
 debug: tests/bin/tests/failed-mul-montgomery
 	./tests/bin/tests/failed-mul-montgomery
+	python src/debug/montgomery.py
 
 
 # Clean

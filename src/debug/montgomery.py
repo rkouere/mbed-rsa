@@ -60,21 +60,20 @@ a = 0
 u = 0
 
 for i in range(0, n):
-	#print "xi : " + str(extract(x, i))
+	print "xi : " + str(extract(x, i))
 	u = ((extract(a, 0) + extract(x, i) * extract(y, 0)) * mp) % b
-	#print "xi*y0 : " + str(extract(x, i) * extract(y, 0))
+	print "xi*y0 : " + str(extract(x, i) * extract(y, 0))
 	tmp1 = extract(x, i) * y
 	print hex(tmp1 % pow(b, 32))
-	#print "ui : " + str(u)
-	#print "xi*y : " + str(tmp1)
+	print "ui : " + str(u)
+	print "xi*y : " + str(tmp1)
 	tmp2 = u * m
 	print hex(tmp2 % pow(b, 32))
-	#print "ui*m : " + str(tmp2)
+	print "ui*m : " + str(tmp2)
 	a = (a + extract(x, i) * y + u * m) // b
-	#a = (a + extract(x, i) * y + u * m) / b
         print "A :\n"
 	print hex(a % pow(b, 33))
-	#print "a : " + str(a)
+	print "a : " + str(a)
 	print "\n"
 
 if a >= m:
