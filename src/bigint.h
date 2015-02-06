@@ -72,6 +72,13 @@
      */
     extern void bgi_sub (mbed_bigint dest, const mbed_bigint x, 
         const mbed_bigint y);
+
+    /**
+     * Shift a number to the rught
+     * @param x The big int to shift
+     * @param shift The shift value
+     */
+    extern void bgi_rshift(mbed_bigint x, mbed_int shift);
     
     /**
      * Multiply an integer by an other integer and put result in two dests
@@ -104,10 +111,14 @@
         const mbed_bigint y, const mbed_bigint m, const mbed_int mp);
 
     /**
-     * Shift a number to the rught
-     * @param x The big int to shift
-     * @param shift The shift value
+     * Montgomery modular exponentiation
+     * @param dest The Montgomery multiplication result
+     * @param x The big int 
+     * @param e The exponent 
+     * @param m The modulus of multiplication
+     * @param mp The modulus inverse of multiplication
      */
-    extern void bgi_rshift(mbed_bigint x, mbed_int shift);
+    extern montgomery_modular_exponentiation(mbed_bigint dest, mbed_bigint x, 
+        mbed_bigint e, const mbed_bigint m, const mbed_int mp);
 
 #endif

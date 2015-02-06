@@ -311,3 +311,13 @@ const mbed_bigint m, const mbed_int mp)
     }
 }
 
+
+/**
+ * @see bigint.h
+ */
+void 
+montgomery_exponentiation(mbed_bigint dest, mbed_bigint x, mbed_bigint e, 
+const mbed_bigint m, const mbed_int mp)
+{
+	
+}
