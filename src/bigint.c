@@ -96,8 +96,8 @@ bgi_add(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
         dest[i] = (x[i] + y[i] + carry);
 
         carry = (
-            ((x[i] + y[i]) < x[i]) ||
-            ((x[i] + y[i]) < y[i])
+            ((x[i] + y[i] + carry) < x[i]) ||
+            ((x[i] + y[i] + carry) < y[i])
         ) ? (mbed_int) 1: (mbed_int) 0;
     }
 
@@ -315,23 +315,23 @@ const mbed_bigint m, const mbed_int mp)
 /**
  * Get the highest bit (t) of a big interger
  * @param x The big integer
- * @param t The highest bit
+ * @return The highest bit
  */
-void
-bgi_highest_bit(const mbed_bigint x, mbed_int *t)
+mbed_int
+bgi_highest_bit(const mbed_bigint x)
 {
-    mbed_int i;
-    mbed_int j;
+    int i;
+    int j;
 
     for(i = (BIGINT_SIZE - 1); i > 0; i--)
-        if(((x[i] >> j) & 0x1) != 0)
+        if(x[i] != 0)
             break;
 
-    for(j = 32; j > 0; j--)
-        if((x[i]) == 1)
+    for(j = 31; j > 0; j--)
+        if(((x[i] >> (j - 1)) & 0x1) == 1)
             break;
 
-    *t = (BIGINT_SIZE - (i + 1)) * 32 + (32 - j);
+    return i * 32 + j;
 }
 
 
@@ -353,7 +353,7 @@ const mbed_bigint rm, const mbed_bigint r2)
     bgi_mul(xp, x, r2, m, mp);
     bgi_cpy(a, rm);
 
-    bgi_highest_bit(e, &t);
+    t = bgi_highest_bit(e);
 
     for(i = t; i >= 0; i--)
     {
@@ -363,8 +363,8 @@ const mbed_bigint rm, const mbed_bigint r2)
         bgi_cpy(tmp, a);
         bgi_mul(a, tmp, tmp, m, mp);
 
-        j = BIGINT_SIZE - (1 + (i / 32));
-        k = 32 - (i % 32);
+        j = i >> 5;
+        k = i & 31;
 
         if(((e[j] >> k) & 0x1) == 0x1)
         {
