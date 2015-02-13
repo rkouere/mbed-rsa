@@ -202,7 +202,7 @@ const mbed_bigint m, const mbed_int mp)
     mbed_bigint tmp;
     mbed_bigint tmp2;
     mbed_int i;
-    mbed_int debug = 1; /* DEBUG */
+    mbed_int debug = 0; /* DEBUG */
 
     bgi_init(dest);
     bgi_init(u);
@@ -339,8 +339,9 @@ bgi_highest_bit(const mbed_bigint x, mbed_int *t)
  * @see bigint.h
  */
 void 
-montgomery_exponentiation(mbed_bigint dest, mbed_bigint x, mbed_bigint e, 
-const mbed_bigint m, const mbed_int mp, const mbed_bigint rm, const mbed_bigint r2)
+mod_exp(mbed_bigint dest, const mbed_bigint x, 
+const mbed_bigint e, const mbed_bigint m, const mbed_int mp, 
+const mbed_bigint rm, const mbed_bigint r2)
 {
     mbed_bigint xp;
     mbed_bigint a;

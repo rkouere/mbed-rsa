@@ -148,13 +148,13 @@ def main():
 
         i = i + 1
 
-    code = code + "mbed_int test_mont_mul_dataset_m[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_m + "\n};\n"
-    code = code + "mbed_int test_mont_mul_dataset_mp[TEST_MOD_EXP_COUNT] = {\n" + tab_mp + "\n};\n"
-    code = code + "mbed_int test_mont_mul_dataset_rm[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_rm + "\n};\n"
-    code = code + "mbed_int test_mont_mul_dataset_r2[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_r2 + "\n};\n"
-    code = code + "mbed_int test_mont_mul_dataset_x[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_x + "\n};\n"
-    code = code + "mbed_int test_mont_mul_dataset_e[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_e + "\n};\n"
-    code = code + "mbed_int test_mont_mul_dataset_excepted[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_excepted + "\n};\n"
+    code = code + "mbed_int test_mod_exp_dataset_m[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_m + "\n};\n"
+    code = code + "mbed_int test_mod_exp_dataset_mp[TEST_MOD_EXP_COUNT] = {\n" + tab_mp + "\n};\n"
+    code = code + "mbed_int test_mod_exp_dataset_rm[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_rm + "\n};\n"
+    code = code + "mbed_int test_mod_exp_dataset_r2[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_r2 + "\n};\n"
+    code = code + "mbed_int test_mod_exp_dataset_x[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_x + "\n};\n"
+    code = code + "mbed_int test_mod_exp_dataset_e[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_e + "\n};\n"
+    code = code + "mbed_int test_mod_exp_dataset_excepted[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_excepted + "\n};\n"
 
     print code
 
