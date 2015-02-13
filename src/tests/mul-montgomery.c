@@ -12,14 +12,16 @@
 
 mbed_int main()
 {
-    long int failures = 0;
     long int i = 0;
     mbed_bigint dest;
 
     while (i < TEST_MONT_MUL_COUNT)
     {
         bgi_init(dest);
-        bgi_mul(dest, test_mont_mul_dataset_x[i], test_mont_mul_dataset_x[i], test_mont_mul_dataset_modulus[i] , test_mont_mul_dataset_modulus_invert[i]);
+
+        bgi_montgomery_mul(dest, test_mont_mul_dataset_x[i], 
+            test_mont_mul_dataset_x[i], test_mont_mul_dataset_modulus[i], 
+            test_mont_mul_dataset_modulus_invert[i]);
 
         if (bgi_cmp(dest, test_mont_mul_dataset_y[i]) != 0)
         {
@@ -37,21 +39,13 @@ mbed_int main()
             bgi_print(dest);
             putchar('\n');
 
-            failures ++;
             exit(EXIT_FAILURE);
         }
 	else
-	{
             printf("[PASS] Test bgi_mul %d / %d\n", i + 1, TEST_MONT_MUL_COUNT);
-	}
 
         i++;
     }
-
-    /*printf("\n\n##################################\n\n");
-    printf("End of tests!\n");
-    printf("%ld failures / %ld tests\n", failures, TEST_MONT_MUL_COUNT);
-    printf("\n##################################\n");*/
 
     exit(EXIT_SUCCESS);
 }

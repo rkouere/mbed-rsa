@@ -19,14 +19,14 @@ mbed_int main()
     {
         bgi_init(dest);
 
-mod_exp(
-		dest, 
-		test_mod_exp_dataset_x[i], 
-		test_mod_exp_dataset_e[i], 
-		test_mod_exp_dataset_m[i], 
-		test_mod_exp_dataset_mp[i], 
-		test_mod_exp_dataset_rm[i], 
-		test_mod_exp_dataset_r2[i]
+        bgi_mod_exp(
+	    dest, 
+            test_mod_exp_dataset_x[i], 
+            test_mod_exp_dataset_e[i], 
+            test_mod_exp_dataset_m[i], 
+            test_mod_exp_dataset_mp[i], 
+            test_mod_exp_dataset_rm[i], 
+            test_mod_exp_dataset_r2[i]
 	);
 
         if (bgi_cmp(dest, test_mod_exp_dataset_excepted[i]) != 0)
@@ -57,14 +57,11 @@ mod_exp(
             bgi_print(dest);
 
             putchar('\n');
-            putchar('\n');
 
-            /*exit(EXIT_FAILURE);*/
+            exit(EXIT_FAILURE);
         }
 	else
-	{
             printf("[PASS] Test mod_exp %d / %d\n", i + 1, TEST_MOD_EXP_COUNT);
-	}
 
         i++;
     }

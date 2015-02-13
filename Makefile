@@ -17,7 +17,6 @@ OBJ  += tests/obj/tests/mul-int-by-int.o
 OBJ  += tests/obj/tests/mul-bigint-by-int.o
 OBJ  += tests/obj/tests/shift.o
 OBJ  += tests/obj/tests/mul-montgomery.o
-OBJ  += tests/obj/tests/failed-mul-montgomery.o
 OBJ  += tests/obj/tests/mod-exp.o
 
 BIN   = tests/bin/tests/add
@@ -26,7 +25,6 @@ BIN  += tests/bin/tests/mul-int-by-int
 BIN  += tests/bin/tests/mul-bigint-by-int
 BIN  += tests/bin/tests/shift
 BIN  += tests/bin/tests/mul-montgomery
-BIN  += tests/bin/tests/failed-mul-montgomery
 BIN  += tests/bin/tests/mod-exp
 
 
@@ -76,9 +74,6 @@ tests/obj/tests/shift.o: src/tests/shift.c src/tests/datasets/add.c
 tests/obj/tests/mul-montgomery.o: src/tests/mul-montgomery.c src/tests/datasets/mul-montgomery.c
 	gcc -m32 -c -o tests/obj/tests/mul-montgomery.o src/tests/mul-montgomery.c -D_COMPUTER_VERSION
 
-tests/obj/tests/failed-mul-montgomery.o: src/tests/failed-mul-montgomery.c
-	gcc -m32 -c -o tests/obj/tests/failed-mul-montgomery.o src/tests/failed-mul-montgomery.c -D_COMPUTER_VERSION
-
 tests/obj/tests/mod-exp.o: src/tests/mod-exp.c src/tests/datasets/mod-exp.c
 	gcc -m32 -c -o tests/obj/tests/mod-exp.o src/tests/mod-exp.c -D_COMPUTER_VERSION
 
@@ -101,9 +96,6 @@ tests/bin/tests/shift: tests/obj/tests/shift.o tests/obj/bigint.o
 tests/bin/tests/mul-montgomery: tests/obj/tests/mul-montgomery.o tests/obj/bigint.o
 	gcc -m32 -o tests/bin/tests/mul-montgomery tests/obj/tests/mul-montgomery.o tests/obj/bigint.o -D_COMPUTER_VERSION
 
-tests/bin/tests/failed-mul-montgomery: tests/obj/tests/failed-mul-montgomery.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/failed-mul-montgomery tests/obj/tests/failed-mul-montgomery.o tests/obj/bigint.o -D_COMPUTER_VERSION
-
 tests/bin/tests/mod-exp: tests/obj/tests/mod-exp.o tests/obj/bigint.o
 	gcc -m32 -o tests/bin/tests/mod-exp tests/obj/tests/mod-exp.o tests/obj/bigint.o -D_COMPUTER_VERSION
 
@@ -118,12 +110,6 @@ tests: tests/bin/tests/add tests/bin/tests/sub tests/bin/tests/mul-int-by-int te
 	./tests/bin/tests/mod-exp
 
 
-# Debuging
-debug: tests/bin/tests/failed-mul-montgomery
-	./tests/bin/tests/failed-mul-montgomery
-	python src/debug/montgomery.py
-
-
 # Clean
 clean:
 	rm -f $(DATA)
@@ -132,6 +118,6 @@ clean:
 
 
 # Misc
-.PHONY: clean tests debug
+.PHONY: clean tests 
 
 

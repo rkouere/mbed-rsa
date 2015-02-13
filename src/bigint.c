@@ -28,7 +28,7 @@ bgi_init(mbed_bigint x)
 void
 bgi_cpy(mbed_bigint dest, const mbed_bigint src)
 {
-    mbed_int i;
+    int i;
 
     /* Copy the 32 digits + the 2 carry's digits to "dest" */
     for(i = (mbed_int) 0; i < BIGINT_SIZE + 2; i++)
@@ -68,7 +68,7 @@ bgi_print(const mbed_bigint x)
 mbed_int
 bgi_cmp(const mbed_bigint x, const mbed_bigint y)
 {
-    mbed_int i = BIGINT_SIZE;
+    int i = BIGINT_SIZE;
 
     while (i > 0) 
         /* Compare digit by digit */
@@ -88,10 +88,10 @@ void
 bgi_add(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
 {
     mbed_int carry = 0;
-    mbed_int i;
+    int i;
 
     /* Add two big integers digit by digit */
-    for (i = (mbed_int) 0; i < BIGINT_SIZE + 1; i++)
+    for (i = 0; i < BIGINT_SIZE + 1; i++)
     {
         dest[i] = (x[i] + y[i] + carry);
 
@@ -113,10 +113,10 @@ void
 bgi_sub(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
 {
     mbed_int carry = 0;
-    mbed_int i;
+    int i;
 
     /* Subtracts two big integers digit by digit */
-    for (i = (mbed_int) 0; i < BIGINT_SIZE + 1; i++)
+    for (i = 0; i < BIGINT_SIZE + 1; i++)
     {
         dest[i] = (x[i] - (y[i] + carry));
         carry = (x[i] < (carry + y[i]))? (mbed_int) 1: (mbed_int) 0;
@@ -131,7 +131,7 @@ bgi_sub(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y)
  * @see bigint.h
  */
 void 
-bgi_mul_int_by_int(mbed_int *dest1, mbed_int *dest2, const mbed_int x, 
+bgi_mul_int_by_int(mbed_int *carry, mbed_int *rest, const mbed_int x, 
 const mbed_int y)
 {
     /* Multiply two integers and store the result in a 64 bits integer */
@@ -139,8 +139,8 @@ const mbed_int y)
         (((mbed_long_int) x) * ((mbed_long_int) y));
 
     /* Split the result to extract the carry */
-    *dest1 = (mbed_int) (res >> 32);
-    *dest2 = (mbed_int) res; 
+    *carry = (mbed_int) (res >> 32);
+    *rest = (mbed_int) res; 
 }
 
 
@@ -153,10 +153,10 @@ bgi_mul_bigint_by_int(mbed_bigint dest, const mbed_bigint x, const mbed_int y)
     mbed_int rest;
     mbed_int tmp = 0;
     mbed_int carry = 0;
-    mbed_int i;
+    int i;
 
     /* Do a basic multiplication */
-    for (i = (mbed_int) 0; i < BIGINT_SIZE + 1; i++)
+    for (i = 0; i < BIGINT_SIZE + 1; i++)
     {
         tmp = carry;
         bgi_mul_int_by_int(&carry, &rest, x[i], y);
@@ -177,7 +177,7 @@ bgi_mul_bigint_by_int(mbed_bigint dest, const mbed_bigint x, const mbed_int y)
 void 
 bgi_rshift(mbed_bigint x, mbed_int shift)
 {
-    mbed_int i;
+    int i;
 
     /* Shift the digits */
     for (i = 0; i <= BIGINT_SIZE + 1 - shift; i++)
@@ -193,7 +193,7 @@ bgi_rshift(mbed_bigint x, mbed_int shift)
  * @see bigint.h
  */
 void 
-bgi_mul(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y, 
+bgi_montgomery_mul(mbed_bigint dest, const mbed_bigint x, const mbed_bigint y,
 const mbed_bigint m, const mbed_int mp)
 {
     mbed_bigint u;
@@ -201,51 +201,13 @@ const mbed_bigint m, const mbed_int mp)
     mbed_bigint ui_m;
     mbed_bigint tmp;
     mbed_bigint tmp2;
-    mbed_int i;
-    mbed_int debug = 0; /* DEBUG */
+    int i;
 
     bgi_init(dest);
     bgi_init(u);
     
-    #ifdef _COMPUTER_VERSION
-    if (debug)
-    {
-        printf(
-            "  i  |     xi    |  xi*y0   |    ui    |                      " \
-            "                                                              " \
-            "                                                              " \
-            "               xi*y                                           " \
-            "                                                              " \
-            "                                       |   ui*m   |           " \
-            "                                                              " \
-            "                                                              " \
-            "                        a\n----------" \
-            "--------------------------------------------------------------" \
-            "--------------------------------------------------------------" \
-            "--------------------------------------------------------------" \
-            "--------------------------------------------------------------" \
-            "--------------------------------------------------------------" \
-            "--------------------------------------------------------------" \
-            "--------------------------------------------------------------" \
-            "--------------------------------------------------------------" \
-            "--------------------------------------------------------------" \
-            "--------------------------------------------------------------" \
-            "---------------------------------------\n"
-        );
-    }
-    #endif
-
     for (i = 0; i < BIGINT_SIZE; i++)
     {
-    	#ifdef _COMPUTER_VERSION
-        if (debug)
-        {
-            printf(" %2d  | ", i);
-            printf(" %8x |", x[i]);
-            printf(" %8x |", x[i] * y[0]);
-        }
-    	#endif
-
         bgi_init(y_xi);
         bgi_init(ui_m);
         bgi_init(tmp);
@@ -253,61 +215,19 @@ const mbed_bigint m, const mbed_int mp)
 
         u[i] = ((dest[0] + (x[i] * y[0])) * mp);
 
-    	#ifdef _COMPUTER_VERSION
-        if (debug)
-            printf(" %8x |", u[i]);
-    	#endif
-
         bgi_mul_bigint_by_int(y_xi, y, x[i]);
-
-    	#ifdef _COMPUTER_VERSION
-        if (debug)
-        {
-            bgi_print(y_xi);
-            printf(" |");
-        }
-    	#endif
-
         bgi_add(tmp, dest, y_xi);
+
 	bgi_mul_bigint_by_int(ui_m, m, u[i]);
-
-    	#ifdef _COMPUTER_VERSION
-        if (debug)
-            printf(" %8x |", ui_m[1]);
-    	#endif
-
         bgi_add(dest, tmp, ui_m);
 
         bgi_rshift(dest, 1);
-
-    	#ifdef _COMPUTER_VERSION
-        if (debug)
-        {
-            bgi_print(dest);
-            printf("\n");
-        }
-    	#endif
     }
 
     if (bgi_cmp(dest, m) != -1)
     {
-    	#ifdef _COMPUTER_VERSION
-        if (debug)
-        {
-            bgi_print(dest);
-            printf("\n");
-            bgi_print(m);
-            printf("\n");
-        }
-    	#endif
-
         bgi_cpy(tmp2, dest);
         bgi_sub(dest, tmp2, m);
-
-    	#ifdef _COMPUTER_VERSION
-        if (debug)
-            printf("################################## Soustraction finale");
-    	#endif
     }
 }
 
@@ -339,7 +259,7 @@ bgi_highest_bit(const mbed_bigint x)
  * @see bigint.h
  */
 void 
-mod_exp(mbed_bigint dest, const mbed_bigint x, 
+bgi_mod_exp(mbed_bigint dest, const mbed_bigint x, 
 const mbed_bigint e, const mbed_bigint m, const mbed_int mp, 
 const mbed_bigint rm, const mbed_bigint r2)
 {
@@ -347,21 +267,21 @@ const mbed_bigint rm, const mbed_bigint r2)
     mbed_bigint a;
     mbed_bigint tmp;
     mbed_bigint one;
-    mbed_int t;
+    int t;
     int i;
 
-    bgi_mul(xp, x, r2, m, mp);
+    bgi_montgomery_mul(xp, x, r2, m, mp);
     bgi_cpy(a, rm);
 
     t = bgi_highest_bit(e);
 
     for(i = t; i >= 0; i--)
     {
-        mbed_int j;
-        mbed_int k;
+        int j;
+        int k;
 
         bgi_cpy(tmp, a);
-        bgi_mul(a, tmp, tmp, m, mp);
+        bgi_montgomery_mul(a, tmp, tmp, m, mp);
 
         j = i >> 5;
         k = i & 31;
@@ -369,7 +289,7 @@ const mbed_bigint rm, const mbed_bigint r2)
         if(((e[j] >> k) & 0x1) == 0x1)
         {
             bgi_cpy(tmp, a);
-            bgi_mul(a, tmp, xp, m, mp);
+            bgi_montgomery_mul(a, tmp, xp, m, mp);
         }
     }
 
@@ -377,7 +297,8 @@ const mbed_bigint rm, const mbed_bigint r2)
     one[0] = 1;
 
     bgi_cpy(tmp, a);
-    bgi_mul(a, tmp, one, m, mp);
+    bgi_montgomery_mul(a, tmp, one, m, mp);
 
     bgi_cpy(dest, a);
 }
+

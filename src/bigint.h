@@ -87,7 +87,7 @@
      * @param x The first int of multiplication
      * @param y The second int of multiplication
      */
-    extern void bgi_mul_int_by_int(mbed_int *dest1, mbed_int *dest2, 
+    extern void bgi_mul_int_by_int(mbed_int *carry, mbed_int *rest, 
         const mbed_int x, const mbed_int y);
 
     /**
@@ -107,7 +107,7 @@
      * @param m The modulus of multiplication
      * @param mp The modulus inverse of multiplication
      */
-    extern void bgi_mul(mbed_bigint dest, const mbed_bigint x, 
+    extern void bgi_montgomery_mul(mbed_bigint dest, const mbed_bigint x, 
         const mbed_bigint y, const mbed_bigint m, const mbed_int mp);
 
     /**
@@ -118,7 +118,7 @@
      * @param m The modulus of multiplication
      * @param mp The modulus inverse of multiplication
      */
-    extern void mod_exp(mbed_bigint dest, const mbed_bigint x, 
+    extern void bgi_mod_exp(mbed_bigint dest, const mbed_bigint x, 
 	const mbed_bigint e, const mbed_bigint m, const mbed_int mp, 
 	const mbed_bigint rm, const mbed_bigint r2);
 
