@@ -33,12 +33,33 @@ mod_exp(
         {
             printf("[FAIL] Test mod_exp %d / %d", i + 1, TEST_MOD_EXP_COUNT);
 
-            printf("\nx : \n");
+            printf("\nx:               ");
             bgi_print(test_mod_exp_dataset_x[i]);
 
+            printf("\ne:               ");
+            bgi_print(test_mod_exp_dataset_e[i]);
+
+            printf("\nm:               ");
+            bgi_print(test_mod_exp_dataset_m[i]);
+
+            printf("\nm':              [       0        0] %x", test_mod_exp_dataset_mp[i]);
+
+            printf("\nR mod m:         ");
+            bgi_print(test_mod_exp_dataset_rm[i]);
+
+            printf("\nR²:              ");
+            bgi_print(test_mod_exp_dataset_r2[i]);
+
+            printf("\nExcepted result: ");
+            bgi_print(test_mod_exp_dataset_excepted[i]);
+
+            printf("\nRecieved result: ");
+            bgi_print(dest);
+
+            putchar('\n');
             putchar('\n');
 
-            exit(EXIT_FAILURE);
+            /*exit(EXIT_FAILURE);*/
         }
 	else
 	{

@@ -354,9 +354,8 @@ const mbed_bigint rm, const mbed_bigint r2)
     bgi_cpy(a, rm);
 
     bgi_highest_bit(e, &t);
-    t = 0;
 
-    for(i = t; i >= 0; i--)
+    for(i = t; i > 0; i--)
     {
         mbed_int j;
         mbed_int k;
