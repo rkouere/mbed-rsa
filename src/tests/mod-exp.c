@@ -19,7 +19,7 @@ mbed_int main()
     {
         bgi_init(dest);
 
-	mod_exp(
+mod_exp(
 		dest, 
 		test_mod_exp_dataset_x[i], 
 		test_mod_exp_dataset_e[i], 
