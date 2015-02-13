@@ -86,9 +86,12 @@ def main():
     code = generate_c_header()
 
     tab_x = ""
-    tab_y = ""
+    tab_e = ""
     tab_m = ""
     tab_mp = ""
+    tab_rm = ""
+    tab_r2 = ""
+    tab_excepted = ""
 
     i = 0
     while i < set_count:
@@ -99,11 +102,13 @@ def main():
 	mp = -invert(m, pow(2, 32)) % b
 
         x = random.randint(0, m - 1)
+        e = random.randint(0, 1 << 1023 - 1)
 
 	r = pow(b, n)
 	rm = r % m
-
 	r2 = pow(r, 2) % m
+
+	excepted = pow(x, e, m)
  
         if i == 0:
             tab_x = tab_x + "\t" + generate_c_array(x)
@@ -111,9 +116,9 @@ def main():
             tab_x = tab_x + ",\n\t" + generate_c_array(x)
         
         if i == 0:
-            tab_y = tab_y + "\t" + generate_c_array(y)
+            tab_e = tab_e + "\t" + generate_c_array(e)
         else:
-            tab_y = tab_y + ",\n\t" + generate_c_array(y)
+            tab_e = tab_e + ",\n\t" + generate_c_array(e)
 
 	if i == 0:
             tab_m = tab_m + "\t" + generate_c_array(m)
@@ -125,13 +130,31 @@ def main():
         else:
             tab_mp = tab_mp + ",\n\t" + str(hex(mp)) + "u"
 
+	if i == 0:
+            tab_rm = tab_rm + "\t" + generate_c_array(rm)
+        else:
+            tab_rm = tab_rm + ",\n\t" + generate_c_array(rm)
+
+	if i == 0:
+            tab_r2 = tab_r2 + "\t" + generate_c_array(r2)
+        else:
+            tab_r2 = tab_r2 + ",\n\t" + generate_c_array(r2)
+        
+        if i == 0:
+            tab_excepted = tab_excepted + "\t" + generate_c_array(excepted)
+        else:
+            tab_excepted = tab_excepted + ",\n\t" + generate_c_array(excepted)
+	
+
         i = i + 1
 
-    code = code + "mbed_int test_mont_mul_dataset_modulus[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_m + "\n};\n"
-    code = code + "mbed_int test_mont_mul_dataset_modulus_invert[TEST_MOD_EXP_COUNT] = {\n" + tab_mp + "\n};\n"
-
+    code = code + "mbed_int test_mont_mul_dataset_m[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_m + "\n};\n"
+    code = code + "mbed_int test_mont_mul_dataset_mp[TEST_MOD_EXP_COUNT] = {\n" + tab_mp + "\n};\n"
+    code = code + "mbed_int test_mont_mul_dataset_rm[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_rm + "\n};\n"
+    code = code + "mbed_int test_mont_mul_dataset_r2[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_r2 + "\n};\n"
     code = code + "mbed_int test_mont_mul_dataset_x[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_x + "\n};\n"
-    code = code + "mbed_int test_mont_mul_dataset_y[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_y + "\n};\n"
+    code = code + "mbed_int test_mont_mul_dataset_e[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_e + "\n};\n"
+    code = code + "mbed_int test_mont_mul_dataset_excepted[TEST_MOD_EXP_COUNT][BIGINT_SIZE + 2] = {\n" + tab_excepted + "\n};\n"
 
     print code
 
