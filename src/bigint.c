@@ -340,7 +340,7 @@ bgi_highest_bit(const mbed_bigint x, mbed_int *t)
  */
 void 
 montgomery_exponentiation(mbed_bigint dest, mbed_bigint x, mbed_bigint e, 
-const mbed_bigint m, const mbed_int mp, const mbed_int rm, const mbed_int r2)
+const mbed_bigint m, const mbed_int mp, const mbed_bigint rm, const mbed_bigint r2)
 {
     mbed_bigint xp;
     mbed_bigint a;
@@ -356,13 +356,13 @@ const mbed_bigint m, const mbed_int mp, const mbed_int rm, const mbed_int r2)
 
     for(i = t; i >= 0; i--)
     {
-        bgi_int j;
-        bgi_int k;
+        mbed_int j;
+        mbed_int k;
 
         bgi_cpy(tmp, a);
         bgi_mul(a, tmp, tmp, m, mp);
 
-        j = BIGINT_SIZE - (1 + (i / 32)));
+        j = BIGINT_SIZE - (1 + (i / 32));
         k = 32 - (i % 32);
 
         if(((e[j] >> k) & 0x1) == 0x1)

@@ -120,6 +120,6 @@
      */
     extern montgomery_modular_exponentiation(mbed_bigint dest, mbed_bigint x, 
         mbed_bigint e, const mbed_bigint m, const mbed_int mp, 
-        const mbed_int rm, const mbed_int r2);
+        const mbed_bigint rm, const mbed_bigint r2);
 
 #endif
