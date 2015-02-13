@@ -82,8 +82,8 @@
     
     /**
      * Multiply an integer by an other integer and put result in two dests
-     * @param dest1 the first part of result x*y on 32 bits
-     * @param dest2 the second part of result x*y on 32 bits
+     * @param carry the first part of result x*y on 32 bits
+     * @param rest the second part of result x*y on 32 bits
      * @param x The first int of multiplication
      * @param y The second int of multiplication
      */
@@ -109,6 +109,13 @@
      */
     extern void bgi_montgomery_mul(mbed_bigint dest, const mbed_bigint x, 
         const mbed_bigint y, const mbed_bigint m, const mbed_int mp);
+
+    /**
+     * Get the highest bit (t) of a big interger
+     * @param x The big integer
+     * @return The highest bit
+     */
+    mbed_int bgi_highest_bit(const mbed_bigint x);
 
     /**
      * Montgomery modular exponentiation

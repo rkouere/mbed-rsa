@@ -233,9 +233,7 @@ const mbed_bigint m, const mbed_int mp)
 
 
 /**
- * Get the highest bit (t) of a big interger
- * @param x The big integer
- * @return The highest bit
+ * @see bigint.h
  */
 mbed_int
 bgi_highest_bit(const mbed_bigint x)
