@@ -347,15 +347,15 @@ const mbed_bigint rm, const mbed_bigint r2)
     mbed_bigint a;
     mbed_bigint tmp;
     mbed_bigint one;
-    mbed_int i;
     mbed_int t;
+    int i;
 
     bgi_mul(xp, x, r2, m, mp);
     bgi_cpy(a, rm);
 
     bgi_highest_bit(e, &t);
 
-    for(i = t; i > 0; i--)
+    for(i = t; i >= 0; i--)
     {
         mbed_int j;
         mbed_int k;
@@ -378,4 +378,6 @@ const mbed_bigint rm, const mbed_bigint r2)
 
     bgi_cpy(tmp, a);
     bgi_mul(a, tmp, one, m, mp);
+
+    bgi_cpy(dest, a);
 }
