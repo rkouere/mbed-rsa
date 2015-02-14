@@ -1,6 +1,6 @@
 /**
  * RSA implementation and attack on Mbed
- * Big integers library - Tests for bgi_mul_bigint_by_int function
+ * Big integers library - Tests for bgi_montgomery_mul function
  * @author Cyrille Toulet, <cyrille.toulet@linux.com>
  * @author Benjamin Burnouf, <benjamin76360@gmail.com>
  */
@@ -25,7 +25,7 @@ mbed_int main()
 
         if (bgi_cmp(dest, test_mont_mul_dataset_y[i]) != 0)
         {
-            printf("[FAIL] Test bgi_mul %d / %d", i + 1, TEST_MONT_MUL_COUNT);
+            printf("[FAIL] Test bgi_montgomery_mul %d / %d", i + 1, TEST_MONT_MUL_COUNT);
 
             printf("\nNumber x        : ");
             bgi_print(test_mont_mul_dataset_x[i]);
@@ -37,12 +37,11 @@ mbed_int main()
             bgi_print(test_mont_mul_dataset_y[i]);
             printf("\nReceived result : ");
             bgi_print(dest);
-            putchar('\n');
 
-            exit(EXIT_FAILURE);
+            putchar('\n');
         }
 	else
-            printf("[PASS] Test bgi_mul %d / %d\n", i + 1, TEST_MONT_MUL_COUNT);
+            printf("[PASS] Test bgi_montgomery_mul %d / %d\n", i + 1, TEST_MONT_MUL_COUNT);
 
         i++;
     }

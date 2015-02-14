@@ -23,6 +23,7 @@ mbed_int main()
         if (bgi_cmp(dest, test_mul_bigint_by_int_dataset_r[i]) != 0)
         {
             printf("[FAIL] Test bgi_mul_bigint_by_int %d / %d", i + 1, TEST_MUL_BIGINT_BY_INT_COUNT);
+
             printf("\nNumber 1        : ");
             bgi_print(test_mul_bigint_by_int_dataset_x[i]);
             printf("\nNumber 2        : %x", test_mul_bigint_by_int_dataset_y[i]);
@@ -30,11 +31,12 @@ mbed_int main()
             bgi_print(test_mul_bigint_by_int_dataset_r[i]);
             printf("\nReceived result : ");
             bgi_print(dest);
+
             putchar('\n');
-            exit(EXIT_FAILURE);
         }
 
         printf("[PASS] Test bgi_mul_bigint_by_int %d / %d\n", i + 1, TEST_MUL_BIGINT_BY_INT_COUNT);
+
         i++;
     }
 

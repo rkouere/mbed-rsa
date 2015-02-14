@@ -1,6 +1,6 @@
 /**
  * RSA implementation and attack on Mbed
- * Big integers library - Tests of montgomery_exponentiation function
+ * Big integers library - Tests of bgi_mod_exp function
  * @author Cyrille Toulet, <cyrille.toulet@linux.com>
  * @author Benjamin Burnouf, <benjamin76360@gmail.com>
  */
@@ -31,7 +31,7 @@ mbed_int main()
 
         if (bgi_cmp(dest, test_mod_exp_dataset_excepted[i]) != 0)
         {
-            printf("[FAIL] Test mod_exp %d / %d", i + 1, TEST_MOD_EXP_COUNT);
+            printf("[FAIL] Test bgi_mod_exp %d / %d", i + 1, TEST_MOD_EXP_COUNT);
 
             printf("\nx:               ");
             bgi_print(test_mod_exp_dataset_x[i]);
@@ -57,11 +57,9 @@ mbed_int main()
             bgi_print(dest);
 
             putchar('\n');
-
-            exit(EXIT_FAILURE);
         }
 	else
-            printf("[PASS] Test mod_exp %d / %d\n", i + 1, TEST_MOD_EXP_COUNT);
+            printf("[PASS] Test bgi_mod_exp %d / %d\n", i + 1, TEST_MOD_EXP_COUNT);
 
         i++;
     }
