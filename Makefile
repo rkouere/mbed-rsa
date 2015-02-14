@@ -116,8 +116,11 @@ clean:
 	rm -f $(OBJ)
 	rm -f $(BIN)
 
+clean-datasets:
+	rm -f $(DATA)
+
 
 # Misc
-.PHONY: clean tests 
+.PHONY: clean clean-datasets tests 
 
 

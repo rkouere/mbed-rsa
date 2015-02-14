@@ -79,6 +79,8 @@ Just swap **BIGINT_SIZE + 1** with **BIGINT_SIZE + 2** and retry.
 
 To compile the project, type ```make```, or ```make all```.
 
+You can run tests suit by typping ```make clean-datasets tests```
+
 You can clean the compilated files by typping ```make clean```.
 
 
