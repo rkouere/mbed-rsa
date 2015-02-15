@@ -57,7 +57,6 @@ hope that our project will be resumed by students of 4th year for the tests
 using our libraries.
 
 
-
 ## Requirements
 
 The computer compilation requires few dependencies:
@@ -68,18 +67,9 @@ The computer compilation requires few dependencies:
  - gcc
 
 
-# Bugs
-
-On few systems, bgi_sub() tests fail!
-
-Just swap **BIGINT_SIZE + 1** with **BIGINT_SIZE + 2** and retry.
-
-
 ## Build
 
 To compile the project, type ```make```, or ```make all```.
-
-You can run tests suit by typping ```make clean-datasets tests```
 
 You can clean the compilated files by typping ```make clean```.
 
@@ -87,19 +77,7 @@ You can clean the compilated files by typping ```make clean```.
 ## Development
 
 To test the bigint library, type ```make tests```.
+You can run tests datasets by typping ```make clean-datasets tests```
 
+The modular exponentiation has been tested 1425237 times with success.
 
-## Debug 2015-01-30
-
- - Probleme de soustraction qui allait pas assez loin
- - probleme de shift qui allait pas assez loin, 
- - probleme d'accolade autour du if final de montgomery
- - manquait une copy dans la soustraction finale
- - conditions de départ x < m 
- - assert sources<>dest
-
-
-## Tests (2015-01-31)
-
-1 failure in 5,000,000 tests of Montgomery multiplication:
-[See logs](logs/tests.20150131.log).
