@@ -66,6 +66,12 @@ The computer compilation requires few dependencies:
  - make
  - gcc
 
+The mbed compilation requires gcc-arm-none-eabi available 
+[here](https://launchpad.net/gcc-arm-embedded/+download):
+```sh
+tar -xvf gcc-arm-none-eabi-4_9-2014q4-20141203-linux.tar.bz2
+```
+
 
 ## Build
 
