@@ -17,6 +17,7 @@ OBJ  += pc/obj/tests/mul-int-by-int.o
 OBJ  += pc/obj/tests/mul-bigint-by-int.o
 OBJ  += pc/obj/tests/montgomery-mul.o
 OBJ  += pc/obj/tests/mod-exp.o
+OBJ  += mbed/obj/bigint.o
 
 BIN   = pc/bin/tests/add
 BIN  += pc/bin/tests/sub
@@ -24,10 +25,11 @@ BIN  += pc/bin/tests/mul-int-by-int
 BIN  += pc/bin/tests/mul-bigint-by-int
 BIN  += pc/bin/tests/montgomery-mul
 BIN  += pc/bin/tests/mod-exp
+BIN  += mbed/bin/test-add
 
 
 # Global rule
-all: $(BIN)
+all: pc/obj/bigint.o mbed/obj/bigint.o
 
 
 # Testing datasets
@@ -75,8 +77,11 @@ pc/obj/tests/montgomery-mul.o: src/tests/montgomery-mul.c src/tests/datasets/mon
 pc/obj/tests/mod-exp.o: src/tests/mod-exp.c src/tests/datasets/mod-exp.c
 	gcc -m32 -c -o pc/obj/tests/mod-exp.o src/tests/mod-exp.c -D_COMPUTER_VERSION
 
+mbed/obj/bigint.o: src/bigint.c
+	arm-none-eabi-gcc -c -o mbed/obj/bigint.o src/bigint.c
 
-# Testing and debuging binaries
+
+# Compilated binaries
 pc/bin/tests/add: pc/obj/tests/add.o pc/obj/bigint.o
 	gcc -m32 -o pc/bin/tests/add pc/obj/tests/add.o pc/obj/bigint.o -D_COMPUTER_VERSION
 
@@ -98,8 +103,11 @@ pc/bin/tests/montgomery-mul: pc/obj/tests/montgomery-mul.o pc/obj/bigint.o
 pc/bin/tests/mod-exp: pc/obj/tests/mod-exp.o pc/obj/bigint.o
 	gcc -m32 -o pc/bin/tests/mod-exp pc/obj/tests/mod-exp.o pc/obj/bigint.o -D_COMPUTER_VERSION
 
+mbed/bin/test-add: mbed/obj/bigint.o src/mbed/test-add/main.c
+	@(cd src/mbed/test-add/ && $(MAKE))
 
-# Testing
+
+# PC tests binaries
 tests: pc/bin/tests/add pc/bin/tests/sub pc/bin/tests/mul-int-by-int pc/bin/tests/mul-bigint-by-int pc/bin/tests/montgomery-mul pc/bin/tests/mod-exp
 	./pc/bin/tests/add
 	./pc/bin/tests/sub
@@ -109,8 +117,18 @@ tests: pc/bin/tests/add pc/bin/tests/sub pc/bin/tests/mul-int-by-int pc/bin/test
 	./pc/bin/tests/mod-exp
 
 
+# Mbed binaries
+mbed: rflpc mbed/bin/test-add
+
+
+# RFLPC rules
+rflpc:
+	@(cd mbed/lib/rflpc && $(MAKE))
+
+
 # Clean
 clean:
+	@(cd mbed/lib/rflpc && $(MAKE) clean)
 	rm -f $(DATA)
 	rm -f $(OBJ)
 	rm -f $(BIN)
@@ -120,5 +138,5 @@ clean-datasets:
 
 
 # Misc
-.PHONY: clean clean-datasets tests 
+.PHONY: clean clean-datasets
 

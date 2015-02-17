@@ -57,9 +57,14 @@ hope that our project will be resumed by students of 4th year for the tests
 using our libraries.
 
 
+## Informations
+
+The modular exponentiation has been tested **1425237** times with success.
+
+
 ## Requirements
 
-The computer compilation requires few dependencies:
+The compilation requires few dependencies:
  - lib32c-dev
  - multiarch-support
  - python-gmpy2
@@ -68,22 +73,30 @@ The computer compilation requires few dependencies:
  - gcc-arm-none-eabi
 
 
-## Build (PC)
+## Compilation
 
-To compile the bigint library, type ```make```, or ```make all```.
+To build the bigint library (pc/obj/bigint.o & mbed/obj/bigint.o), type:
+```sh
+make
+```
 
-You can clean the compilated files by typping ```make clean```.
+To build and run PC tests, type:
+```sh
+make tests
+```
 
+To clear the tests datasets, type:
+```sh
+make clean-datasets
+```
 
-## Build (MBED)
+To clear all the compilated files, type:
+```sh
+make clean
+```
 
-*In progress...*
-
-
-## Development
-
-To test the bigint library, type ```make tests```.
-You can clear tests datasets by typping ```make clean-datasets tests```
-
-The modular exponentiation has been tested **1425237** times with success.
+To build the mbed binaries, type:
+```sh
+make mbed
+```
 
