@@ -65,25 +65,25 @@ The computer compilation requires few dependencies:
  - python-gmpy2
  - make
  - gcc
+ - gcc-arm-none-eabi
 
 
-## Configuration
+## Build (PC)
 
-Before compile, configure the **RFLPC_PATH** in 
-[src/mbed/Makefile.in](src/mbed/Makefile.in).
-
-
-## Build
-
-To compile the project, type ```make```, or ```make all```.
+To compile the bigint library, type ```make```, or ```make all```.
 
 You can clean the compilated files by typping ```make clean```.
+
+
+## Build (MBED)
+
+*In progress...*
 
 
 ## Development
 
 To test the bigint library, type ```make tests```.
-You can run tests datasets by typping ```make clean-datasets tests```
+You can clear tests datasets by typping ```make clean-datasets tests```
 
-The modular exponentiation has been tested 1425237 times with success.
+The modular exponentiation has been tested **1425237** times with success.
 
