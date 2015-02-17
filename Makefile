@@ -10,22 +10,20 @@ DATA += src/tests/datasets/mul-bigint-by-int.c
 DATA += src/tests/datasets/montgomery-mul.c
 DATA += src/tests/datasets/mod-exp.c
 
-OBJ   = tests/obj/bigint.o
-OBJ  += tests/obj/tests/add.o
-OBJ  += tests/obj/tests/sub.o
-OBJ  += tests/obj/tests/mul-int-by-int.o
-OBJ  += tests/obj/tests/mul-bigint-by-int.o
-OBJ  += tests/obj/tests/shift.o
-OBJ  += tests/obj/tests/montgomery-mul.o
-OBJ  += tests/obj/tests/mod-exp.o
+OBJ   = pc/obj/bigint.o
+OBJ  += pc/obj/tests/add.o
+OBJ  += pc/obj/tests/sub.o
+OBJ  += pc/obj/tests/mul-int-by-int.o
+OBJ  += pc/obj/tests/mul-bigint-by-int.o
+OBJ  += pc/obj/tests/montgomery-mul.o
+OBJ  += pc/obj/tests/mod-exp.o
 
-BIN   = tests/bin/tests/add
-BIN  += tests/bin/tests/sub
-BIN  += tests/bin/tests/mul-int-by-int
-BIN  += tests/bin/tests/mul-bigint-by-int
-BIN  += tests/bin/tests/shift
-BIN  += tests/bin/tests/montgomery-mul
-BIN  += tests/bin/tests/mod-exp
+BIN   = pc/bin/tests/add
+BIN  += pc/bin/tests/sub
+BIN  += pc/bin/tests/mul-int-by-int
+BIN  += pc/bin/tests/mul-bigint-by-int
+BIN  += pc/bin/tests/montgomery-mul
+BIN  += pc/bin/tests/mod-exp
 
 
 # Global rule
@@ -53,61 +51,62 @@ src/tests/datasets/mod-exp.c: ./src/tests/generators/mod-exp.py
 
 
 # Objects
-tests/obj/bigint.o: src/bigint.c
-	gcc -m32 -c -o tests/obj/bigint.o src/bigint.c -D_COMPUTER_VERSION
+pc/obj/bigint.o: src/bigint.c
+	gcc -m32 -c -o pc/obj/bigint.o src/bigint.c -D_COMPUTER_VERSION
 
-tests/obj/tests/add.o: src/tests/add.c src/tests/datasets/add.c
-	gcc -m32 -c -o tests/obj/tests/add.o src/tests/add.c -D_COMPUTER_VERSION
+pc/obj/tests/add.o: src/tests/add.c src/tests/datasets/add.c
+	gcc -m32 -c -o pc/obj/tests/add.o src/tests/add.c -D_COMPUTER_VERSION
 
-tests/obj/tests/sub.o: src/tests/sub.c src/tests/datasets/sub.c
-	gcc -m32 -c -o tests/obj/tests/sub.o src/tests/sub.c -D_COMPUTER_VERSION
+pc/obj/tests/sub.o: src/tests/sub.c src/tests/datasets/sub.c
+	gcc -m32 -c -o pc/obj/tests/sub.o src/tests/sub.c -D_COMPUTER_VERSION
 
-tests/obj/tests/mul-bigint-by-int.o: src/tests/mul-bigint-by-int.c src/tests/datasets/mul-bigint-by-int.c
-	gcc -m32 -c -o tests/obj/tests/mul-bigint-by-int.o src/tests/mul-bigint-by-int.c -D_COMPUTER_VERSION
+pc/obj/tests/mul-bigint-by-int.o: src/tests/mul-bigint-by-int.c src/tests/datasets/mul-bigint-by-int.c
+	gcc -m32 -c -o pc/obj/tests/mul-bigint-by-int.o src/tests/mul-bigint-by-int.c -D_COMPUTER_VERSION
 
-tests/obj/tests/mul-int-by-int.o: src/tests/mul-int-by-int.c src/tests/datasets/mul-int-by-int.c
-	gcc -m32 -c -o tests/obj/tests/mul-int-by-int.o src/tests/mul-int-by-int.c -D_COMPUTER_VERSION
+pc/obj/tests/mul-int-by-int.o: src/tests/mul-int-by-int.c src/tests/datasets/mul-int-by-int.c
+	gcc -m32 -c -o pc/obj/tests/mul-int-by-int.o src/tests/mul-int-by-int.c -D_COMPUTER_VERSION
 
-tests/obj/tests/shift.o: src/tests/shift.c src/tests/datasets/add.c
-	gcc -m32 -c -o tests/obj/tests/shift.o src/tests/shift.c -D_COMPUTER_VERSION
+pc/obj/tests/shift.o: src/tests/shift.c src/tests/datasets/add.c
+	gcc -m32 -c -o pc/obj/tests/shift.o src/tests/shift.c -D_COMPUTER_VERSION
 
-tests/obj/tests/montgomery-mul.o: src/tests/montgomery-mul.c src/tests/datasets/montgomery-mul.c
-	gcc -m32 -c -o tests/obj/tests/montgomery-mul.o src/tests/montgomery-mul.c -D_COMPUTER_VERSION
+pc/obj/tests/montgomery-mul.o: src/tests/montgomery-mul.c src/tests/datasets/montgomery-mul.c
+	gcc -m32 -c -o pc/obj/tests/montgomery-mul.o src/tests/montgomery-mul.c -D_COMPUTER_VERSION
 
-tests/obj/tests/mod-exp.o: src/tests/mod-exp.c src/tests/datasets/mod-exp.c
-	gcc -m32 -c -o tests/obj/tests/mod-exp.o src/tests/mod-exp.c -D_COMPUTER_VERSION
+pc/obj/tests/mod-exp.o: src/tests/mod-exp.c src/tests/datasets/mod-exp.c
+	gcc -m32 -c -o pc/obj/tests/mod-exp.o src/tests/mod-exp.c -D_COMPUTER_VERSION
+
 
 # Testing and debuging binaries
-tests/bin/tests/add: tests/obj/tests/add.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/add tests/obj/tests/add.o tests/obj/bigint.o -D_COMPUTER_VERSION
+pc/bin/tests/add: pc/obj/tests/add.o pc/obj/bigint.o
+	gcc -m32 -o pc/bin/tests/add pc/obj/tests/add.o pc/obj/bigint.o -D_COMPUTER_VERSION
 
-tests/bin/tests/sub: tests/obj/tests/sub.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/sub tests/obj/tests/sub.o tests/obj/bigint.o -D_COMPUTER_VERSION
+pc/bin/tests/sub: pc/obj/tests/sub.o pc/obj/bigint.o
+	gcc -m32 -o pc/bin/tests/sub pc/obj/tests/sub.o pc/obj/bigint.o -D_COMPUTER_VERSION
 
-tests/bin/tests/mul-int-by-int: tests/obj/tests/mul-int-by-int.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/mul-int-by-int tests/obj/tests/mul-int-by-int.o tests/obj/bigint.o -D_COMPUTER_VERSION
+pc/bin/tests/mul-int-by-int: pc/obj/tests/mul-int-by-int.o pc/obj/bigint.o
+	gcc -m32 -o pc/bin/tests/mul-int-by-int pc/obj/tests/mul-int-by-int.o pc/obj/bigint.o -D_COMPUTER_VERSION
 
-tests/bin/tests/mul-bigint-by-int: tests/obj/tests/mul-bigint-by-int.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/mul-bigint-by-int tests/obj/tests/mul-bigint-by-int.o tests/obj/bigint.o -D_COMPUTER_VERSION
+pc/bin/tests/mul-bigint-by-int: pc/obj/tests/mul-bigint-by-int.o pc/obj/bigint.o
+	gcc -m32 -o pc/bin/tests/mul-bigint-by-int pc/obj/tests/mul-bigint-by-int.o pc/obj/bigint.o -D_COMPUTER_VERSION
 
-tests/bin/tests/shift: tests/obj/tests/shift.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/shift tests/obj/tests/shift.o tests/obj/bigint.o -D_COMPUTER_VERSION
+pc/bin/tests/shift: pc/obj/tests/shift.o pc/obj/bigint.o
+	gcc -m32 -o pc/bin/tests/shift pc/obj/tests/shift.o pc/obj/bigint.o -D_COMPUTER_VERSION
 
-tests/bin/tests/montgomery-mul: tests/obj/tests/montgomery-mul.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/montgomery-mul tests/obj/tests/montgomery-mul.o tests/obj/bigint.o -D_COMPUTER_VERSION
+pc/bin/tests/montgomery-mul: pc/obj/tests/montgomery-mul.o pc/obj/bigint.o
+	gcc -m32 -o pc/bin/tests/montgomery-mul pc/obj/tests/montgomery-mul.o pc/obj/bigint.o -D_COMPUTER_VERSION
 
-tests/bin/tests/mod-exp: tests/obj/tests/mod-exp.o tests/obj/bigint.o
-	gcc -m32 -o tests/bin/tests/mod-exp tests/obj/tests/mod-exp.o tests/obj/bigint.o -D_COMPUTER_VERSION
+pc/bin/tests/mod-exp: pc/obj/tests/mod-exp.o pc/obj/bigint.o
+	gcc -m32 -o pc/bin/tests/mod-exp pc/obj/tests/mod-exp.o pc/obj/bigint.o -D_COMPUTER_VERSION
+
 
 # Testing
-tests: tests/bin/tests/add tests/bin/tests/sub tests/bin/tests/mul-int-by-int tests/bin/tests/mul-bigint-by-int tests/bin/tests/shift tests/bin/tests/montgomery-mul tests/bin/tests/mod-exp
-	./tests/bin/tests/add
-	./tests/bin/tests/sub
-	./tests/bin/tests/mul-int-by-int
-	./tests/bin/tests/mul-bigint-by-int
-#	./tests/bin/tests/shift
-	./tests/bin/tests/montgomery-mul
-	./tests/bin/tests/mod-exp
+tests: pc/bin/tests/add pc/bin/tests/sub pc/bin/tests/mul-int-by-int pc/bin/tests/mul-bigint-by-int pc/bin/tests/montgomery-mul pc/bin/tests/mod-exp
+	./pc/bin/tests/add
+	./pc/bin/tests/sub
+	./pc/bin/tests/mul-int-by-int
+	./pc/bin/tests/mul-bigint-by-int
+	./pc/bin/tests/montgomery-mul
+	./pc/bin/tests/mod-exp
 
 
 # Clean
@@ -122,5 +121,4 @@ clean-datasets:
 
 # Misc
 .PHONY: clean clean-datasets tests 
-
 
