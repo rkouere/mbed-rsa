@@ -1,0 +1,30 @@
+What is it?
+-----------
+This library allows development on a LPC17xx board from NXP.
+The release includes configuration for the MBED platform which uses a LPC1768.
+
+Documentation is available at http://hauspie.github.com/rflpc
+
+It includes:
+- Linker script and board initialization code
+- Drivers for several peripherals
+
+What is needed?
+---------------
+In order to compile, you will need a gcc version tuned to build bare metal binaries.
+I use the one which can be build by using the shell script available here: 
+
+https://github.com/esden/summon-arm-toolchain
+
+
+This release includes the LPC17xx.h from NXP and core_m3.h from ARM header
+files. This files include the definition of structures for mapping the CPU and
+the peripheral registers.
+
+Folder description
+------------------
+- datasheets: Datasheets which have been used to develop the library
+- doc: the doxygen file that can be used to generate the documentation of the API
+- rflpc17xx: library source folder
+- samples: some samples used to test and/or demonstrate some functionalities of
+  the library

@@ -1,0 +1,52 @@
+# This Makefile can be included in a project to ease the compiling
+# 
+# You can find a Makefile example in samples/skel
+
+# This includes the makefile that defines compiler tools
+include $(RFLPC_DIR)/Makefile.vars
+
+## Compiling variables
+CFLAGS=$(shell $(RFLPC_DIR)/rflpc-config --cflags) $(ADD_INCLUDES)
+LDFLAGS=$(shell $(RFLPC_DIR)/rflpc-config --libs) $(ADD_LIBS)
+
+## Library configuration
+
+MBED_PATH=$(shell mount | grep MBED | cut -d\  -f3)
+# If your mount command is not completly compliant with the linux one, you can try to use awk instead of cut
+#MBED_PATH=$(shell mount | grep MBED | awk '{ print $$3 }')
+MBED_TTY=$(shell ls /dev/ttyACM*)
+ELF=$(OUTPUT_NAME).elf
+BIN=$(OUTPUT_NAME).bin
+
+EXTERNAL_LIBS_SOURCE=$(foreach external_lib, $(EXTERNAL_LIBS), $(wildcard $(RFLPC_DIR)/external_libs/$(external_lib)/*.c))
+CFLAGS+=$(foreach external_lib, $(EXTERNAL_LIBS), -I$(RFLPC_DIR)/external_libs/$(external_lib))
+OBJS+=$(EXTERNAL_LIBS_SOURCE:.c=.o)
+
+## Common rules
+all:	$(BIN)
+
+$(BIN): $(ELF)
+	$(OBJCOPY) -O binary -j .text -j .data $^ $@
+
+$(ELF): $(OBJS)
+	$(LD) -o $@ $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJS) *~ rflpc.map
+
+mrproper: clean
+	$(RM) $(ELF) $(BIN)
+
+program: $(BIN)
+	cp $+ $(MBED_PATH) && sync
+
+reset:
+	$(RFLPC_DIR)/tools/send_break $(MBED_TTY)
+
+dump: $(ELF)
+	$(OBJDUMP) -sSt $^
+
+$(RFLPC_DIR):
+	make -C $(RFLPC_DIR)
+
+.DEFAULT: all
