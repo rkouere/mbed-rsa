@@ -30,3 +30,6 @@
 
 # Generated files
 *.swp
+
+# Mapping files
+*.map
