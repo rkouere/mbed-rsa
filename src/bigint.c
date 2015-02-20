@@ -7,6 +7,10 @@
 
 #include "bigint.h"
 
+#ifndef _COMPUTER_VERSION
+    #include <rflpc17xx/rflpc17xx.h>
+#endif
+
 
 /**
  * @see bigint.h
