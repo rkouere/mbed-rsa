@@ -207,6 +207,10 @@ const mbed_bigint m, const mbed_int mp)
     mbed_bigint tmp2;
     int i;
 
+    #ifndef _COMPUTER_VERSION
+        rflpc_uart_init(RFLPC_UART0);
+    #endif
+
     printf("Montgomery mul: call bgi_init(dest)\n");
     bgi_init(dest);
     printf("Montgomery mul: call bgi_init(u)\n");

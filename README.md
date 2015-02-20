@@ -61,6 +61,12 @@ using our libraries.
 
 The modular exponentiation has been tested **1425237** times with success.
 
+The following functions has been tested successfully on mbed:
+ - bgi_add();
+ - bgi_sub();
+ - bgi_mul_int_by_int();
+ - bgi_mul_bigint_by_int();
+
 
 ## Requirements
 
