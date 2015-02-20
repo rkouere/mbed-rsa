@@ -207,11 +207,15 @@ const mbed_bigint m, const mbed_int mp)
     mbed_bigint tmp2;
     int i;
 
+    printf("Montgomery mul: call bgi_init(dest)\n");
     bgi_init(dest);
+    printf("Montgomery mul: call bgi_init(u)\n");
     bgi_init(u);
-    
+
     for (i = 0; i < BIGINT_SIZE; i++)
     {
+        printf("Montgomery mul: i = %d\r\n", i);
+
         bgi_init(y_xi);
         bgi_init(ui_m);
         bgi_init(tmp);

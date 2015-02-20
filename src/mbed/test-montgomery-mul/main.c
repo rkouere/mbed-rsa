@@ -21,7 +21,12 @@ main()
 
     mbed_bigint dest;
 
+    rflpc_uart_init(RFLPC_UART0);
+
+    printf("\r\n--------\r\n\r\n");
+    printf("Montgomery mul test: call bgi_init(dest)\r\n");
     bgi_init(dest);
+    printf("Montgomery mul test: init leds\r\n");
 
     /* Init leds */    
     rflpc_led_init();
@@ -34,7 +39,9 @@ main()
     rflpc_led_set(RFLPC_LED_1);
 
     /* Do multiplication */
+    printf("Montgomery mul test: call bgi_montgomery_mul(dest, x, x, m, mp)\r\n");
     bgi_montgomery_mul(dest, x, x, m, mp);
+    printf("Montgomery mul test: Montgomery mul done\r\n");
 
     /* If success, switch on leds 2 & 4 */
     if(bgi_cmp(dest, r) == 0)
