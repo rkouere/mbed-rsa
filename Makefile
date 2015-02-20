@@ -26,10 +26,15 @@ BIN  += pc/bin/tests/mul-bigint-by-int
 BIN  += pc/bin/tests/montgomery-mul
 BIN  += pc/bin/tests/mod-exp
 BIN  += mbed/bin/test-add
-
+BIN  += mbed/bin/test-sub
+BIN  += mbed/bin/test-mul-int-by-int
+BIN  += mbed/bin/test-mul-bigint-by-int
+BIN  += mbed/bin/test-montgomery-mul
+BIN  += mbed/bin/test-mod-exp
 
 RFLPC = mbed/lib/rflpc
 RFLPC_CFLAGS = $(shell $(RFLPC)/rflpc-config --cflags)
+
 
 # Global rule
 all: pc/obj/bigint.o mbed/obj/bigint.o
@@ -109,6 +114,21 @@ pc/bin/tests/mod-exp: pc/obj/tests/mod-exp.o pc/obj/bigint.o
 mbed/bin/test-add: mbed/obj/bigint.o src/mbed/test-add/main.c
 	@(cd src/mbed/test-add/ && $(MAKE))
 
+mbed/bin/test-sub: mbed/obj/bigint.o src/mbed/test-sub/main.c
+	@(cd src/mbed/test-sub/ && $(MAKE))
+
+mbed/bin/test-mul-int-by-int: mbed/obj/bigint.o src/mbed/test-mul-int-by-int/main.c
+	@(cd src/mbed/test-mul-int-by-int/ && $(MAKE))
+
+mbed/bin/test-mul-bigint-by-int: mbed/obj/bigint.o src/mbed/test-mul-bigint-by-int/main.c
+	@(cd src/mbed/test-mul-bigint-by-int/ && $(MAKE))
+
+mbed/bin/test-montgomery-mul: mbed/obj/bigint.o src/mbed/test-montgomery-mul/main.c
+	@(cd src/mbed/test-montgomery-mul/ && $(MAKE))
+
+mbed/bin/test-mod-exp: mbed/obj/bigint.o src/mbed/test-mod-exp/main.c
+	@(cd src/mbed/test-mod-exp/ && $(MAKE))
+
 
 # PC tests binaries
 tests: pc/bin/tests/add pc/bin/tests/sub pc/bin/tests/mul-int-by-int pc/bin/tests/mul-bigint-by-int pc/bin/tests/montgomery-mul pc/bin/tests/mod-exp
@@ -121,7 +141,7 @@ tests: pc/bin/tests/add pc/bin/tests/sub pc/bin/tests/mul-int-by-int pc/bin/test
 
 
 # Mbed binaries
-mbed: rflpc mbed/bin/test-add
+mbed: rflpc mbed/bin/test-add mbed/bin/test-sub mbed/bin/test-mul-int-by-int mbed/bin/test-mul-bigint-by-int mbed/bin/test-montgomery-mul mbed/bin/test-mod-exp
 
 
 # RFLPC rules
@@ -130,10 +150,10 @@ rflpc:
 
 
 program:
-	make -C src/mbed/test-add/ program
+	make -C src/mbed/test-montgomery-mul/ program
 
 reset: 
-	make -C src/mbed/test-add/ reset
+	make -C src/mbed/test-montgomery-mul/ reset
 
 # Clean
 clean:

@@ -1,0 +1,96 @@
+/**
+ * RSA implementation and attack on Mbed
+ * MBED software - Test of bgi_mod_exp()
+ * @author Cyrille Toulet, <cyrille.toulet@linux.com>
+ * @author Benjamin Burnouf, <benjamin76360@gmail.com>
+ */
+
+#include <rflpc17xx/rflpc17xx.h>
+#include "../../bigint.h"
+
+void
+main()
+{
+
+    mbed_bigint m = {0x6b34c0f9u, 0x35234623u, 0x2825f5dbu, 0x82820e59u, 
+        0x74b0cf19u, 0x84e12facu, 0x85eff959u, 0xf63fa712u, 0xffe7b13du, 
+        0x1b5e51e9u, 0xdad4cd7cu, 0xb9703328u, 0x4ad2908fu, 0x4128c72eu, 
+        0xa8c2e445u, 0x374114a3u, 0xa1f6cd6eu, 0x666cc2f2u, 0xb71e06c0u, 
+        0x4c5aca4eu, 0xb1d5c114u, 0xaebd0f54u, 0xc96da322u, 0xae1d77cfu, 
+        0xfbe571a8u, 0xfacc4ddfu, 0x46693befu, 0x47500c42u, 0xdde920ebu,
+        0x8feb8b39u, 0xdadc254au, 0x0dfca29du, 0x00000000u, 0x00000000u};
+
+    mbed_int mp = 0x7c2bfeb7;
+
+    mbed_bigint rm = {0x764a6e7eu, 0x43851182u, 0x2d54b696u, 0xd2dafdbbu, 
+        0xcb917034u, 0xa82aa5dfu, 0x952077b4u, 0xaf8640b2u, 0x01b589a4u, 
+        0x135e3d8cu, 0x9d098d46u, 0xf61c6720u, 0xbd31d5e4u, 0x6b21febeu, 
+        0x224bf321u, 0x1d6c8c7eu, 0x9ca58e40u, 0xcc5a4af0u, 0x1fe38678u, 
+        0xa19dc677u, 0x7ef86c92u, 0xb6b4ec0bu, 0xd64a878fu, 0xc1ed9363u, 
+        0x49de0223u, 0x5da28640u, 0x0c99c920u, 0xfc5f2357u, 0x659baf74u, 
+        0xe17035eeu, 0x9c8560c1u, 0x043c90e6u, 0x00000000u, 0x00000000u};
+
+    mbed_bigint r2 = {0xb1b975d7u, 0x1a777a6cu, 0xee49c4e5u, 0x34642c9eu, 
+        0x0df6fb25u, 0x58dd1b36u, 0x67b01d6fu, 0x3074f772u, 0x559b31a1u, 
+        0x7136f0d9u, 0xb9ef5ba2u, 0xc42b10c9u, 0x7b66ff07u, 0x84f48bccu, 
+        0xd47bf127u, 0xbddbca21u, 0xc2d6c0b7u, 0x8689f270u, 0x55fbca27u, 
+        0xea6a1d9cu, 0x2fa4bd5du, 0x8d8014bdu, 0x36aa162fu, 0xef344a52u, 
+        0x899fb72bu, 0xdb63238bu, 0xc04458f9u, 0x29bd9d61u, 0xf7777e47u, 
+        0xb4c215b3u, 0xc66f4335u, 0x0628f8eeu, 0x00000000u, 0x00000000u};
+
+    mbed_bigint x = {0x6b73bc09u, 0x1de791b6u, 0xdfd961e8u, 0xf1fa0471u, 
+        0xcfd848adu, 0x2fcbbf10u, 0x1ec2df48u, 0x056e631du, 0x3197e858u, 
+        0xb82376a0u, 0x0cd64e1cu, 0x75f2d8adu, 0x6b704de5u, 0xb9aae4d1u, 
+        0xe134ae8bu, 0xca3d6e5cu, 0x850f7660u, 0x5ad2ab5fu, 0x674999c0u, 
+        0xbd793b77u, 0xc1dce7d2u, 0xc0bb342eu, 0x33c03dbbu, 0x318787c3u, 
+        0x3e5d1139u, 0xab086ceeu, 0x00e55499u, 0x19e57021u, 0x11c80b87u, 
+        0x4a71ca5eu, 0x21bba0ddu, 0x0304dbdau, 0x00000000u, 0x00000000u};
+
+    mbed_bigint e = {0x58404ab8u, 0x966daad9u, 0x8ce575e6u, 0x2d516c47u, 
+        0xab107143u, 0xbc86c794u, 0xc6def24cu, 0xe5b64b83u, 0x3e5df4bdu, 
+        0x6c33bb5bu, 0x658d7a8au, 0xca9c9885u, 0xa5365495u, 0x385a0c16u, 
+        0xb6b03e0du, 0xb5bf331au, 0x6f06e9e4u, 0x1a01d3c6u, 0xfd5fa2f1u, 
+        0xa054457bu, 0xdf5d7e55u, 0x7273a332u, 0x1d965006u, 0x4af9e503u, 
+        0x877e1027u, 0xccb1b850u, 0x609c8bb6u, 0xc35f9ba4u, 0x2964e331u, 
+        0x06b9cbc2u, 0x65214a6cu, 0x3ec184b3u, 0x00000000u, 0x00000000u};
+
+    mbed_bigint r = {0x7b82c95bu, 0xcad098b8u, 0xf45093cbu, 0x602cde00u, 
+        0x91062851u, 0x136016fau, 0x55ebf6fbu, 0x6f7a3272u, 0xc12c7712u, 
+        0xfc70f5c2u, 0xc77f028au, 0x257eb4f0u, 0xcd460a19u, 0x2160157du, 
+        0xafb18e57u, 0x90683725u, 0xb902984eu, 0x1f5e2f3cu, 0x8a9609a6u, 
+        0x1ffce413u, 0xd1779677u, 0x5fcedf1au, 0x657410e7u, 0x6c03d5a6u, 
+        0x0083ae47u, 0x6452abfau, 0xa41ba573u, 0xf4c8aabau, 0xf3b88450u, 
+        0x22f5a257u, 0x2e8ab476u, 0x06f63d27u, 0x00000000u, 0x00000000u};
+
+    mbed_bigint dest;
+
+    /* Init leds */    
+    rflpc_led_init();
+    rflpc_led_clr(RFLPC_LED_1);
+    rflpc_led_clr(RFLPC_LED_2);
+    rflpc_led_clr(RFLPC_LED_3);
+    rflpc_led_clr(RFLPC_LED_4);
+
+    /* Switch on led 1 */
+    rflpc_led_set(RFLPC_LED_1);
+
+    /* Do mod-exp */
+    bgi_init(dest);
+    bgi_mod_exp(dest, x, e, m, mp, rm, r2);
+    
+
+    /* If success, switch on leds 2 & 4 */
+    if(bgi_cmp(dest, r) == 0)
+    {
+        rflpc_led_set(RFLPC_LED_2);
+        rflpc_led_set(RFLPC_LED_4);
+    }
+
+    /* Switch on led 3 */
+    rflpc_led_set(RFLPC_LED_3);
+
+    /* Wait for interuption */
+    while(1)
+        asm("wfi");
+}
+
