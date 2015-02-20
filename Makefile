@@ -28,6 +28,9 @@ BIN  += pc/bin/tests/mod-exp
 BIN  += mbed/bin/test-add
 
 
+RFLPC = mbed/lib/rflpc
+RFLPC_CFLAGS = $(shell $(RFLPC)/rflpc-config --cflags)
+
 # Global rule
 all: pc/obj/bigint.o mbed/obj/bigint.o
 
@@ -78,7 +81,7 @@ pc/obj/tests/mod-exp.o: src/tests/mod-exp.c src/tests/datasets/mod-exp.c
 	gcc -m32 -c -o pc/obj/tests/mod-exp.o src/tests/mod-exp.c -D_COMPUTER_VERSION
 
 mbed/obj/bigint.o: src/bigint.c
-	arm-none-eabi-gcc -c -o mbed/obj/bigint.o src/bigint.c
+	arm-none-eabi-gcc $(RFLPC_CFLAGS) -c -o mbed/obj/bigint.o src/bigint.c
 
 
 # Compilated binaries
@@ -126,6 +129,12 @@ rflpc:
 	@(cd mbed/lib/rflpc && $(MAKE))
 
 
+program:
+	make -C src/mbed/test-add/ program
+
+reset: 
+	make -C src/mbed/test-add/ reset
+
 # Clean
 clean:
 	@(cd mbed/lib/rflpc && $(MAKE) clean)
@@ -138,5 +147,5 @@ clean-datasets:
 
 
 # Misc
-.PHONY: clean clean-datasets
+.PHONY: clean clean-datasets program reset
 
